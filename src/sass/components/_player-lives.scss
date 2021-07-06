@@ -1,0 +1,7 @@
+.player-lives {
+  display: flex;
+  justify-content: flex-end;
+  &--text {
+    margin-right: 1rem;
+  }
+}

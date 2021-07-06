@@ -214,7 +214,7 @@ export class Game {
               }
               this.updateScore(100);
               const hit = new Audio();
-              hit.src = 'public/music/explosion1.mp3';
+              hit.src = explosionSound;
               hit.play();
               this.explosionFactory.generateExplosions(enemy);
               enemies.splice(j, 1);

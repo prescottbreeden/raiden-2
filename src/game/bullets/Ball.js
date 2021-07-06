@@ -1,4 +1,4 @@
-import fireball from '../../assets/weaponfire/RLiGng-fireball-transparent-picture.png';
+import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png';
 import { Bullet } from './Bullet';
 
 export class Ball extends Bullet {
@@ -12,8 +12,16 @@ export class Ball extends Bullet {
     this.y = ship.y;
     this.w = 20;
     this.h = 20;
+    this.src = fireball;
     this.img = null;
-    this.img = new Image(fireball);
+
+    this.create();
+  }
+  create() {
+    if (!this.img) {
+      this.img = new Image();
+      this.img.src = this.src;
+    }
   }
 
   draw() {

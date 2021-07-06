@@ -1,4 +1,21 @@
 import { getRandomInt } from '../utilities';
+import blaster0 from '../../assets/images/orbs/blaster/frame0.png';
+import blaster1 from '../../assets/images/orbs/blaster/frame1.png';
+import blaster2 from '../../assets/images/orbs/blaster/frame2.png';
+import blaster3 from '../../assets/images/orbs/blaster/frame3.png';
+import blaster4 from '../../assets/images/orbs/blaster/frame3.png';
+import blaster5 from '../../assets/images/orbs/blaster/frame3.png';
+import spread0 from '../../assets/images/orbs/spread/frame0.png';
+import spread1 from '../../assets/images/orbs/spread/frame1.png';
+import spread2 from '../../assets/images/orbs/spread/frame2.png';
+import spread3 from '../../assets/images/orbs/spread/frame3.png';
+import spread4 from '../../assets/images/orbs/spread/frame3.png';
+import spread5 from '../../assets/images/orbs/spread/frame3.png';
+
+const orbs = {
+  blaster: [blaster0, blaster1, blaster2, blaster3, blaster4, blaster5],
+  spread: [spread0, spread1, spread2, spread3, spread4, spread5],
+};
 
 export class Item {
   constructor(game, enemy) {
@@ -10,8 +27,9 @@ export class Item {
     this.types = ['blaster', 'spread'];
     this.index = getRandomInt(0, this.types.length);
     this.prop = this.types[this.index];
+    this.src = null;
     this.img = null;
-    this.src = `public/images/orbs/${this.prop}/frame${this.frame}.png`;
+    // this.src = `../../assets/images/orbs/${this.prop}/frame${this.frame}.png`;
     this.x = enemy.x;
     this.y = enemy.y;
     this.h = 50;
@@ -25,6 +43,7 @@ export class Item {
   }
 
   create() {
+    this.src = orbs[this.prop][this.frame];
     this.img = new Image();
     this.img.src = this.src;
   }
@@ -59,8 +78,9 @@ export class Item {
         this.vx *= -1;
       }
       this.context.save();
-      this.img.src = `public/images/orbs/${this.prop}/frame${this.frame}.png`;
+      this.src = orbs.blaster[this.frame];
       this.context.translate(this.x, this.y);
+      this.create();
       this.context.drawImage(
         this.img,
         -(this.w / 2),

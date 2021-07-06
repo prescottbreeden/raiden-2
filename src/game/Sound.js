@@ -1,6 +1,12 @@
-export const Sound = (src) => {
-  const sound = new Audio(src);
-  return {
-    play: () => sound.play(),
-  };
-};
+export class Sound {
+  constructor(src) {
+    this.src = src;
+    this.create();
+  }
+
+  create() {
+    let sound = new Audio();
+    sound.src = this.src;
+    sound.play();
+  }
+}

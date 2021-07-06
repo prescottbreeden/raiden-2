@@ -1,15 +1,30 @@
 import './sass/main.scss';
-import soundtrack from './assets/music/soundtrack.mp3';
-// import blaster from './assets/music/blaster.mp3';
-import { Sound } from './game/Sound';
 import { Game } from './game/Game';
 
-const raidenJam = Sound(soundtrack);
-raidenJam.play();
+export const WIDTH = 800;
+export const HEIGHT = window.innerHeight - 50;
 
-// setInterval(() => {
-//   const pew = Sound(blaster);
-//   pew.play();
-// }, 100);
+window.onload = () => {
+  console.log('success');
+  const button = document.createElement('button');
+  button.className = 'start-button';
+  button.id = 'start-button';
+  button.onclick = buildGame;
+  button.textContent = 'Start New Game';
+  const gameNode = document.getElementById('game');
+  gameNode.appendChild(button);
+};
 
-Game();
+function buildGame() {
+  const gameNode = document.getElementById('game');
+  gameNode.removeChild(document.getElementById('start-button'));
+  const canvas = document.createElement('canvas');
+  canvas.id = 'ctx';
+  canvas.className = 'canvas';
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
+
+  const GAME = new Game(canvas);
+  GAME.start();
+  gameNode.appendChild(canvas);
+}

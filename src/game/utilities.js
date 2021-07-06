@@ -5,7 +5,7 @@ export const getRandomInt = (min, max) => {
 };
 
 export const isOnScreen = (object) => {
-  const { x, y } = object;
+  const {x, y} = object;
   const onScreen =
     y > -200 && y < window.innerHeight + 200 && x > -200 && x < 1000;
   return onScreen;
@@ -14,7 +14,7 @@ export const isOnScreen = (object) => {
 export const getPosition = (object) => {
   let x = object.x;
   let y = object.y;
-  return { x: x, y: y };
+  return {x: x, y: y};
 };
 
 export const getDistance = (object1, object2) => {
@@ -37,8 +37,10 @@ export const getDistanceBetweenCenters = (obj1, obj2) => {
 /**
  *  compose :: ((a -> b), (b -> c),  ..., (y -> z)) -> a -> z
  */
-export const compose = (...fns) => (...args) =>
-  fns.reduceRight((res, fn) => [fn.call(null, ...res)], args)[0];
+export const compose =
+  (...fns) =>
+    (...args) =>
+      fns.reduceRight((res, fn) => [fn.call(null, ...res)], args)[0];
 
 /**
  *  curry :: ((a, b, ...) -> c) -> a -> b -> ... -> c
@@ -69,11 +71,6 @@ export const log = curry((name, arg) => {
 });
 
 /**
- *  head :: [a] -> a
- */
-export const head = (xs) => xs[0];
-
-/**
  *  filter :: (a -> Bool) -> [a] -> [a]
  */
 export const filter = curry((f, xs) => xs.filter(f));
@@ -83,17 +80,3 @@ export const filter = curry((f, xs) => xs.filter(f));
  */
 export const map = curry((f, xs) => xs.map(f));
 
-/**
- *  reduce :: ((b, a) -> b) -> b -> [a] -> b
- */
-export const reduce = curry((f, x, xs) => xs.reduce(f, x));
-
-/**
- *  id :: a -> a
- */
-export const id = (x) => x;
-
-/**
- *  prop :: String -> Object -> a
- */
-const prop = curry((p, obj) => obj[p]);

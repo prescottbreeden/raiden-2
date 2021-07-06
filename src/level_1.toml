@@ -1,0 +1,88 @@
+# movement types
+# parabolic -- arc in/out
+# explore -- moves around entire screen
+# static -- hovers in place
+# retreat -- runs away
+# dive -- kamakaze dive at player position
+
+# enemy types
+# whitebird -- threat: low
+# blackbird -- threat: low
+# spacestation -- threat: low
+# sprinkler -- threat: med
+
+[[enemies]]
+timestamp = 1
+delay = 800
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+
+[[enemies]]
+timestamp = 6
+delay = 800
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['parabolic']
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['parabolic']
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['parabolic']
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['parabolic']
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['parabolic']
+
+[[enemies]]
+timestamp = 12
+delay = 800
+[[enemies.types]]
+type = "spacestation"
+enter = 'center'
+movement = ['explore']
+
+[[enemies]]
+timestamp = 22
+delay = 200
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['dive']
+[[enemies.types]]
+type = "blackbird"
+enter = 'left'
+movement = ['dive']
+[[enemies.types]]
+type = "blackbird"
+enter = 'right'
+movement = ['dive']
+[[enemies.types]]
+type = "blackbird"
+enter = 'left'
+movement = ['dive']

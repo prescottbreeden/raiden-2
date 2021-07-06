@@ -7,9 +7,7 @@ export class EnemyFactory {
   constructor(game) {
     this.game = game;
     this.canvas = game.canvas;
-
     this.enemies = [];
-    this.createAllEnemies();
   }
 
   addEnemy = (...enemies) => {

@@ -53,7 +53,6 @@ export class Game {
   setScore = (score) => (this._score += score);
 
   pewpew = () => {
-    console.log('pew pew');
     const pew = new Audio(blaster);
     pew.play();
     this.bulletFactory.generatePlayerBullets();
@@ -62,13 +61,15 @@ export class Game {
   start() {
     this.createObjects();
     this.runGameLoop();
+    this.cloudFactory.generateClouds();
+    this.enemyFactory.createAllEnemies();
   }
 
   runGameLoop() {
     switch (this.getState()) {
-      case INITIAL:
-        this.drawMenuScreen();
-        break;
+      // case INITIAL:
+      //   this.drawMenuScreen();
+      //   break;
       case GAME_PLAYING:
         this.drawGamePlayingScreen();
         break;
@@ -94,25 +95,17 @@ export class Game {
   // ======== GAME MENU ========= //
   // ============================ //
 
-  drawMenuScreen() {
-    this.context.fillStyle = 'lightblue';
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.context.fillStyle = 'red';
-    this.context.font = '36 Courier';
-    this.context.fillText(
-      'Click to Start',
-      this.canvas.width / 2 - 100,
-      this.canvas.height / 2
-    );
-  }
+  // drawMenuScreen() {
+  //   this.context.fillStyle = 'lightblue';
+  //   this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  // }
 
   // ============================ //
   // ======== GAME PLAY ========= //
   // ============================ //
 
   drawGamePlayingScreen() {
-    if (!this.getMusic()) {
+    if (this.getMusic()) {
       this.toggleMusic();
       this.soundtrack = new Sound(raidenJam);
     }
@@ -260,7 +253,6 @@ export class Game {
       const item = items[i];
       const distance = getDistance(item, this.player);
       if (distance < item.w) {
-        console.log('nom nom nom');
         this.player.weaponType = item.prop;
         items.splice(i, 1);
         this.player.weaponStr += 1;
@@ -343,14 +335,6 @@ export class Game {
             down = true;
             game.shoot();
         }
-      }
-    });
-
-    game.canvas.addEventListener('click', function (e) {
-      if (game.getState() === INITIAL) {
-        game.cloudFactory.generateClouds();
-        game.setState(GAME_PLAYING);
-        game.enemyFactory.createAllEnemies();
       }
     });
   }

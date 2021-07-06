@@ -1,5 +1,5 @@
 import './sass/main.scss';
-import { Game } from './game/Game';
+import { Game, GAME_PLAYING } from './game/Game';
 
 export const WIDTH = 800;
 export const HEIGHT = window.innerHeight - 50;
@@ -24,7 +24,9 @@ function buildGame() {
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
 
-  const GAME = new Game(canvas);
-  GAME.start();
+  const newGame = new Game(canvas);
+  newGame.setState(GAME_PLAYING);
+  newGame.start();
+
   gameNode.appendChild(canvas);
 }

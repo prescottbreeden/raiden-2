@@ -1,7 +1,7 @@
-import { getPosition, getDistance, isOnScreen } from '../utilities';
-import { Ball } from '../bullets/Ball';
+import {getPosition, getDistance, isOnScreen} from '../utilities';
+import {Ball} from '../bullets/Ball';
 import retroShotBlaster from '../../assets/music/retro-shot-blaster.mp3';
-import { radian } from '../Game';
+import {radian} from '../Game';
 
 export class Enemy {
   constructor(game) {
@@ -29,7 +29,7 @@ export class Enemy {
     this.context.save();
     this.context.beginPath();
     this.context.strokeStyle = 'yellow';
-    this.context.arc(centerX, centerY, 50, 0, 360 * radian);
+    this.context.arc(centerX, centerY, 50 * .67, 0, 360 * radian);
     this.context.stroke();
     this.context.restore();
   }

@@ -1,4 +1,4 @@
-import { getRandomInt } from '../utilities';
+import {getRandomInt} from '../utilities';
 import blaster0 from '../../assets/images/orbs/blaster/frame0.png';
 import blaster1 from '../../assets/images/orbs/blaster/frame1.png';
 import blaster2 from '../../assets/images/orbs/blaster/frame2.png';
@@ -25,16 +25,17 @@ export class Item {
 
     this.frame = 0;
     this.types = ['blaster', 'spread'];
-    this.index = getRandomInt(0, this.types.length);
+    // this.index = getRandomInt(0, this.types.length);
+    this.index = 1;
     this.prop = this.types[this.index];
     this.src = null;
     this.img = null;
     // this.src = `../../assets/images/orbs/${this.prop}/frame${this.frame}.png`;
     this.x = enemy.x;
     this.y = enemy.y;
-    this.h = 50;
-    this.w = 50;
-    this.r = this.w / 2;
+    this.h = 50 * .67;
+    this.w = 50 * .67;
+    this.r = this.w / 2 * .67;
     this.vx = 2;
     this.vy = 2;
 
@@ -49,12 +50,12 @@ export class Item {
   }
 
   changeWeapon() {
-    const item = this;
-    setInterval(function () {
-      item.index++;
-      item.index %= item.types.length;
-      item.prop = item.types[item.index];
-    }, 4000);
+    // const item = this;
+    // setInterval(function () {
+    //   item.index++;
+    //   item.index %= item.types.length;
+    //   item.prop = item.types[item.index];
+    // }, 4000);
   }
 
   draw() {

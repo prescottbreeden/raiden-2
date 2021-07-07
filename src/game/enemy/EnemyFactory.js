@@ -1,7 +1,7 @@
-import { Blackbird } from './Blackbird';
-import { Whitebird } from './Whitebird';
-import { SpaceStation } from './SpaceStation';
-import { isOnScreen } from '../utilities';
+import {Blackbird} from './Blackbird';
+import {Whitebird} from './Whitebird';
+import {SpaceStation} from './SpaceStation';
+import {isOnScreen} from '../utilities';
 
 export class EnemyFactory {
   constructor(game) {

@@ -2,14 +2,14 @@ import blaster from '../assets/music/blaster.mp3';
 import explosionSound from '../assets/music/explosion1.mp3';
 import playerOne from '../assets/images/mship1.png';
 import raidenJam from '../assets/music/soundtrack.mp3';
-import { BulletFactory } from './bullets/BulletFactory';
-import { CloudFactory } from './environment/CloudFactory';
-import { EnemyFactory } from './enemy/EnemyFactory';
-import { ExplosionFactory } from './events/ExplosionFactory';
-import { ItemFactory } from './events/ItemFactory';
-import { Player } from './Player';
-import { Sound } from './Sound';
-import { getPointDistance, getDistance } from './utilities';
+import {BulletFactory} from './bullets/BulletFactory';
+import {CloudFactory} from './environment/CloudFactory';
+import {EnemyFactory} from './enemy/EnemyFactory';
+import {ExplosionFactory} from './events/ExplosionFactory';
+import {ItemFactory} from './events/ItemFactory';
+import {Player} from './Player';
+import {Sound} from './Sound';
+import {getPointDistance, getDistance} from './utilities';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -32,11 +32,14 @@ export class Game {
   constructor(canvas) {
     this._currentState = INITIAL;
     this._velocity = 1;
-    this._music = false;
+    this._music = true;
     this._score = 0;
     this.canvas = canvas;
     this.context = this.canvas.getContext('2d');
+    this.times = [];
+    this.fps = 0;
 
+    this.displayFPS();
     // bind event listeners
     this.bindEvents();
   }
@@ -78,8 +81,21 @@ export class Game {
         break;
     }
     window.requestAnimationFrame(() => {
+      const now = performance.now();
+      while (this.times.length > 0 && this.times[0] <= now - 1000) {
+        this.times.shift();
+      }
+      this.times.push(now);
+      this.fps = this.times.length;
       this.runGameLoop();
     });
+  }
+
+  displayFPS() {
+    setInterval(() => {
+      const node = document.getElementById('fps');
+      node.textContent = this.fps;
+    }, 500);
   }
 
   createObjects() {
@@ -273,8 +289,8 @@ export class Game {
     this.player.weaponStr > 5
       ? (this.playerFire = setInterval(this.pewpew, 75))
       : this.player.weaponStr > 3
-      ? (this.playerFire = setInterval(this.pewpew, 100))
-      : (this.playerFire = setInterval(this.pewpew, 150));
+        ? (this.playerFire = setInterval(this.pewpew, 100))
+        : (this.playerFire = setInterval(this.pewpew, 150));
   }
 
   // ============================ //

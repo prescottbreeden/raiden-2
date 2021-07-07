@@ -1,5 +1,5 @@
-import { Enemy } from './Enemy';
-import { getPosition, getRandomInt } from '../utilities';
+import {Enemy} from './Enemy';
+import {getPosition, getRandomInt} from '../utilities';
 import spacestationImg from '../../assets/images/spacestation.png';
 
 export class SpaceStation extends Enemy {
@@ -11,9 +11,9 @@ export class SpaceStation extends Enemy {
     this.contain = true;
     this.spin = true;
     this.item = true;
-    this.h = 120;
-    this.w = 120;
-    this.r = this.w / 2;
+    this.h = 120 * .67;
+    this.w = 120 * .67;
+    this.r = (this.w / 2) * .67;
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
     this.y = -this.h;
     this.g = 0;

@@ -1,5 +1,5 @@
 import './sass/main.scss';
-import {Game, GAME_PLAYING} from './game/Game';
+import { Game, GAME_PLAYING } from './game/Game';
 
 export const WIDTH = 500;
 export const HEIGHT = window.innerHeight - 50;

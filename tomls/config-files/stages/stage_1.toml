@@ -1,3 +1,4 @@
+name = "stage_1"
 # movement types
 # parabolic -- arc in/out
 # explore -- moves around entire screen
@@ -66,6 +67,35 @@ delay = 800
 type = "spacestation"
 enter = 'center'
 movement = ['explore']
+
+[[enemies]]
+timestamp = 18
+delay = 800
+[[enemies.types]]
+type = "spacestation"
+enter = 'center'
+movement = ['explore']
+
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
+[[enemies.types]]
+type = "whitebird"
+enter = 'left'
+movement = ['parabolic']
 
 [[enemies]]
 timestamp = 22

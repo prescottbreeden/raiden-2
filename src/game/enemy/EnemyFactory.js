@@ -1,13 +1,14 @@
-import {Blackbird} from './Blackbird';
-import {Whitebird} from './Whitebird';
-import {SpaceStation} from './SpaceStation';
-import {isOnScreen} from '../utilities';
+import { Blackbird } from './Blackbird';
+import { Whitebird } from './Whitebird';
+import { SpaceStation } from './SpaceStation';
+import { isOnScreen } from '../utilities';
 
 export class EnemyFactory {
-  constructor(game) {
+  constructor(game, config = {}) {
     this.game = game;
     this.canvas = game.canvas;
     this.enemies = [];
+    this.config = config;
   }
 
   addEnemy = (...enemies) => {
@@ -31,8 +32,20 @@ export class EnemyFactory {
   };
 
   createAllEnemies() {
-    setInterval(this.addBlackbird, 4000);
-    setInterval(this.addWhitebird, 3500);
-    setInterval(this.addSpacestation, 10000);
+    const lookup = {
+      whitebird: () => this.addWhitebird(),
+      blackbird: () => this.addBlackbird(),
+      spacestation: () => this.addSpacestation(),
+    };
+    const { enemies } = this.config;
+    enemies.map((e, i) => {
+      setTimeout(() => {
+        e.types.map((t, i) => {
+          setTimeout(() => {
+            lookup[t.type]();
+          }, e.delay * (i + 1));
+        });
+      }, e.timestamp * 1000);
+    });
   }
 }

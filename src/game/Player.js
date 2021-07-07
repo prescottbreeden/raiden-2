@@ -1,4 +1,4 @@
-import {getPosition} from './utilities';
+import { getPosition } from './utilities';
 
 export class Player {
   constructor(src, canvas) {
@@ -6,9 +6,9 @@ export class Player {
     this.context = this.canvas.getContext('2d');
 
     // specs
-    this.h = 100 * .67;
-    this.w = 85 * .67;
-    this.r = this.w / 1.4 * .67;
+    this.h = 100 * 0.67;
+    this.w = 85 * 0.67;
+    this.r = (this.w / 1.4) * 0.67;
     this.x = this.canvas.width / 2;
     this.y = this.canvas.height - this.h;
     this.vy = 0;
@@ -17,7 +17,7 @@ export class Player {
     this.img = null;
     this.weaponType = 'spread';
     this.weaponStr = 1;
-    this.hitBox = {a: '', b: '', c: ''};
+    this.hitBox = { a: '', b: '', c: '' };
 
     this.create();
   }

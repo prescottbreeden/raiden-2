@@ -1,8 +1,8 @@
-import {Bullet} from './Bullet';
+import { Bullet } from './Bullet';
 import bulletSrc from '../../assets/images/M484BulletCollection2.png';
 
 export class Spread extends Bullet {
-  constructor(game, ship, x = 0, y = 0, {vx, rotate} = {vx: 0, rotate: 0}) {
+  constructor(game, ship, x = 0, y = 0, { vx, rotate } = { vx: 0, rotate: 0 }) {
     super(game, ship);
 
     this.class = 'player';

@@ -4,6 +4,7 @@
   "description": "For those who know, they know.",
   "private": true,
   "dependencies": {
+    "fs-extra": "^10.0.0",
     "ramda": "^0.27.1"
   },
   "scripts": {

@@ -1,5 +1,5 @@
-import {Enemy} from './Enemy';
-import {getPosition, getRandomInt} from '../utilities';
+import { Enemy } from './Enemy';
+import { getPosition, getRandomInt } from '../utilities';
 import blackbird from '../../assets/images/blackbird.png';
 
 export class Blackbird extends Enemy {
@@ -11,9 +11,9 @@ export class Blackbird extends Enemy {
     this.contain = false;
     this.spin = false;
     this.item = false;
-    this.h = 100 * .67;
-    this.w = 100 * .67;
-    this.r = (this.w / 2.1) * .67;
+    this.h = 100 * 0.67;
+    this.w = 100 * 0.67;
+    this.r = (this.w / 2.1) * 0.67;
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
     this.y = -this.h;
     this.weaponSpeed = game.getVelocity() * 4;

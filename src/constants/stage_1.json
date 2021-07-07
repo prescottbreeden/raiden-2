@@ -1,0 +1,56 @@
+{
+  "name": "stage_1",
+  "enemies": [
+    {
+      "timestamp": 1,
+      "delay": 800,
+      "types": [
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] }
+      ]
+    },
+    {
+      "timestamp": 6,
+      "delay": 800,
+      "types": [
+        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
+        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
+        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
+        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
+        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] }
+      ]
+    },
+    {
+      "timestamp": 12,
+      "delay": 800,
+      "types": [
+        { "type": "spacestation", "enter": "center", "movement": ["explore"] }
+      ]
+    },
+    {
+      "timestamp": 18,
+      "delay": 800,
+      "types": [
+        { "type": "spacestation", "enter": "center", "movement": ["explore"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
+        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] }
+      ]
+    },
+    {
+      "timestamp": 22,
+      "delay": 200,
+      "types": [
+        { "type": "blackbird", "enter": "right", "movement": ["dive"] },
+        { "type": "blackbird", "enter": "left", "movement": ["dive"] },
+        { "type": "blackbird", "enter": "right", "movement": ["dive"] },
+        { "type": "blackbird", "enter": "left", "movement": ["dive"] }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import {getRandomInt} from '../utilities';
+import { getRandomInt } from '../utilities';
 import blaster0 from '../../assets/images/orbs/blaster/frame0.png';
 import blaster1 from '../../assets/images/orbs/blaster/frame1.png';
 import blaster2 from '../../assets/images/orbs/blaster/frame2.png';
@@ -33,9 +33,9 @@ export class Item {
     // this.src = `../../assets/images/orbs/${this.prop}/frame${this.frame}.png`;
     this.x = enemy.x;
     this.y = enemy.y;
-    this.h = 50 * .67;
-    this.w = 50 * .67;
-    this.r = this.w / 2 * .67;
+    this.h = 50 * 0.67;
+    this.w = 50 * 0.67;
+    this.r = (this.w / 2) * 0.67;
     this.vx = 2;
     this.vy = 2;
 

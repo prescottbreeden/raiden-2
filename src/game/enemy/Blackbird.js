@@ -1,47 +1,62 @@
-import { Enemy } from './Enemy';
-import { getPosition, getRandomInt } from '../utilities';
+import {Enemy} from './Enemy';
+import {getPosition, getRandomInt} from '../utilities';
 import blackbird from '../../assets/images/blackbird.png';
+import defaults from '../../constants/blackbird.json';
 
 export class Blackbird extends Enemy {
-  constructor(game) {
+  constructor(game, props) {
     super(game);
+    const attr = {
+      ...props,
+      ...defaults,
+    };
+
+    // attributes
+    this.hp = 10;
+    this.item = attr.item;
+
+    // image
+    this.img = new Image();
+    this.img.src = blackbird;
+
+    // size
+    this.h = 67; // 100;
+    this.w = 67; // 100;
+    this.r = this.w / 2.1;
+
+    // position
 
     // specs
-    this.tracking = true;
-    this.contain = false;
-    this.spin = false;
-    this.item = false;
-    this.h = 100 * 0.67;
-    this.w = 100 * 0.67;
-    this.r = (this.w / 2.1) * 0.67;
+    this.tracking = attr.tracking;
+    this.contain = attr.contain;
+    this.spin = attr.spin;
+
+    // this.vy = game.getVelocity() * 8 * 2 / 3;
+
+    this.weaponDelay = 1000;
+    this.weaponSpeed = game.getVelocity() * attr.weaponSpeed;
+    this.weaponType = 'ball';
+
+    this.shoot();
+    this.movement();
+  }
+
+  movement() {
+    // TODO: set X position based on config setting
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
+    // TODO: set Y poisiont based on config setting
     this.y = -this.h;
-    this.weaponSpeed = game.getVelocity() * 4;
-    this.vy = game.getVelocity() * 8;
+    this.vy = this.game.getVelocity() * 8;
     this.g = -0.05;
+    // arc left vs arc right based on entrance position
     if (this.x >= this.canvas.width / 2) {
       this.vx = 1;
     } else {
       this.vx = -1;
     }
-    this.src = blackbird;
-    this.img = null;
-    this.weaponType = 'ball';
-    this.fireDelay = 1000;
-    this.hp = 10;
-    this.shoot(this.fireDelay);
-    this.shoot(this.fireDelay * 2);
-
-    this.create();
-  }
-
-  create() {
-    this.img = new Image();
-    this.img.src = this.src;
   }
 
   draw() {
-    this.drawCenter();
     this.vy += this.g;
     this.y += this.vy;
     this.x += this.vx;

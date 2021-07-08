@@ -1,46 +1,52 @@
-import { Enemy } from './Enemy';
-import { getPosition, getRandomInt } from '../utilities';
-import whitebird from '../../assets/images/whitebird.png';
+import {Enemy} from './Enemy';
+import {getPosition, getRandomInt} from '../utilities';
+import whitebirdImg from '../../assets/images/whitebird.png';
+import defaults from '../../constants/whitebird.json';
 
 export class Whitebird extends Enemy {
-  constructor(game) {
+  constructor(game, props) {
     super(game);
+    const attr = {
+      ...props,
+      ...defaults,
+    };
 
     // specs
-    this.src = whitebird;
-    this.tracking = true;
-    this.contain = false;
-    this.spin = false;
-    this.item = false;
-    this.h = 100 * 0.67;
-    this.w = 100 * 0.67;
-    this.r = (this.w / 2.1) * 0.67;
-    this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
-    this.y = -this.h;
+    this.tracking = attr.tracking;
+    this.contain = attr.contain;
+    this.spin = attr.spin;
+    this.item = attr.item;
+    this.h = 67;
+    this.w = 67;
+    this.r = this.w / 2.1;
     this.weaponSpeed = game.getVelocity() * 4;
-    this.vy = game.getVelocity() * 8;
+    this.weaponType = attr.weaponType;
+    // this.weaponDelay = attr.weaponDelay;
+    this.weaponDelay = 1000;
+    this.hp = attr.hp;
+
+    this.img = new Image();
+    this.img.src = whitebirdImg;
+    this.shoot();
+    this.movement();
+  }
+
+  movement() {
+    // TODO: set X position based on config setting
+    this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
+    // TODO: set Y poisiont based on config setting
+    this.y = -this.h;
+    this.vy = this.game.getVelocity() * 8;
     this.g = -0.05;
+    // arc left vs arc right based on entrance position
     if (this.x >= this.canvas.width / 2) {
       this.vx = 1;
     } else {
       this.vx = -1;
     }
-    this.weaponType = 'ball';
-    this.fireDelay = 1000;
-    this.hp = 10;
-    this.shoot(this.fireDelay);
-    this.shoot(this.fireDelay * 2);
-
-    this.create();
-  }
-
-  create() {
-    this.img = new Image();
-    this.img.src = this.src;
   }
 
   draw() {
-    this.drawCenter();
     this.vy += this.g;
     this.y += this.vy;
     this.x += this.vx;
@@ -49,18 +55,17 @@ export class Whitebird extends Enemy {
       if (this.y + this.h > this.canvas.height && this.vy > 0) {
         this.y = this.canvas.height - this.h;
         this.vy *= -1;
-      }
-      if (this.y < this.h / 2 && this.vy < 0) {
+      } else if (this.y < this.h / 2 && this.vy < 0) {
         this.y = this.h / 2;
         this.vy *= -1;
-      }
-      if (this.x < this.w / 2 && this.vx < 0) {
+      } else if (this.x < this.w / 2 && this.vx < 0) {
         this.x = this.w / 2;
         this.vx *= -1;
-      }
-      if (this.x + this.w / 2 > this.canvas.width && this.vx > 0) {
+      } else if (this.x + this.w / 2 > this.canvas.width && this.vx > 0) {
         this.x = this.canvas.width - this.w / 2;
         this.vx *= -1;
+      } else {
+        console.error('ruh roh');
       }
     }
 

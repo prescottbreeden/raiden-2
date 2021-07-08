@@ -1,3 +1,5 @@
+import {HEIGHT} from "..";
+
 export const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -5,16 +7,17 @@ export const getRandomInt = (min, max) => {
 };
 
 export const isOnScreen = (object) => {
-  const { x, y } = object;
-  const onScreen =
-    y > -200 && y < window.innerHeight + 200 && x > -200 && x < 1000;
+  const {x, y, w, h} = object;
+  const vertical = y > -h && y < window.innerHeight + h;
+  const horizontal = x > -w && x < HEIGHT + w;
+  const onScreen = vertical && horizontal;
   return onScreen;
 };
 
 export const getPosition = (object) => {
-  let x = object.x;
-  let y = object.y;
-  return { x: x, y: y };
+  const x = object.x;
+  const y = object.y;
+  return {x, y};
 };
 
 export const getDistance = (object1, object2) => {
@@ -34,48 +37,3 @@ export const getDistanceBetweenCenters = (obj1, obj2) => {
   return distance;
 };
 
-/**
- *  compose :: ((a -> b), (b -> c),  ..., (y -> z)) -> a -> z
- */
-export const compose =
-  (...fns) =>
-  (...args) =>
-    fns.reduceRight((res, fn) => [fn.call(null, ...res)], args)[0];
-
-/**
- *  curry :: ((a, b, ...) -> c) -> a -> b -> ... -> c
- */
-export function curry(fn) {
-  const arity = fn.length;
-
-  return function $curry(...args) {
-    if (args.length < arity) {
-      return $curry.bind(null, ...args);
-    }
-
-    return fn.call(null, ...args);
-  };
-}
-
-/**
- *  add :: a -> b -> a + b
- */
-export const add = curry((x, y) => x + y);
-
-/**
- *  log :: a -> a
- */
-export const log = curry((name, arg) => {
-  console.log(name, arg);
-  return arg;
-});
-
-/**
- *  filter :: (a -> Bool) -> [a] -> [a]
- */
-export const filter = curry((f, xs) => xs.filter(f));
-
-/**
- *  map :: (a -> b) -> [a] -> [b]
- */
-export const map = curry((f, xs) => xs.map(f));

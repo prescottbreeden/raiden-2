@@ -14,105 +14,120 @@ name = "stage_1"
 
 [[enemies]]
 timestamp = 1
+[[enemies.types]]
 delay = 800
-[[enemies.types]]
-type = "whitebird"
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 800
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 800
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 800
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 800
 enter = 'left'
 movement = ['parabolic']
+type = "whitebird"
 
 [[enemies]]
 timestamp = 6
+[[enemies.types]]
 delay = 800
-[[enemies.types]]
-type = "blackbird"
 enter = 'right'
 movement = ['parabolic']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 800
 enter = 'right'
 movement = ['parabolic']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 800
 enter = 'right'
 movement = ['parabolic']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 800
 enter = 'right'
 movement = ['parabolic']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 800
 enter = 'right'
 movement = ['parabolic']
+type = "blackbird"
 
 [[enemies]]
 timestamp = 12
-delay = 800
 [[enemies.types]]
-type = "spacestation"
+delay = 0
 enter = 'center'
 movement = ['explore']
+type = "spacestation"
 
 [[enemies]]
 timestamp = 18
-delay = 800
 [[enemies.types]]
-type = "spacestation"
+delay = 200
 enter = 'center'
 movement = ['explore']
-
+type = "spacestation"
 [[enemies.types]]
-type = "whitebird"
+delay = 200
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 200
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 200
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 200
 enter = 'left'
 movement = ['parabolic']
-[[enemies.types]]
 type = "whitebird"
+[[enemies.types]]
+delay = 200
 enter = 'left'
 movement = ['parabolic']
+type = "whitebird"
 
 [[enemies]]
 timestamp = 22
+[[enemies.types]]
 delay = 200
-[[enemies.types]]
-type = "blackbird"
 enter = 'right'
 movement = ['dive']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 200
 enter = 'left'
 movement = ['dive']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 200
 enter = 'right'
 movement = ['dive']
-[[enemies.types]]
 type = "blackbird"
+[[enemies.types]]
+delay = 200
 enter = 'left'
 movement = ['dive']
+type = "blackbird"

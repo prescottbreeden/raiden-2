@@ -1,45 +1,60 @@
-import { Enemy } from './Enemy';
-import { getPosition, getRandomInt } from '../utilities';
+import {Enemy} from './Enemy';
+import {getPosition, getRandomInt} from '../utilities';
 import spacestationImg from '../../assets/images/spacestation.png';
+import defaults from '../../constants/spacestation.json';
 
 export class SpaceStation extends Enemy {
-  constructor(game) {
+  constructor(game, props) {
     super(game);
+    const attr = {
+      ...props,
+      ...defaults,
+    };
 
-    // specs
-    this.tracking = false;
-    this.contain = true;
-    this.spin = true;
-    this.item = true;
-    this.h = 120 * 0.67;
-    this.w = 120 * 0.67;
-    this.r = (this.w / 2) * 0.67;
+    // attributes
+    this.item = attr.item;
+    this.hp = attr.hp;
+    this.contain = attr.contain;
+    this.spin = attr.spin;
+
+    // image
+    this.img = new Image();
+    this.img.src = spacestationImg;
+
+    // size
+    this.h = 80; //120
+    this.w = 80; //120
+    this.r = this.w / 2;
+
+    // position
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
     this.y = -this.h;
-    this.g = 0;
-    this.vy = game.getVelocity() * 2;
-    this.vx = 1;
-    this.weaponSpeed = game.getVelocity() * 3;
-    this.src = spacestationImg;
-    this.img = null;
-    this.weaponType = 'ball';
-    this.fireDelay = 2000;
-    this.hp = 100;
-    this.shoot(this.fireDelay);
-    this.shoot(this.fireDelay);
-    this.shoot(this.fireDelay);
 
-    this.getAngle();
-    this.create();
+
+    // weapon
+    this.tracking = attr.tracking;
+    this.weaponSpeed = this.game.getVelocity() * attr.weaponSpeed;
+    this.weaponType = attr.weaponType;
+    this.weaponDelay = attr.weaponDelay;
+
+    // behavior
+    this.shoot();
+    this.movement();
   }
 
-  create() {
-    this.img = new Image();
-    this.img.src = this.src;
+  movement() {
+
+    // TODO: set X position based on config setting
+    this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
+    // TODO: set Y poisiont based on config setting
+    this.y = -this.h;
+    // arc left vs arc right based on entrance position
+    this.g = 0;
+    this.vy = this.game.getVelocity() * 2;
+    this.vx = 1;
   }
 
   draw() {
-    this.drawCenter();
     this.vy += this.g;
     this.y += this.vy;
     this.x += this.vx;

@@ -3,53 +3,153 @@
   "enemies": [
     {
       "timestamp": 1,
-      "delay": 800,
       "types": [
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] }
+        {
+          "delay": 800,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 800,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 800,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 800,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 800,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        }
       ]
     },
     {
       "timestamp": 6,
-      "delay": 800,
       "types": [
-        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
-        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
-        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
-        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] },
-        { "type": "blackbird", "enter": "right", "movement": ["parabolic"] }
+        {
+          "delay": 800,
+          "enter": "right",
+          "movement": ["parabolic"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 800,
+          "enter": "right",
+          "movement": ["parabolic"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 800,
+          "enter": "right",
+          "movement": ["parabolic"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 800,
+          "enter": "right",
+          "movement": ["parabolic"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 800,
+          "enter": "right",
+          "movement": ["parabolic"],
+          "type": "blackbird"
+        }
       ]
     },
     {
       "timestamp": 12,
-      "delay": 800,
       "types": [
-        { "type": "spacestation", "enter": "center", "movement": ["explore"] }
+        {
+          "delay": 0,
+          "enter": "center",
+          "movement": ["explore"],
+          "type": "spacestation"
+        }
       ]
     },
     {
       "timestamp": 18,
-      "delay": 800,
       "types": [
-        { "type": "spacestation", "enter": "center", "movement": ["explore"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] },
-        { "type": "whitebird", "enter": "left", "movement": ["parabolic"] }
+        {
+          "delay": 200,
+          "enter": "center",
+          "movement": ["explore"],
+          "type": "spacestation"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["parabolic"],
+          "type": "whitebird"
+        }
       ]
     },
     {
       "timestamp": 22,
-      "delay": 200,
       "types": [
-        { "type": "blackbird", "enter": "right", "movement": ["dive"] },
-        { "type": "blackbird", "enter": "left", "movement": ["dive"] },
-        { "type": "blackbird", "enter": "right", "movement": ["dive"] },
-        { "type": "blackbird", "enter": "left", "movement": ["dive"] }
+        {
+          "delay": 200,
+          "enter": "right",
+          "movement": ["dive"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["dive"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 200,
+          "enter": "right",
+          "movement": ["dive"],
+          "type": "blackbird"
+        },
+        {
+          "delay": 200,
+          "enter": "left",
+          "movement": ["dive"],
+          "type": "blackbird"
+        }
       ]
     }
   ]

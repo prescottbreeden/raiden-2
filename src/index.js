@@ -1,11 +1,10 @@
 import './sass/main.scss';
-import { Game, GAME_PLAYING } from './game/Game';
+import {Game, GAME_PLAYING} from './game/Game';
 
 export const WIDTH = 500;
 export const HEIGHT = window.innerHeight - 50;
 
 window.onload = () => {
-  console.log('success');
   const button = document.createElement('button');
   button.className = 'start-button';
   button.id = 'start-button';

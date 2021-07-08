@@ -13,10 +13,10 @@ Because this game is still in dev, players are immune from bullets for testing p
 
 - [ ] Code cleanup / utilities overhaul
 - [x] Fix spread shot
-- [ ] Create toml parsing for EnemyFactory data
-- [ ] Make EnemyFactory JSON-configurable
-- [ ] Add abstraction for enemey movement types
-- [ ] Add abstraction for enemy position locations
+- [x] Create toml parsing for EnemyFactory data
+- [x] Make EnemyFactory JSON-configurable
+- [x] Add abstraction for enemey movement types
+- [x] Add abstraction for enemy position locations
 - [ ] Add sprinkler enemy
 - [ ] Add bullet collision for player
 - [ ] Add abstraction for stages
@@ -25,6 +25,7 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [ ] Add player missiles
 - [ ] Create dynamic web portal (small: 67%, large: 100%)
 - [ ] Create window size detection
+- [ ] Create Game Menu / Main Menu options
 - [ ] Mobile controls? (probably not...)
 
 ## Point logic

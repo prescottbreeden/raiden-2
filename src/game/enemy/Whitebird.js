@@ -1,7 +1,8 @@
+import defaults from '../../constants/whitebird.json';
+import whitebirdImg from '../../assets/images/whitebird.png';
 import {Enemy} from './Enemy';
 import {getPosition, getRandomInt} from '../utilities';
-import whitebirdImg from '../../assets/images/whitebird.png';
-import defaults from '../../constants/whitebird.json';
+import * as Motion from '../../utils/movement';
 
 export class Whitebird extends Enemy {
   constructor(game, props) {
@@ -11,39 +12,42 @@ export class Whitebird extends Enemy {
       ...defaults,
     };
 
+    // attributes
+    this.item = attr.item;
+    this.hp = attr.hp;
+
+    // image
+    this.img = new Image();
+    this.img.src = whitebirdImg;
+
+    //size
+    this.h = 67;
+    this.w = 67;
+    this.r = this.w / 2.1;
+
+    // position
+    this.x = attr.x
+    this.y = attr.y
+
     // specs
     this.tracking = attr.tracking;
     this.contain = attr.contain;
     this.spin = attr.spin;
-    this.item = attr.item;
-    this.h = 67;
-    this.w = 67;
-    this.r = this.w / 2.1;
-    this.weaponSpeed = game.getVelocity() * 4;
-    this.weaponType = attr.weaponType;
-    // this.weaponDelay = attr.weaponDelay;
-    this.weaponDelay = 1000;
-    this.hp = attr.hp;
+    this.motion = attr.movement;
 
-    this.img = new Image();
-    this.img.src = whitebirdImg;
+    // weapons
+    this.weaponDelay = attr.weaponDelay;
+    this.weaponSpeed = game.getVelocity() * attr.weaponSpeed;
+    this.weaponType = attr.weaponType;
+
+    // behavior
+    // TODO: make this one scriptable behavior
     this.shoot();
     this.movement();
   }
 
   movement() {
-    // TODO: set X position based on config setting
-    this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
-    // TODO: set Y poisiont based on config setting
-    this.y = -this.h;
-    this.vy = this.game.getVelocity() * 8;
-    this.g = -0.05;
-    // arc left vs arc right based on entrance position
-    if (this.x >= this.canvas.width / 2) {
-      this.vx = 1;
-    } else {
-      this.vx = -1;
-    }
+    Motion.parabolic(this);
   }
 
   draw() {

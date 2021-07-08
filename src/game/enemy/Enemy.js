@@ -1,6 +1,6 @@
 import retroShotBlaster from '../../assets/music/retro-shot-blaster.mp3';
 import {Ball} from '../bullets/Ball';
-import {getPosition, getDistance, isOnScreen} from '../utilities';
+import {getPosition, getDistance, isOnScreen, shouldFire} from '../utilities';
 // import {radian} from '../Game';
 
 export class Enemy {
@@ -24,7 +24,7 @@ export class Enemy {
   }
 
   setWeaponDelay() {
-    if (this.hp > 0 || isOnScreen(this)) {
+    if (this.hp > 0 && shouldFire(this)) {
       const pew = new Audio(retroShotBlaster);
       pew.play();
       const bullet = new Ball(this.game, this);
@@ -41,7 +41,7 @@ export class Enemy {
   shoot() {
     const firing = setInterval(() => {
       this.setWeaponDelay()
-      if (this.hp <= 0 || !isOnScreen(this)) {
+      if (this.hp <= 0 || !shouldFire(this)) {
         clearInterval(firing);
       }
     }, this.weaponDelay);

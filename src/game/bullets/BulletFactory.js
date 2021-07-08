@@ -1,6 +1,6 @@
-import { Spread } from './Spread';
-import { Blaster } from './Blaster';
-import { isOnScreen } from '../utilities';
+import {Spread} from './Spread';
+import {Blaster} from './Blaster';
+import {isOnScreen} from '../utilities';
 
 const playerOffset = 2.5;
 export class BulletFactory {
@@ -175,5 +175,6 @@ export class BulletFactory {
     }
   }
 
-  generateEnemyBullets(interval) {}
+  // Looks like this was deprecated
+  // generateEnemyBullets(interval) {}
 }

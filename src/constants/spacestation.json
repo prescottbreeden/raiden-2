@@ -1,1 +1,1 @@
-{"name":"spacestation","contain":true,"enter":"random","hp":100,"item":true,"movement":"parabolic","movementSpeed":2,"spin":true,"tracking":true,"weaponDelay":2000,"weaponSpeed":6,"weaponType":"ball"}
+{"name":"spacestation","x":250,"y":0,"contain":true,"enter":"random","hp":100,"item":true,"movement":"parabolic","movementSpeed":2,"spin":true,"tracking":true,"weaponDelay":2000,"weaponSpeed":6,"weaponType":"ball"}

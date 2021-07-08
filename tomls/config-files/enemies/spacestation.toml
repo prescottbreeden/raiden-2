@@ -1,6 +1,8 @@
 name = "spacestation"
 
 # default attributes
+x = 250
+y = 0
 contain = true
 enter = "random"
 hp = 100

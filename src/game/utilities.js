@@ -1,4 +1,4 @@
-import {HEIGHT} from "..";
+import {WIDTH} from "..";
 
 export const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -9,10 +9,18 @@ export const getRandomInt = (min, max) => {
 export const isOnScreen = (object) => {
   const {x, y, w, h} = object;
   const vertical = y > -h && y < window.innerHeight + h;
-  const horizontal = x > -w && x < HEIGHT + w;
+  const horizontal = x > 0 - w && x < WIDTH + w;
   const onScreen = vertical && horizontal;
   return onScreen;
 };
+
+export const shouldFire = (object) => {
+  const {x, y, w, h} = object;
+  const vertical = y > 0 && y < window.innerHeight;
+  const horizontal = x > 0 && x < WIDTH;
+  const shouldFire = vertical && horizontal;
+  return shouldFire;
+}
 
 export const getPosition = (object) => {
   const x = object.x;

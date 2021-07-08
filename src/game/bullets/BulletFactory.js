@@ -162,7 +162,7 @@ export class BulletFactory {
       this.addBullets(...this.spread()['5']);
     }
     if (this.ship.weaponStr > 5) {
-      this.addBullets(bullet15, bullet16, bullet17, bullet18);
+      this.addBullets(...this.spread()['6']);
     }
   };
   generatePlayerBullets() {

@@ -1,16 +1,17 @@
 import stage_1 from '../constants/stage_1.json';
-import blaster from '../assets/music/blaster.mp3';
-import explosionSound from '../assets/music/explosion1.mp3';
+import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3';
+import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3';
+import explosionSound from '../assets/sfx/explosion1.mp3';
 import playerOne from '../assets/images/mship1.png';
 import raidenJam from '../assets/music/soundtrack.mp3';
-import { BulletFactory } from './bullets/BulletFactory';
-import { CloudFactory } from './environment/CloudFactory';
-import { EnemyFactory } from './enemy/EnemyFactory';
-import { ExplosionFactory } from './events/ExplosionFactory';
-import { ItemFactory } from './events/ItemFactory';
-import { Player } from './Player';
-import { Sound } from './Sound';
-import { getPointDistance, getDistance } from './utilities';
+import {BulletFactory} from './bullets/BulletFactory';
+import {CloudFactory} from './environment/CloudFactory';
+import {EnemyFactory} from './enemy/EnemyFactory';
+import {ExplosionFactory} from './events/ExplosionFactory';
+import {ItemFactory} from './events/ItemFactory';
+import {Player} from './Player';
+import {Sound} from './Sound';
+import {getPointDistance, getDistance} from './utilities';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -57,8 +58,13 @@ export class Game {
   setScore = (score) => (this._score += score);
 
   pewpew = () => {
-    const pew = new Audio(blaster);
-    pew.play();
+    if (this.player.weaponType === 'spread') {
+      const pew = new Audio(spreadshot);
+      pew.play();
+    } else {
+      const pew = new Audio(blastershot);
+      pew.play();
+    }
     this.bulletFactory.generatePlayerBullets();
   };
 
@@ -290,8 +296,8 @@ export class Game {
     this.player.weaponStr > 5
       ? (this.playerFire = setInterval(this.pewpew, 75))
       : this.player.weaponStr > 3
-      ? (this.playerFire = setInterval(this.pewpew, 100))
-      : (this.playerFire = setInterval(this.pewpew, 150));
+        ? (this.playerFire = setInterval(this.pewpew, 100))
+        : (this.playerFire = setInterval(this.pewpew, 150));
   }
 
   // ============================ //

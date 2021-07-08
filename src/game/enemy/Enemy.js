@@ -1,4 +1,4 @@
-import retroShotBlaster from '../../assets/music/retro-shot-blaster.mp3';
+import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3';
 import {Ball} from '../bullets/Ball';
 import {getPosition, getDistance, isOnScreen, shouldFire} from '../utilities';
 // import {radian} from '../Game';

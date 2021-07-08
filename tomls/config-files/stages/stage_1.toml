@@ -131,3 +131,155 @@ delay = 200
 enter = 'left'
 movement = ['dive']
 type = "blackbird"
+
+[[enemies]]
+timestamp = 30
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+
+[[enemies]]
+timestamp = 36
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = ['parabolic']
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = ['parabolic']
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = ['parabolic']
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = ['parabolic']
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = ['parabolic']
+type = "blackbird"
+
+[[enemies]]
+timestamp = 42
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = ['explore']
+type = "spacestation"
+
+[[enemies]]
+timestamp = 48
+[[enemies.types]]
+delay = 200
+enter = 'center'
+movement = ['explore']
+type = "spacestation"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['parabolic']
+type = "whitebird"
+
+[[enemies]]
+timestamp = 52
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = ['dive']
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['dive']
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = ['dive']
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = ['dive']
+type = "blackbird"
+
+[[enemies]]
+timestamp = 55
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = ['explore']
+type = "spacestation"
+
+[[enemies]]
+timestamp = 60
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = ['explore']
+type = "spacestation"
+
+[[enemies]]
+timestamp = 65
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = ['explore']
+type = "spacestation"
+
+[[enemies]]
+timestamp = 70
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = ['explore']
+type = "spacestation"

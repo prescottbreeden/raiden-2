@@ -1,8 +1,11 @@
 import * as Motion from '../../utils/movement';
 import defaults from '../../constants/whitebird.json';
+import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3';
 import whitebirdImg from '../../assets/images/whitebird.png';
+import {Ball} from '../bullets/Ball';
 import {Enemy} from './Enemy';
-import {getPosition, getRandomInt} from '../utilities';
+import {aimAtPlayer} from '../../utils/weapons';
+import {getPosition} from '../utilities';
 import {radian} from '../Game';
 
 export class Whitebird extends Enemy {
@@ -53,6 +56,16 @@ export class Whitebird extends Enemy {
     Motion.parabolic(this);
   }
 
+  fire() {
+    const pew = new Audio(retroShotBlaster);
+    pew.play();
+    const bullet = new Ball(this.game, this);
+    const {vx, vy} = aimAtPlayer(this);
+    bullet.vx = vx;
+    bullet.vy = vy;
+    this.game.bulletFactory.bullets.push(bullet);
+  }
+
   draw() {
     this.vy += this.g;
     this.y += this.vy;
@@ -81,6 +94,7 @@ export class Whitebird extends Enemy {
 
     if (this.tracking) {
       this.playerPosition = getPosition(this.game.player);
+      // TODO: fix this abstraction
       this.getAngle();
       this.context.rotate(this.angle);
     } else if (this.spin) {

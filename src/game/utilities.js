@@ -1,3 +1,4 @@
+import {all, equals} from "ramda";
 import {WIDTH} from "..";
 
 export const getRandomInt = (min, max) => {
@@ -14,12 +15,14 @@ export const isOnScreen = (object) => {
   return onScreen;
 };
 
-export const shouldFire = (object) => {
-  const {x, y, w, h} = object;
-  const vertical = y > 0 && y < window.innerHeight;
-  const horizontal = x > 0 && x < WIDTH;
-  const shouldFire = vertical && horizontal;
-  return shouldFire;
+export const shouldFire = ({hp, x, y}) => {
+  return all(equals(true),
+    [
+      y > 0 && y < window.innerHeight,
+      x > 0 && x < WIDTH,
+      hp > 0,
+    ]
+  );
 }
 
 export const getPosition = (object) => {

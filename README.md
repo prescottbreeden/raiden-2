@@ -17,7 +17,7 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [x] Make EnemyFactory JSON-configurable
 - [x] Add abstraction for enemey movement types
 - [x] Add abstraction for enemy position locations
-- [ ] Abstraction for simultaneous enemies
+- [ ] Add abstraction for simultaneous enemies
 - [ ] Add sprinkler enemy
 - [ ] Add bullet collision for player
 - [ ] Add abstraction for stages

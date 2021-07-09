@@ -9,6 +9,7 @@ export class Enemy {
     this.canvas = game.canvas;
     this.context = game.context;
     this.playerPosition = getPosition(game.player);
+    this.angle = 0;
 
     this.getAngle();
     // specs

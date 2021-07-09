@@ -1,14 +1,15 @@
+import defaults from '../../constants/spacestation.json';
+import spacestationImg from '../../assets/images/spacestation.png';
 import {Enemy} from './Enemy';
 import {getPosition, getRandomInt} from '../utilities';
-import spacestationImg from '../../assets/images/spacestation.png';
-import defaults from '../../constants/spacestation.json';
+import {radian} from '../Game';
 
 export class SpaceStation extends Enemy {
   constructor(game, props) {
     super(game);
     const attr = {
-      ...props,
       ...defaults,
+      ...props,
     };
 
     // attributes
@@ -16,6 +17,7 @@ export class SpaceStation extends Enemy {
     this.hp = attr.hp;
     this.contain = attr.contain;
     this.spin = attr.spin;
+    this.pointValue = 500;
 
     // image
     this.img = new Image();
@@ -29,6 +31,7 @@ export class SpaceStation extends Enemy {
     // position
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
     this.y = -this.h;
+    this.angle = 0;
 
 
     // weapon
@@ -85,10 +88,8 @@ export class SpaceStation extends Enemy {
       this.playerPosition = getPosition(this.game.player);
       this.getAngle();
       this.context.rotate(this.angle);
-    }
-
-    if (this.spin) {
-      this.angle += 5;
+    } else if (this.spin) {
+      this.angle += 5 * radian;
       this.context.rotate(this.angle);
     }
 

@@ -2,6 +2,7 @@ import {Blackbird} from './Blackbird';
 import {Whitebird} from './Whitebird';
 import {SpaceStation} from './SpaceStation';
 import {isOnScreen} from '../utilities';
+import {ItemGiver} from './ItemGiver';
 
 export class EnemyFactory {
   constructor(game, config = {}) {
@@ -16,33 +17,19 @@ export class EnemyFactory {
     this.enemies = [...cleanUp, ...enemies];
   };
 
-  addBlackbird = (t) => {
-    const enemy = new Blackbird(this.game, t);
-    this.addEnemy(enemy);
-  };
-
-  addWhitebird = (t) => {
-    const enemy = new Whitebird(this.game, t);
-    this.addEnemy(enemy);
-  };
-
-  addSpacestation = (t) => {
-    const enemy = new SpaceStation(this.game, t);
-    this.addEnemy(enemy);
-  };
-
   createAllEnemies() {
     const lookup = {
-      whitebird: () => this.addWhitebird(),
-      blackbird: () => this.addBlackbird(),
-      spacestation: () => this.addSpacestation(),
+      whitebird: (t) => new Whitebird(this.game, t),
+      blackbird: (t) => new Blackbird(this.game, t),
+      spacestation: (t) => new SpaceStation(this.game, t),
+      itemGiver: (t) => new ItemGiver(this.game, t),
     };
     const {enemies} = this.config;
     enemies.map((enemyGroup) => {
       setTimeout(() => {
         enemyGroup.types.map((t, i) => {
           setTimeout(() => {
-            lookup[t.type](t);
+            this.addEnemy(lookup[t.type](t));
           }, t.delay * (i + 1));
         });
       }, enemyGroup.timestamp * 1000);

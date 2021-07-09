@@ -15,6 +15,7 @@ export class BulletFactory {
   addBullets = (...bullets) => {
     const cleanUp = this.bullets.filter(isOnScreen);
     this.bullets = [...cleanUp, ...bullets];
+    console.log('bullets', this.bullets.length);
   };
 
   // BLASTER

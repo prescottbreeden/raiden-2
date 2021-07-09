@@ -48,13 +48,11 @@ export class Item {
   }
 
   changeWeapon() {
-    const change = setInterval(() => {
-      if (!this) {
-        clearInterval(change);
-      }
+    const self = this;
+    setInterval(() => {
       this.index++;
-      this.index %= this.types.length;
-      this.prop = this.types[this.index];
+      this.index %= self.types.length;
+      this.prop = self.types[this.index];
     }, 4000);
   }
 

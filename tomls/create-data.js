@@ -1,12 +1,12 @@
 const R = require('ramda');
 const fs = require('fs-extra');
-const { compose, map, trace } = require('fp-tools');
-const { entityName } = require('./helpers');
-const { OUTPUT_DIR } = require('./file-paths');
+const {compose, map, trace} = require('fp-tools');
+const {entityName} = require('./helpers');
+const {OUTPUT_DIR} = require('./file-paths');
 
 // buildData :: object -> string
 const buildData = data => {
-  return JSON.stringify(data);
+  return JSON.stringify(data, null, 1);
 };
 
 // createType :: object[] -> (undefined | null)[]

@@ -74,7 +74,7 @@ timestamp = 12
 delay = 0
 enter = 'center'
 movement = ['explore']
-type = "spacestation"
+type = "itemGiver"
 
 [[enemies]]
 timestamp = 18
@@ -82,7 +82,7 @@ timestamp = 18
 delay = 200
 enter = 'center'
 movement = ['explore']
-type = "spacestation"
+type = "itemGiver"
 [[enemies.types]]
 delay = 200
 enter = 'left'
@@ -194,7 +194,7 @@ timestamp = 42
 delay = 0
 enter = 'center'
 movement = ['explore']
-type = "spacestation"
+type = "itemGiver"
 
 [[enemies]]
 timestamp = 48
@@ -202,7 +202,7 @@ timestamp = 48
 delay = 200
 enter = 'center'
 movement = ['explore']
-type = "spacestation"
+type = "itemGiver"
 [[enemies.types]]
 delay = 200
 enter = 'left'
@@ -266,7 +266,7 @@ timestamp = 60
 delay = 0
 enter = 'center'
 movement = ['explore']
-type = "spacestation"
+type = "itemGiver"
 
 [[enemies]]
 timestamp = 65

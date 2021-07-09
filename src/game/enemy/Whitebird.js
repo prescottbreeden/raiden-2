@@ -1,20 +1,23 @@
+import * as Motion from '../../utils/movement';
 import defaults from '../../constants/whitebird.json';
 import whitebirdImg from '../../assets/images/whitebird.png';
 import {Enemy} from './Enemy';
 import {getPosition, getRandomInt} from '../utilities';
-import * as Motion from '../../utils/movement';
+import {radian} from '../Game';
 
 export class Whitebird extends Enemy {
   constructor(game, props) {
     super(game);
     const attr = {
-      ...props,
       ...defaults,
+      ...props,
     };
 
     // attributes
-    this.item = attr.item;
+    // this.item = attr.item;
+    this.item = true;
     this.hp = attr.hp;
+    this.pointValue = 100;
 
     // image
     this.img = new Image();
@@ -80,10 +83,8 @@ export class Whitebird extends Enemy {
       this.playerPosition = getPosition(this.game.player);
       this.getAngle();
       this.context.rotate(this.angle);
-    }
-
-    if (this.spin) {
-      this.angle += 5;
+    } else if (this.spin) {
+      this.angle += 5 * radian;
       this.context.rotate(this.angle);
     }
 

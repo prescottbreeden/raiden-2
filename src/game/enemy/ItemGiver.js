@@ -1,11 +1,10 @@
-import * as Motion from '../../utils/movement';
-import blackbird from '../../assets/images/blackbird.png';
-import defaults from '../../constants/blackbird.json';
+import defaults from '../../constants/spacestation.json';
+import itemGiverImg from '../../assets/images/item-giver-2.png';
 import {Enemy} from './Enemy';
-import {getPosition} from '../utilities';
+import {getPosition, getRandomInt} from '../utilities';
 import {radian} from '../Game';
 
-export class Blackbird extends Enemy {
+export class ItemGiver extends Enemy {
   constructor(game, props) {
     super(game);
     const attr = {
@@ -14,47 +13,51 @@ export class Blackbird extends Enemy {
     };
 
     // attributes
-    this.hp = attr.hp;
     this.item = attr.item;
-    this.pointValue = 100;
+    this.hp = attr.hp;
+    this.contain = attr.contain;
+    this.spin = attr.spin;
+    this.pointValue = 500;
 
     // image
     this.img = new Image();
-    this.img.src = blackbird;
+    this.img.src = itemGiverImg;
 
     // size
-    this.h = 67; // 100;
-    this.w = 67; // 100;
-    this.r = this.w / 2.1;
+    this.h = 80; //120
+    this.w = 80; //120
+    this.r = this.w / 2;
 
     // position
-    this.x = attr.x
-    this.y = attr.y
+    this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
+    this.y = -this.h;
+    this.angle = 0;
 
-    // specs
+
+    // weapon
     this.tracking = attr.tracking;
-    this.contain = attr.contain;
-    this.spin = attr.spin;
-    this.motion = attr.movement;
-
-    // weapons
+    this.weaponSpeed = this.game.getVelocity() * attr.weaponSpeed;
+    this.weaponType = attr.weaponType;
     this.weaponDelay = attr.weaponDelay;
-    this.weaponSpeed = game.getVelocity() * attr.weaponSpeed;
-    this.weaponType = 'ball';
 
     // behavior
-    // TODO: make this one scriptable behavior
     this.shoot();
     this.movement();
   }
 
   movement() {
-    Motion.charge(this);
+    // TODO: set X position based on config setting
+    this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
+    // TODO: set Y poisiont based on config setting
+    this.y = -this.h;
+    // arc left vs arc right based on entrance position
+    this.g = 0;
+    this.vy = this.game.getVelocity() * 2;
+    this.vx = 1;
   }
 
   draw() {
-    this.vx += this.gx;
-    this.vy += this.gy;
+    this.vy += this.g;
     this.y += this.vy;
     this.x += this.vx;
 
@@ -82,17 +85,10 @@ export class Blackbird extends Enemy {
 
     if (this.tracking) {
       this.playerPosition = getPosition(this.game.player);
-      this.angle =
-        Math.atan2(
-          this.playerPosition.y - this.y,
-          this.playerPosition.x - this.x
-        ) -
-        3.141 / 2;
+      this.getAngle();
       this.context.rotate(this.angle);
-    }
-
-    if (this.spin) {
-      this.angle += 5 * radian;
+    } else if (this.spin) {
+      this.angle += 1 * radian;
       this.context.rotate(this.angle);
     }
 

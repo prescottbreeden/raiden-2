@@ -1,9 +1,9 @@
-import stage_1 from '../constants/stage_1.json';
-import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3';
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3';
 import explosionSound from '../assets/sfx/explosion1.mp3';
 import playerOne from '../assets/images/mship1.png';
 import raidenJam from '../assets/music/soundtrack.mp3';
+import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3';
+import stage_1 from '../constants/stage_1.json';
 import {BulletFactory} from './bullets/BulletFactory';
 import {CloudFactory} from './environment/CloudFactory';
 import {EnemyFactory} from './enemy/EnemyFactory';
@@ -12,6 +12,7 @@ import {ItemFactory} from './events/ItemFactory';
 import {Player} from './Player';
 import {Sound} from './Sound';
 import {getPointDistance, getDistance} from './utilities';
+import {HEIGHT, WIDTH} from '..';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -31,31 +32,52 @@ export const KEY_CODE = {
 };
 
 export class Game {
-  constructor(canvas) {
+  constructor({
+    difficulty,
+    music,
+    sfx,
+  }) {
     this._currentState = INITIAL;
     this._velocity = 1;
-    this._music = true;
+    this._difficulty = difficulty;
+    this._music = music;
+    this._sfx = sfx;
     this._score = 0;
-    this.canvas = canvas;
-    this.context = this.canvas.getContext('2d');
-    this.times = [];
+    this.frames = [];
     this.fps = 0;
+    this.width = WIDTH;
+    this.height = HEIGHT;
 
+    this.createCanvas();
     this.displayFPS();
     // bind event listeners
     this.bindEvents();
   }
   getState = () => this._currentState;
-  setState = (newState) => (this._currentState = newState);
+  setCurrentState = (newState) => (this._currentState = newState);
 
   getVelocity = () => this._velocity;
-  setVelocity = (newVelocity) => (this._velocity = newVelocity);
+  // setVelocity = (newVelocity) => (this._velocity = newVelocity);
+
+  getDifficulty = () => this._difficulty;
 
   getMusic = () => this._music;
   toggleMusic = () => (this._music = !this._music);
 
   getScore = () => this._score;
   setScore = (score) => (this._score += score);
+
+  createCanvas = () => {
+    const gameNode = document.getElementById('game');
+    const canvas = document.createElement('canvas');
+    canvas.id = 'ctx';
+    canvas.className = 'canvas';
+    canvas.width = this.width;
+    canvas.height = this.height;
+    gameNode.appendChild(canvas);
+    this.canvas = canvas;
+    this.context = canvas.getContext('2d');
+  }
 
   pewpew = () => {
     if (this.player.weaponType === 'spread') {
@@ -68,6 +90,12 @@ export class Game {
     this.bulletFactory.generatePlayerBullets();
   };
 
+  startGame = () => {
+    this.setCurrentState(GAME_PLAYING);
+    this.start();
+    this.hideMenu();
+  }
+
   start() {
     this.createObjects();
     this.runGameLoop();
@@ -77,9 +105,8 @@ export class Game {
 
   runGameLoop() {
     switch (this.getState()) {
-      // case INITIAL:
-      //   this.drawMenuScreen();
-      //   break;
+      case INITIAL:
+        break;
       case GAME_PLAYING:
         this.drawGamePlayingScreen();
         break;
@@ -89,11 +116,11 @@ export class Game {
     }
     window.requestAnimationFrame(() => {
       const now = performance.now();
-      while (this.times.length > 0 && this.times[0] <= now - 1000) {
-        this.times.shift();
+      while (this.frames.length > 0 && this.frames[0] <= now - 1000) {
+        this.frames.shift();
       }
-      this.times.push(now);
-      this.fps = this.times.length;
+      this.frames.push(now);
+      this.fps = this.frames.length;
       this.runGameLoop();
     });
   }
@@ -118,10 +145,20 @@ export class Game {
   // ======== GAME MENU ========= //
   // ============================ //
 
-  // drawMenuScreen() {
-  //   this.context.fillStyle = 'lightblue';
-  //   this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  // }
+  showMenu() {
+    const button = document.createElement('button');
+    button.className = 'start-button';
+    button.id = 'start-button';
+    button.onclick = this.startGame;
+    button.textContent = 'Start New Game';
+    const gameNode = document.getElementById('game');
+    gameNode.appendChild(button);
+  }
+
+  hideMenu() {
+    const gameNode = document.getElementById('game');
+    gameNode.removeChild(document.getElementById('start-button'));
+  }
 
   // ============================ //
   // ======== GAME PLAY ========= //
@@ -226,11 +263,11 @@ export class Game {
             bullets.splice(i, 1);
             if (enemy.hp <= 0) {
               if (enemy.item) {
+                console.log('item is true')
                 this.itemFactory.generateItem(enemy);
               }
-              this.updateScore(100);
-              const hit = new Audio();
-              hit.src = explosionSound;
+              this.updateScore(enemy.pointValue);
+              const hit = new Audio(explosionSound);
               hit.play();
               this.explosionFactory.generateExplosions(enemy);
               enemies.splice(j, 1);
@@ -249,7 +286,7 @@ export class Game {
       if (distance < enemy.r) {
         const hit = new Audio(explosionSound);
         hit.play();
-        this.setState(GAME_OVER);
+        this.setCurrentState(GAME_OVER);
       }
     }
   }
@@ -270,6 +307,7 @@ export class Game {
     items.forEach((item) => item.draw());
   }
 
+  // TODO: seems overkill to check every item for a collision...
   checkItemCollection() {
     const items = this.itemFactory.items;
     for (let i = 0; i < items.length; i++) {
@@ -278,6 +316,7 @@ export class Game {
       if (distance < item.w) {
         this.player.weaponType = item.prop;
         items.splice(i, 1);
+        // TODO: mod number here?
         this.player.weaponStr += 1;
         if (this.player.weaponStr > 6) {
           this.player.weaponStr = 6;
@@ -293,11 +332,13 @@ export class Game {
   }
 
   shoot() {
-    this.player.weaponStr > 5
-      ? (this.playerFire = setInterval(this.pewpew, 75))
-      : this.player.weaponStr > 3
-        ? (this.playerFire = setInterval(this.pewpew, 100))
-        : (this.playerFire = setInterval(this.pewpew, 150));
+    if (this.player.weaponStr > 5) {
+      this.playerFire = setInterval(this.pewpew, 75);
+    } else if (this.player.weaponStr > 3) {
+      this.playerFire = setInterval(this.pewpew, 100);
+    } else {
+      this.playerFire = setInterval(this.pewpew, 150);
+    }
   }
 
   // ============================ //

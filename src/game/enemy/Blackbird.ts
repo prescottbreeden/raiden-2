@@ -1,9 +1,11 @@
 import blackbird from '../../assets/images/blackbird.png';
 import defaults from '../../constants/blackbird.json';
-import { Enemy, EnemyFunction } from './Enemy';
+import { BlackbirdEnemy } from '../../types/blackbird.type';
+import { Game } from '../Game';
+import { EnemyFunction } from './Enemy';
 
-export const Blackbird = (game, props) => {
-  const attr = {
+export const Blackbird = (game: Game, props: BlackbirdEnemy) => {
+  const attr: BlackbirdEnemy = {
     ...defaults,
     ...props,
     src: blackbird,

@@ -1,8 +1,10 @@
+import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3';
 import defaults from '../../constants/spacestation.json';
 import spacestationImg from '../../assets/images/spacestation.png';
+import { Ball } from '../bullets/Ball';
 import { Enemy } from './Enemy';
-import { getPosition, getRandomInt } from '../utilities';
-import { radian } from '../Game';
+import { aimAtPlayer } from '../../utils/weapons';
+import { getRandomInt } from '../utilities';
 
 export class SpaceStation extends Enemy {
   constructor(game, props) {
@@ -55,49 +57,13 @@ export class SpaceStation extends Enemy {
     this.vx = 1;
   }
 
-  draw() {
-    this.vy += this.g;
-    this.y += this.vy;
-    this.x += this.vx;
-
-    if (this.contain) {
-      if (this.y + this.h > this.canvas.height && this.vy > 0) {
-        this.y = this.canvas.height - this.h;
-        this.vy *= -1;
-      }
-      if (this.y < this.h / 2 && this.vy < 0) {
-        this.y = this.h / 2;
-        this.vy *= -1;
-      }
-      if (this.x < this.w / 2 && this.vx < 0) {
-        this.x = this.w / 2;
-        this.vx *= -1;
-      }
-      if (this.x + this.w / 2 > this.canvas.width && this.vx > 0) {
-        this.x = this.canvas.width - this.w / 2;
-        this.vx *= -1;
-      }
-    }
-
-    this.context.save();
-    this.context.translate(this.x, this.y);
-
-    if (this.tracking) {
-      this.playerPosition = getPosition(this.game.player);
-      this.getAngle();
-      this.context.rotate(this.angle);
-    } else if (this.spin) {
-      this.angle += 5 * radian;
-      this.context.rotate(this.angle);
-    }
-
-    this.context.drawImage(
-      this.img,
-      -(this.w / 2),
-      -(this.h / 2),
-      this.h,
-      this.w
-    );
-    this.context.restore();
+  fire() {
+    const pew = new Audio(retroShotBlaster);
+    pew.play();
+    const bullet = new Ball(this.game, this);
+    const { vx, vy } = aimAtPlayer(this);
+    bullet.vx = vx;
+    bullet.vy = vy;
+    this.game.bulletFactory.bullets.push(bullet);
   }
 }

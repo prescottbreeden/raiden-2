@@ -1,13 +1,16 @@
+// @ts-ignore
 import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3';
 import { Ball } from '../bullets/Ball';
+import { Game, radian } from '../Game';
+import { HEIGHT, WIDTH } from '../..';
 import { aimAtPlayer } from '../../utils/weapons';
 import { charge } from '../../utils/movement';
 import { getPosition, shouldFire } from '../utilities';
-import { useState, value } from '../../utils/general';
 import { pipe, prop } from 'ramda';
+import { useState, value } from '../../utils/general';
 
 // reusing same call stack
-export const EnemyFunction = (game, props) => {
+export const EnemyFunction = (game: Game, props: any) => {
   const img = new Image();
   img.src = props.src;
 
@@ -27,13 +30,13 @@ export const EnemyFunction = (game, props) => {
       const { vx, vy } = aimAtPlayer(getEnemy());
       bullet.vx = vx;
       bullet.vy = vy;
-      game.bulletFactory.bullets.push(bullet);
+      game.bulletFactory?.bullets.push(bullet);
     } else {
       clearInterval(firing);
     }
   }, value(getEnemy()).weaponDelay);
 
-  const takeDamage = (dmg) => {
+  const takeDamage = (dmg: number) => {
     const current = getEnemy();
     setEnemy({
       ...current,
@@ -50,17 +53,17 @@ export const EnemyFunction = (game, props) => {
       x: x + vx,
     });
 
-    game.context.save();
-    game.context.translate(updated.x, updated.y);
+    game.context?.save();
+    game.context?.translate(updated.x, updated.y);
 
-    game.context.drawImage(
+    game.context?.drawImage(
       updated.img,
       -(updated.w / 2),
       -(updated.h / 2),
       updated.h,
       updated.w
     );
-    game.context.restore();
+    game.context?.restore();
   };
 
   const enemyObject = {
@@ -69,7 +72,7 @@ export const EnemyFunction = (game, props) => {
     draw,
   };
 
-  const createProperty = (name, val) => ({
+  const createProperty = (name: string, val: () => any) => ({
     [name]: {
       enumerable: true,
       get: val,
@@ -93,59 +96,49 @@ export const EnemyFunction = (game, props) => {
   return enemyObject;
 };
 
-// const getAngle = () => {
-//   const angle =
-//     Math.atan2(
-//       getPosition(game.player).y - value(enemy).y,
-//       getPosition(game.player).x - value(enemy).x
-//     ) -
-//     Math.PI / 2;
-//   setEnemy({ ...value(enemy), angle });
-// };
-// if (enemy.contain) {
-//   if (enemy.y + enemy.h > HEIGHT && enemy.vy > 0) {
-//     enemy.y = HEIGHT - enemy.h;
-//     enemy.vy *= -1;
-//   }
-//   if (enemy.y < enemy.h / 2 && enemy.vy < 0) {
-//     enemy.y = enemy.h / 2;
-//     enemy.vy *= -1;
-//   }
-//   if (enemy.x < enemy.w / 2 && enemy.vx < 0) {
-//     enemy.x = enemy.w / 2;
-//     enemy.vx *= -1;
-//   }
-//   if (enemy.x + enemy.w / 2 > WIDTH && enemy.vx > 0) {
-//     enemy.x = WIDTH - enemy.w / 2;
-//     enemy.vx *= -1;
-//   }
-// }
-// if (this.tracking) {
-//   this.playerPosition = getPosition(this.game.player);
-//   this.angle =
-//     Math.atan2(
-//       this.playerPosition.y - this.y,
-//       this.playerPosition.x - this.x
-//     ) -
-//     3.141 / 2;
-//   this.context.rotate(this.angle);
-// }
-
-// if (this.spin) {
-//   this.angle += 5 * radian;
-//   this.context.rotate(this.angle);
-// }
-
 export class Enemy {
-  constructor(game) {
+  game: Game;
+  canvas: HTMLCanvasElement | undefined;
+  context: CanvasRenderingContext2D | undefined | null;
+  playerPosition: { x: number; y: number };
+  angle: number;
+  h: number;
+  w: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  gx: number;
+  gy: number;
+  hp: number;
+  img: HTMLImageElement;
+  weaponDelay: number;
+  contain: boolean;
+  tracking: boolean;
+  spin: boolean;
+
+  constructor(game: Game) {
     this.game = game;
     this.canvas = game.canvas;
     this.context = game.context;
     this.playerPosition = getPosition(game.player);
     this.angle = 0;
+    this.h = 0;
+    this.w = 0;
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.gx = 0;
+    this.gy = 0;
+    this.hp = 0;
+    this.weaponDelay = 0;
+    this.contain = false;
+    this.tracking = false;
+    this.spin = false;
+    this.img = new Image();
   }
 
-  // TODO: cleanup
   getAngle() {
     this.angle =
       Math.atan2(
@@ -155,9 +148,18 @@ export class Enemy {
       Math.PI / 2;
   }
 
+  fire() {
+    throw Error('fire is not implemented');
+  }
+
+  movement() {
+    throw Error('movement is not implemented');
+  }
+
   shoot() {
     const firing = setInterval(() => {
-      if (shouldFire(this)) {
+      const { x, hp, y } = this;
+      if (shouldFire({ hp, x, y })) {
         this.fire();
       } else {
         clearInterval(firing);
@@ -172,8 +174,8 @@ export class Enemy {
     this.x += this.vx;
 
     if (this.contain) {
-      if (this.y + this.h > this.canvas.height && this.vy > 0) {
-        this.y = this.canvas.height - this.h;
+      if (this.y + this.h > HEIGHT && this.vy > 0) {
+        this.y = HEIGHT - this.h;
         this.vy *= -1;
       }
       if (this.y < this.h / 2 && this.vy < 0) {
@@ -184,38 +186,38 @@ export class Enemy {
         this.x = this.w / 2;
         this.vx *= -1;
       }
-      if (this.x + this.w / 2 > this.canvas.width && this.vx > 0) {
-        this.x = this.canvas.width - this.w / 2;
+      if (this.x + this.w / 2 > WIDTH && this.vx > 0) {
+        this.x = WIDTH - this.w / 2;
         this.vx *= -1;
       }
     }
 
-    this.context.save();
-    this.context.translate(this.x, this.y);
+    this.context?.save();
+    this.context?.translate(this.x, this.y);
 
-    if (this.tracking) {
+    if (this.tracking && this.context) {
       this.playerPosition = getPosition(this.game.player);
       this.angle =
         Math.atan2(
           this.playerPosition.y - this.y,
           this.playerPosition.x - this.x
         ) -
-        3.141 / 2;
+        Math.PI / 2;
       this.context.rotate(this.angle);
     }
 
-    if (this.spin) {
+    if (this.spin && this.context) {
       this.angle += 5 * radian;
       this.context.rotate(this.angle);
     }
 
-    this.context.drawImage(
+    this.context?.drawImage(
       this.img,
       -(this.w / 2),
       -(this.h / 2),
       this.h,
       this.w
     );
-    this.context.restore();
+    this.context?.restore();
   }
 }

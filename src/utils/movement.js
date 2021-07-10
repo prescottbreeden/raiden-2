@@ -25,7 +25,7 @@ export const charge = (game, getEnemy, setEnemy) => {
 
 export const parabolic = (obj) => {
   obj.vy = obj.game.getVelocity() * 8;
-  obj.g = -0.05;
+  obj.gy = -0.05;
   // arc left vs arc right based on entrance position
   if (obj.x >= obj.canvas.width / 2) {
     obj.vx = 1;

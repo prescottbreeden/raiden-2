@@ -2,11 +2,11 @@ import * as Motion from '../../utils/movement';
 import defaults from '../../constants/whitebird.json';
 import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3';
 import whitebirdImg from '../../assets/images/whitebird.png';
-import {Ball} from '../bullets/Ball';
-import {Enemy} from './Enemy';
-import {aimAtPlayer} from '../../utils/weapons';
-import {getPosition} from '../utilities';
-import {radian} from '../Game';
+import { Ball } from '../bullets/Ball';
+import { Enemy } from './Enemy';
+import { aimAtPlayer } from '../../utils/weapons';
+import { getPosition } from '../utilities';
+import { radian } from '../Game';
 
 export class Whitebird extends Enemy {
   constructor(game, props) {
@@ -32,8 +32,8 @@ export class Whitebird extends Enemy {
     this.r = this.w / 2.1;
 
     // position
-    this.x = attr.x
-    this.y = attr.y
+    this.x = attr.x;
+    this.y = attr.y;
 
     // specs
     this.tracking = attr.tracking;
@@ -60,7 +60,7 @@ export class Whitebird extends Enemy {
     const pew = new Audio(retroShotBlaster);
     pew.play();
     const bullet = new Ball(this.game, this);
-    const {vx, vy} = aimAtPlayer(this);
+    const { vx, vy } = aimAtPlayer(this);
     bullet.vx = vx;
     bullet.vy = vy;
     this.game.bulletFactory.bullets.push(bullet);

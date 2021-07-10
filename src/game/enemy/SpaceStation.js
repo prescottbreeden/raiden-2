@@ -1,8 +1,8 @@
 import defaults from '../../constants/spacestation.json';
 import spacestationImg from '../../assets/images/spacestation.png';
-import {Enemy} from './Enemy';
-import {getPosition, getRandomInt} from '../utilities';
-import {radian} from '../Game';
+import { Enemy } from './Enemy';
+import { getPosition, getRandomInt } from '../utilities';
+import { radian } from '../Game';
 
 export class SpaceStation extends Enemy {
   constructor(game, props) {
@@ -33,7 +33,6 @@ export class SpaceStation extends Enemy {
     this.y = -this.h;
     this.angle = 0;
 
-
     // weapon
     this.tracking = attr.tracking;
     this.weaponSpeed = this.game.getVelocity() * attr.weaponSpeed;
@@ -46,7 +45,6 @@ export class SpaceStation extends Enemy {
   }
 
   movement() {
-
     // TODO: set X position based on config setting
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
     // TODO: set Y poisiont based on config setting

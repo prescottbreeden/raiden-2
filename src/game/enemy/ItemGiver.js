@@ -1,8 +1,8 @@
 import defaults from '../../constants/spacestation.json';
 import itemGiverImg from '../../assets/images/item-giver-2.png';
-import {Enemy} from './Enemy';
-import {getPosition, getRandomInt} from '../utilities';
-import {radian} from '../Game';
+import { Enemy } from './Enemy';
+import { getPosition, getRandomInt } from '../utilities';
+import { radian } from '../Game';
 
 export class ItemGiver extends Enemy {
   constructor(game, props) {
@@ -32,7 +32,6 @@ export class ItemGiver extends Enemy {
     this.x = getRandomInt(this.canvas.width * 0.1, this.canvas.width * 0.9);
     this.y = -this.h;
     this.angle = 0;
-
 
     // weapon
     this.tracking = attr.tracking;

@@ -4,15 +4,15 @@ import playerOne from '../assets/images/mship1.png';
 import raidenJam from '../assets/music/soundtrack.mp3';
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3';
 import stage_1 from '../constants/stage_1.json';
-import {BulletFactory} from './bullets/BulletFactory';
-import {CloudFactory} from './environment/CloudFactory';
-import {EnemyFactory} from './enemy/EnemyFactory';
-import {ExplosionFactory} from './events/ExplosionFactory';
-import {ItemFactory} from './events/ItemFactory';
-import {Player} from './Player';
-import {Sound} from './Sound';
-import {getPointDistance, getDistance} from './utilities';
-import {HEIGHT, WIDTH} from '..';
+import { BulletFactory } from './bullets/BulletFactory';
+import { CloudFactory } from './environment/CloudFactory';
+import { EnemyFactory } from './enemy/EnemyFactory';
+import { ExplosionFactory } from './events/ExplosionFactory';
+import { HEIGHT, WIDTH } from '..';
+import { ItemFactory } from './events/ItemFactory';
+import { Player } from './Player';
+import { Sound } from './Sound';
+import { getPointDistance, getDistance } from './utilities';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -32,11 +32,7 @@ export const KEY_CODE = {
 };
 
 export class Game {
-  constructor({
-    difficulty,
-    music,
-    sfx,
-  }) {
+  constructor({ difficulty, music, sfx }) {
     this._currentState = INITIAL;
     this._velocity = 1;
     this._difficulty = difficulty;
@@ -77,7 +73,7 @@ export class Game {
     gameNode.appendChild(canvas);
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
-  }
+  };
 
   pewpew = () => {
     if (this.player.weaponType === 'spread') {
@@ -94,7 +90,7 @@ export class Game {
     this.setCurrentState(GAME_PLAYING);
     this.start();
     this.hideMenu();
-  }
+  };
 
   start() {
     this.createObjects();
@@ -259,17 +255,22 @@ export class Game {
             bullet.y
           );
           if (checkPlayerBullets < enemy.r + bullet.w / 2) {
-            enemy.hp -= bullet.power;
+            if (enemy.takeDamage) {
+              enemy.takeDamage(bullet.power);
+            } else {
+              enemy.hp -= bullet.power;
+            }
             bullets.splice(i, 1);
             if (enemy.hp <= 0) {
               if (enemy.item) {
-                console.log('item is true')
+                console.log('item is true');
                 this.itemFactory.generateItem(enemy);
               }
               this.updateScore(enemy.pointValue);
               const hit = new Audio(explosionSound);
               hit.play();
-              this.explosionFactory.generateExplosions(enemy);
+              const enemyCopy = { ...enemy };
+              this.explosionFactory.generateExplosions(enemyCopy);
               enemies.splice(j, 1);
             }
           }

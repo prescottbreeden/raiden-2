@@ -1,8 +1,8 @@
-import {Blackbird} from './Blackbird';
-import {Whitebird} from './Whitebird';
-import {SpaceStation} from './SpaceStation';
-import {isOnScreen} from '../utilities';
-import {ItemGiver} from './ItemGiver';
+import { Blackbird } from './Blackbird';
+import { Whitebird } from './Whitebird';
+import { SpaceStation } from './SpaceStation';
+import { isOnScreen } from '../utilities';
+import { ItemGiver } from './ItemGiver';
 
 export class EnemyFactory {
   constructor(game, config = {}) {
@@ -20,11 +20,11 @@ export class EnemyFactory {
   createAllEnemies() {
     const lookup = {
       whitebird: (t) => new Whitebird(this.game, t),
-      blackbird: (t) => new Blackbird(this.game, t),
+      blackbird: (t) => Blackbird(this.game, t),
       spacestation: (t) => new SpaceStation(this.game, t),
       itemGiver: (t) => new ItemGiver(this.game, t),
     };
-    const {enemies} = this.config;
+    const { enemies } = this.config;
     enemies.map((enemyGroup) => {
       setTimeout(() => {
         enemyGroup.types.map((t, i) => {

@@ -1,6 +1,6 @@
-import {Spread} from './Spread';
-import {Blaster} from './Blaster';
-import {isOnScreen} from '../utilities';
+import { Spread } from './Spread';
+import { Blaster } from './Blaster';
+import { isOnScreen } from '../utilities';
 
 const playerOffset = 2.5;
 export class BulletFactory {
@@ -15,7 +15,6 @@ export class BulletFactory {
   addBullets = (...bullets) => {
     const cleanUp = this.bullets.filter(isOnScreen);
     this.bullets = [...cleanUp, ...bullets];
-    console.log('bullets', this.bullets.length);
   };
 
   // BLASTER

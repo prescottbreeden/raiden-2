@@ -2,10 +2,12 @@
   width: 100%;
   font-size: 1.8rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  text-align: center;
+  // justify-content: space-between;
 
   &__container {
-    width: 33.3%;
+    // width: 33.3%;
     line-height: 2;
   }
 }

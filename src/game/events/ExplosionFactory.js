@@ -8,6 +8,7 @@ export class ExplosionFactory {
   }
 
   generateExplosions(enemy) {
+    console.log('blewup', enemy);
     const explosion = new Explosion(this.game, enemy);
     this.explosions.push(explosion);
   }

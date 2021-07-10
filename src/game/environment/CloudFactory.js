@@ -1,5 +1,5 @@
-import {isOnScreen} from '../utilities';
-import {Cloud} from './Cloud';
+import { isOnScreen } from '../utilities';
+import { Cloud } from './Cloud';
 
 export class CloudFactory {
   constructor(canvas) {
@@ -13,7 +13,6 @@ export class CloudFactory {
       const cloud = new Cloud(this.canvas);
       const cleanUp = this.clouds.filter(isOnScreen);
       this.clouds = [...cleanUp, cloud];
-      console.log(this.clouds.length);
-    }, 5000);
+    }, 2000);
   }
 }

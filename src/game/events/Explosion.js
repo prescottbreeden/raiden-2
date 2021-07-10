@@ -39,6 +39,7 @@ export class Explosion {
       this.w,
       this.h
     );
+    // cycle through grid of images to animate
     this.col++;
     if (this.col === 9) {
       this.row++;

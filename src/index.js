@@ -1,8 +1,8 @@
 import './sass/main.scss';
-import {Game} from './game/Game';
+import { Game } from './game/Game';
 
-export const WIDTH = 500;
-export const HEIGHT = window.innerHeight - 50;
+export const WIDTH = 800;
+export const HEIGHT = window.innerHeight;
 
 window.onload = () => {
   const newGame = new Game({
@@ -12,4 +12,3 @@ window.onload = () => {
   });
   newGame.showMenu();
 };
-

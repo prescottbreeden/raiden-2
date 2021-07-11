@@ -12,6 +12,7 @@ export type BlackbirdEnemy = {
   name: string
   pointValue: number
   r: number
+  radians: number
   spin: boolean
   src: any
   tracking: boolean

@@ -1,1 +1,351 @@
-{"name":"stage_1","enemies":[{"timestamp":1,"types":[{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"}]},{"timestamp":6,"types":[{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"}]},{"timestamp":12,"types":[{"delay":0,"enter":"center","movement":["explore"],"type":"itemGiver"}]},{"timestamp":18,"types":[{"delay":200,"enter":"center","movement":["explore"],"type":"itemGiver"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"}]},{"timestamp":22,"types":[{"delay":200,"enter":"right","movement":["dive"],"type":"blackbird"},{"delay":200,"enter":"left","movement":["dive"],"type":"blackbird"},{"delay":200,"enter":"right","movement":["dive"],"type":"blackbird"},{"delay":200,"enter":"left","movement":["dive"],"type":"blackbird"}]},{"timestamp":30,"types":[{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":800,"enter":"left","movement":["parabolic"],"type":"whitebird"}]},{"timestamp":36,"types":[{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"},{"delay":800,"enter":"right","movement":["parabolic"],"type":"blackbird"}]},{"timestamp":42,"types":[{"delay":0,"enter":"center","movement":["explore"],"type":"itemGiver"}]},{"timestamp":48,"types":[{"delay":200,"enter":"center","movement":["explore"],"type":"itemGiver"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"},{"delay":200,"enter":"left","movement":["parabolic"],"type":"whitebird"}]},{"timestamp":52,"types":[{"delay":200,"enter":"right","movement":["dive"],"type":"blackbird"},{"delay":200,"enter":"left","movement":["dive"],"type":"blackbird"},{"delay":200,"enter":"right","movement":["dive"],"type":"blackbird"},{"delay":200,"enter":"left","movement":["dive"],"type":"blackbird"}]},{"timestamp":55,"types":[{"delay":0,"enter":"center","movement":["explore"],"type":"spacestation"}]},{"timestamp":60,"types":[{"delay":0,"enter":"center","movement":["explore"],"type":"itemGiver"}]},{"timestamp":65,"types":[{"delay":0,"enter":"center","movement":["explore"],"type":"spacestation"}]},{"timestamp":70,"types":[{"delay":0,"enter":"center","movement":["explore"],"type":"spacestation"}]}]}
+{
+ "name": "stage_1",
+ "enemies": [
+  {
+   "timestamp": 1,
+   "types": [
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    }
+   ]
+  },
+  {
+   "timestamp": 6,
+   "types": [
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    }
+   ]
+  },
+  {
+   "timestamp": 12,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    }
+   ]
+  },
+  {
+   "timestamp": 18,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    }
+   ]
+  },
+  {
+   "timestamp": 22,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "right",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "right",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "charge",
+     "type": "blackbird"
+    }
+   ]
+  },
+  {
+   "timestamp": 30,
+   "types": [
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 800,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    }
+   ]
+  },
+  {
+   "timestamp": 36,
+   "types": [
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    },
+    {
+     "delay": 800,
+     "enter": "right",
+     "movement": "parabolic",
+     "type": "blackbird"
+    }
+   ]
+  },
+  {
+   "timestamp": 42,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    }
+   ]
+  },
+  {
+   "timestamp": 48,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    }
+   ]
+  },
+  {
+   "timestamp": 52,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "right",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "right",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "charge",
+     "type": "blackbird"
+    }
+   ]
+  },
+  {
+   "timestamp": 55,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "hover",
+     "type": "spacestation"
+    }
+   ]
+  },
+  {
+   "timestamp": 60,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    }
+   ]
+  },
+  {
+   "timestamp": 65,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "hover",
+     "type": "spacestation"
+    }
+   ]
+  },
+  {
+   "timestamp": 70,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "hover",
+     "type": "spacestation"
+    }
+   ]
+  }
+ ]
+}

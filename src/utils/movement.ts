@@ -4,71 +4,93 @@ import { getRandomInt } from '../game/utilities'
 import { BlackbirdEnemy } from '../types/blackbird.type'
 import { any, equals, __ } from 'ramda'
 
-export const defaultAcceleration = { angle: 0, vy: 0, vx: 0, gy: 0, gx: 0 }
-export const handleAccelerations = ({ get, set }: any) => {
-  return set({
-    vx: get('vx') + get('gx'),
-    vy: get('vy') + get('gy'),
-    y: get('y') + get('vy'),
-    x: get('x') + get('vx'),
+type Enemy = (prop?: keyof BlackbirdEnemy) => any
+type Update = (data: Partial<BlackbirdEnemy>) => BlackbirdEnemy
+type MOFO = {
+  enemy: Enemy
+  update: Update
+}
+
+export const defaultAcceleration: Partial<BlackbirdEnemy> = {
+  angle: 0,
+  vy: 0,
+  vx: 0,
+  gy: 0,
+  gx: 0,
+  radians: 0,
+}
+export const handleAccelerations = ({ enemy, update }: MOFO) => {
+  return update({
+    vx: enemy('vx') + enemy('gx'),
+    vy: enemy('vy') + enemy('gy'),
+    y: enemy('y') + enemy('vy'),
+    x: enemy('x') + enemy('vx'),
   })
 }
-export const charge = (
-  game: Game,
-  getEnemy: () => BlackbirdEnemy,
-  setEnemy: (obj: Partial<BlackbirdEnemy>) => void
-) => {
-  setEnemy({
+export const charge = (game: Game, enemy: Enemy, update: Update) => {
+  update({
     vy: game.getVelocity() * 8,
   })
   setTimeout(() => {
-    setEnemy({
+    update({
       vy: 0,
     })
   }, 700)
   setTimeout(() => {
-    setEnemy({
-      gx: getEnemy().x < WIDTH / 2 ? -0.5 : 0.5,
+    update({
+      gx: enemy('x') < WIDTH / 2 ? -0.5 : 0.5,
     })
   }, 1400)
 }
 
-export const parabolic = (
-  game: Game,
-  getEnemy: () => BlackbirdEnemy,
-  setEnemy: (obj: Partial<BlackbirdEnemy>) => void
-) => {
-  setEnemy({
+export const hover = (game: Game, _: Enemy, update: Update) => {
+  update({
     vy: game.getVelocity() * 8,
-    vx: getEnemy().x >= WIDTH / 2 ? 1 : -1,
-    gy: -0.05,
+    x: WIDTH / 2,
   })
+  setTimeout(() => {
+    update({
+      vy: 0,
+    })
+  }, 500)
+  setTimeout(() => {
+    update({
+      vy: 5,
+    })
+  }, 20000)
 }
 
-export const explore = (
-  game: Game,
-  getEnemy: () => BlackbirdEnemy,
-  setEnemy: (obj: Partial<BlackbirdEnemy>) => void
-) => {
+export const explore = (game: Game, _: Enemy, update: Update) => {
   // TODO: set X position based on config setting
   // TODO: set Y poisiont based on config setting
-  setEnemy({
+  update({
     x: getRandomInt(WIDTH * 0.1, WIDTH * 0.9),
     vy: game.getVelocity() * 2,
     vx: getRandomInt(0.1, 0.09) > 0.5 ? 1 : -1,
   })
 }
-export const leavingLeftRight = ({ get }: any) =>
+
+export const parabolic = (game: Game, enemy: Enemy, update: Update) => {
+  update({
+    vy: game.getVelocity() * 8,
+    vx: enemy('x') >= WIDTH / 2 ? 1 : -1,
+    gy: -0.05,
+  })
+}
+
+export const leavingLeftRight = ({ enemy }: MOFO) =>
   any(equals(true), [
-    get('x') <= 5 && get('vx') < 0,
-    get('x') >= WIDTH - get('w') && get('vx') > 0,
+    enemy('x') <= 5 && enemy('vx') < 0,
+    enemy('x') >= WIDTH - enemy('w') && enemy('vx') > 0,
   ])
 
-export const leavingTopBottom = ({ get }: any) =>
+export const leavingTopBottom = ({ enemy }: MOFO) =>
   any(equals(true), [
-    get('y') <= get('h') && get('vy') < 0,
-    get('y') >= HEIGHT - get('h') && get('vy') > 0,
+    enemy('y') <= enemy('h') && enemy('vy') < 0,
+    enemy('y') >= HEIGHT - enemy('h') && enemy('vy') > 0,
   ])
 
-export const reverseVx = ({ get, set }: any) => set({ vx: get('vx') * -1 })
-export const reverseVy = ({ get, set }: any) => set({ vy: get('vy') * -1 })
+export const reverseVx = ({ enemy, update }: MOFO) =>
+  update({ vx: enemy('vx') * -1 })
+export const reverseVy = ({ enemy, update }: MOFO) =>
+  update({ vy: enemy('vy') * -1 })

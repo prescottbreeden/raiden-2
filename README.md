@@ -15,10 +15,12 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [x] Fix spread shot
 - [x] Create toml parsing for EnemyFactory data
 - [x] Make EnemyFactory JSON-configurable
-- [x] Add abstraction for enemey movement types
 - [x] Add abstraction for enemy position locations
+- [x] Add sprinkler enemy
+- [ ] Add powerup random chance item
+- [ ] Add abstraction for weapontypes
+- [ ] Add abstraction for enemey movement types
 - [ ] Add abstraction for simultaneous enemies
-- [ ] Add sprinkler enemy
 - [ ] Add bullet collision for player
 - [ ] Add abstraction for stages
 - [ ] Add foreground/background w/ enemy shadows
@@ -30,19 +32,24 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [ ] Mobile controls? (probably not...)
 
 ## Point logic
+
 figure out multiplier for difficulty setting?
-- I'm scared = * 1
-- Come get some = * 2
-- I am death incarnate = * 5 
+
+- I'm scared = \* 1
+- Come get some = \* 2
+- I am death incarnate = \* 5
 
 ### points per enemy type
+
 - easy enemy
 - med enemy
 - hard enemy
 - boss
 
 ### points per weapon str
+
 #### Primary weapons
+
 - lv1
 - lv2
 - lv3
@@ -50,13 +57,16 @@ figure out multiplier for difficulty setting?
 - max?
 
 #### Secondary weapons
+
 - lv1
 - lv2
 - max?
 
 #### Bombs
+
 - same as max primary?
 
 ### Ending level bonus
+
 - lives remaining
 - bombs remaining

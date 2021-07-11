@@ -1,0 +1,285 @@
+name = "stage_1"
+# movement types
+# parabolic -- arc in/out
+# explore -- moves around entire screen
+# static -- hovers in place
+# retreat -- runs away
+# charge -- kamakaze charge at player position
+
+# enemy types
+# whitebird -- threat: low
+# blackbird -- threat: low
+# spacestation -- threat: low
+# sprinkler -- threat: med
+
+[[enemies]]
+timestamp = 1
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+
+[[enemies]]
+timestamp = 6
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+
+[[enemies]]
+timestamp = 12
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+
+[[enemies]]
+timestamp = 18
+[[enemies.types]]
+delay = 200
+enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+
+[[enemies]]
+timestamp = 22
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'charge'
+type = "blackbird"
+
+[[enemies]]
+timestamp = 30
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 800
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+
+[[enemies]]
+timestamp = 36
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+[[enemies.types]]
+delay = 800
+enter = 'right'
+movement = 'parabolic'
+type = "blackbird"
+
+[[enemies]]
+timestamp = 42
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+
+[[enemies]]
+timestamp = 48
+[[enemies.types]]
+delay = 200
+enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+
+[[enemies]]
+timestamp = 52
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'charge'
+type = "blackbird"
+
+[[enemies]]
+timestamp = 55
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'hover'
+type = "spacestation"
+
+[[enemies]]
+timestamp = 60
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+
+[[enemies]]
+timestamp = 65
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'hover'
+type = "spacestation"
+
+[[enemies]]
+timestamp = 70
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'hover'
+type = "spacestation"

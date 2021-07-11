@@ -1,0 +1,5 @@
+# enemy types
+- water ?
+- land ? 
+
+

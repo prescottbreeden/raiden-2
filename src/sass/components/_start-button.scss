@@ -1,0 +1,13 @@
+.start-button {
+  position: absolute;
+  background-color: steelblue;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 3px;
+  color: #eee;
+  font-size: 1.6rem;
+  &:hover {
+    cursor: pointer;
+    background-color: darkred;
+  }
+}

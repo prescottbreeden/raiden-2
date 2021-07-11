@@ -1,0 +1,16 @@
+{
+ "name": "itemGiver",
+ "x": 250,
+ "y": 0,
+ "contain": true,
+ "enter": "random",
+ "hp": 50,
+ "item": true,
+ "movement": "explore",
+ "movementSpeed": 2,
+ "spin": true,
+ "tracking": false,
+ "weaponDelay": 2000,
+ "weaponSpeed": 6,
+ "weaponType": "tri-shot"
+}

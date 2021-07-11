@@ -1,0 +1,16 @@
+name = "blackbird"
+
+# default attributes
+x = 250
+y = 0
+contain = false
+enter = "random"
+hp = 10
+item = false
+movement = "parabolic"
+movementSpeed = 8
+spin = false
+tracking = true
+weaponDelay = 1000
+weaponSpeed = 4
+weaponType = "ball"

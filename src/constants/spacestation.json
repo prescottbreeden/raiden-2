@@ -1,0 +1,16 @@
+{
+ "name": "spacestation",
+ "x": 250,
+ "y": 0,
+ "contain": true,
+ "enter": "random",
+ "hp": 1000,
+ "item": false,
+ "movement": "hover",
+ "movementSpeed": 2,
+ "spin": true,
+ "tracking": false,
+ "weaponDelay": 2000,
+ "weaponSpeed": 4,
+ "weaponType": "spincycle"
+}

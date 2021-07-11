@@ -1,0 +1,12 @@
+// base
+@import 'base/base';
+
+// components
+@import 'components/player-lives';
+@import 'components/player-score';
+@import 'components/player-ship';
+@import 'components/start-button';
+
+// layout
+@import 'layout/game';
+@import 'layout/player-bar';

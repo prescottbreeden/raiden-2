@@ -19,10 +19,10 @@ export class EnemyFactory {
 
   createAllEnemies() {
     const lookup = {
-      whitebird: (t) => new Whitebird(this.game, t),
+      whitebird: (t) => Whitebird(this.game, t),
       blackbird: (t) => Blackbird(this.game, t),
-      spacestation: (t) => new SpaceStation(this.game, t),
-      itemGiver: (t) => new ItemGiver(this.game, t),
+      spacestation: (t) => SpaceStation(this.game, t),
+      itemGiver: (t) => ItemGiver(this.game, t),
     };
     const { enemies } = this.config;
     enemies.map((enemyGroup) => {

@@ -1,14 +1,14 @@
-import blackbird from '../../assets/images/blackbird.png';
-import defaults from '../../constants/blackbird.json';
+import defaults from '../../constants/whitebird.json';
+import whitebirdImg from '../../assets/images/whitebird.png';
 import { BlackbirdEnemy } from '../../types/blackbird.type';
 import { Game } from '../Game';
 import { Enemy } from './Enemy';
 
-export const Blackbird = (game: Game, props: BlackbirdEnemy) => {
+export const Whitebird = (game: Game, props: BlackbirdEnemy) => {
   const attr: BlackbirdEnemy = {
     ...defaults,
     ...props,
-    src: blackbird,
+    src: whitebirdImg,
     h: 67,
     w: 67,
     r: 67 / 2.1,

@@ -3,7 +3,7 @@ import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3'
 // import minigun from '../../assets/sfx/r2/r2-big-laser.mp3'
 import minigun from '../../assets/sfx/r2/r2-big-laser-3.mp3'
 import { Ball } from '../bullets/Ball'
-import { BlackbirdEnemy } from '../../types/blackbird.type'
+import { EnemyType } from '../../types/blackbird.type'
 import { Game, radian } from '../Game'
 import { aimAtPlayer } from '../../utils/weapons'
 import { cond, __ } from 'ramda'
@@ -15,14 +15,19 @@ export const Enemy = (game: Game, props: any) => {
   const img = new Image()
   img.src = props.src
 
-  const [retrieveState, update] = useState<BlackbirdEnemy>({
+  const [retrieveState, update] = useState<EnemyType>({
     game,
     img,
-    ...Movement.defaultAcceleration,
+    angle: 0,
+    vy: 0,
+    vx: 0,
+    gy: 0,
+    gx: 0,
+    radians: 0,
     ...props,
   })
 
-  const enemy = (p?: keyof BlackbirdEnemy) =>
+  const enemy = (p?: keyof EnemyType) =>
     // @ts-ignore
     p ? retrieveState()[p] : retrieveState()
 

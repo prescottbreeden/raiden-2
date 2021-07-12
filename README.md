@@ -11,21 +11,27 @@ Because this game is still in dev, players are immune from bullets for testing p
 
 ## Roadmap
 
+- [ ] Add Jest
 - [ ] Code cleanup / utilities overhaul
 - [x] Fix spread shot
 - [x] Create toml parsing for EnemyFactory data
 - [x] Make EnemyFactory JSON-configurable
 - [x] Add abstraction for enemy position locations
-- [x] Add sprinkler enemy
+- [x] Add spiral attack
+- [ ] Add sprinkler attack
 - [ ] Add powerup random chance item
 - [ ] Add abstraction for weapontypes
 - [ ] Add abstraction for enemey movement types
 - [ ] Add abstraction for simultaneous enemies
 - [ ] Add bullet collision for player
+- [ ] Add weapon release after player death
 - [ ] Add abstraction for stages
 - [ ] Add foreground/background w/ enemy shadows
 - [ ] Add player bombs
 - [ ] Add player missiles
+- [ ] Add player lives
+- [ ] Add player continue
+- [ ] Add high score saving
 - [ ] Create dynamic web portal (small: 67%, large: 100%)
 - [ ] Create window size detection
 - [ ] Create Game Menu / Main Menu options

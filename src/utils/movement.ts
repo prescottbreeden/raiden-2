@@ -1,24 +1,16 @@
 import { HEIGHT, WIDTH } from '..'
 import { Game } from '../game/Game'
 import { getRandomInt } from '../game/utilities'
-import { BlackbirdEnemy } from '../types/blackbird.type'
+import { EnemyType } from '../types/blackbird.type'
 import { any, equals, __ } from 'ramda'
 
-type Enemy = (prop?: keyof BlackbirdEnemy) => any
-type Update = (data: Partial<BlackbirdEnemy>) => BlackbirdEnemy
+type Enemy = (prop?: keyof EnemyType) => any
+type Update = (data: Partial<EnemyType>) => EnemyType
 type MOFO = {
   enemy: Enemy
   update: Update
 }
 
-export const defaultAcceleration: Partial<BlackbirdEnemy> = {
-  angle: 0,
-  vy: 0,
-  vx: 0,
-  gy: 0,
-  gx: 0,
-  radians: 0,
-}
 export const handleAccelerations = ({ enemy, update }: MOFO) => {
   return update({
     vx: enemy('vx') + enemy('gx'),

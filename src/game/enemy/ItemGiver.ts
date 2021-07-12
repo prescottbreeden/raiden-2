@@ -1,11 +1,11 @@
-import defaults from '../../constants/itemGiver.json';
-import itemGiverImg from '../../assets/images/item-giver-2.png';
-import { BlackbirdEnemy } from '../../types/blackbird.type';
-import { Enemy } from './Enemy';
-import { Game } from '../Game';
+import defaults from '../../constants/itemGiver.json'
+import itemGiverImg from '../../assets/images/item-giver-2.png'
+import { EnemyType } from '../../types/blackbird.type'
+import { Enemy } from './Enemy'
+import { Game } from '../Game'
 
-export const ItemGiver = (game: Game, props: BlackbirdEnemy) => {
-  const attr: BlackbirdEnemy = {
+export const ItemGiver = (game: Game, props: EnemyType) => {
+  const attr: EnemyType = {
     ...defaults,
     ...props,
     src: itemGiverImg,
@@ -16,6 +16,6 @@ export const ItemGiver = (game: Game, props: BlackbirdEnemy) => {
     pointValue: 200,
     weaponSpeed: game.getVelocity() * defaults.weaponSpeed,
     weaponType: 'ball',
-  };
-  return Enemy(game, attr);
-};
+  }
+  return Enemy(game, attr)
+}

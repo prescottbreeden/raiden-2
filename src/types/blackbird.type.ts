@@ -1,4 +1,4 @@
-export type BlackbirdEnemy = {
+export type EnemyType = {
   angle: number
   contain: boolean
   gx: number

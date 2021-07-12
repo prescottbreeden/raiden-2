@@ -1,11 +1,11 @@
-import defaults from '../../constants/whitebird.json';
-import whitebirdImg from '../../assets/images/whitebird.png';
-import { BlackbirdEnemy } from '../../types/blackbird.type';
-import { Game } from '../Game';
-import { Enemy } from './Enemy';
+import defaults from '../../constants/whitebird.json'
+import whitebirdImg from '../../assets/images/whitebird.png'
+import { EnemyType } from '../../types/blackbird.type'
+import { Game } from '../Game'
+import { Enemy } from './Enemy'
 
-export const Whitebird = (game: Game, props: BlackbirdEnemy) => {
-  const attr: BlackbirdEnemy = {
+export const Whitebird = (game: Game, props: EnemyType) => {
+  const attr: EnemyType = {
     ...defaults,
     ...props,
     src: whitebirdImg,
@@ -15,6 +15,6 @@ export const Whitebird = (game: Game, props: BlackbirdEnemy) => {
     pointValue: 100,
     weaponSpeed: game.getVelocity() * defaults.weaponSpeed,
     weaponType: 'ball',
-  };
-  return Enemy(game, attr);
-};
+  }
+  return Enemy(game, attr)
+}

@@ -4,7 +4,7 @@
  "y": 0,
  "contain": true,
  "enter": "random",
- "hp": 50,
+ "hp": 60,
  "item": true,
  "movement": "explore",
  "movementSpeed": 2,

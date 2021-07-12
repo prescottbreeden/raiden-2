@@ -4,12 +4,13 @@
   "description": "For those who know, they know.",
   "private": true,
   "dependencies": {
-    "fs-extra": "^10.0.0",
     "ramda": "^0.27.1"
   },
   "scripts": {
+    "watch-config": "yarn nodemon --ignore './src' --exec node ./tomls/update-json.js -w",
+    "update-config": "node ./tomls/update-json.js ",
     "watch": "webpack --config webpack.dev.js --watch",
-    "start": "webpack serve --config webpack.dev.js --open",
+    "start": "yarn update-config && webpack serve --config webpack.dev.js --open",
     "build": "webpack --config webpack.prod.js",
     "update-data": "node ./tomls/update-json.js"
   },
@@ -17,8 +18,10 @@
     "@types/ramda": "^0.27.44",
     "css-loader": "^5.2.6",
     "fp-tools": "^3.0.0",
+    "fs-extra": "^10.0.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
+    "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",

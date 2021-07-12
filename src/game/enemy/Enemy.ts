@@ -1,6 +1,5 @@
 import * as Movement from '../../utils/movement'
 import retroShotBlaster from '../../assets/sfx/retro-shot-blaster-1.mp3'
-// import minigun from '../../assets/sfx/r2/r2-big-laser.mp3'
 import minigun from '../../assets/sfx/r2/r2-big-laser-3.mp3'
 import { Ball } from '../bullets/Ball'
 import { EnemyType } from '../../types/blackbird.type'
@@ -27,25 +26,14 @@ export const Enemy = (game: Game, props: any) => {
     ...props,
   })
 
-  const enemy = (p?: keyof EnemyType) =>
+  const enemy = (p?: keyof EnemyType): any | EnemyType =>
     // @ts-ignore
     p ? retrieveState()[p] : retrieveState()
 
-  // --[ Run Config Settings ]--
-  if (enemy('movement') === 'hover') {
-    Movement.hover(game, enemy, update)
-  } else if (enemy('movement') === 'parabolic') {
-    Movement.parabolic(game, enemy, update)
-  } else if (enemy('movement') === 'charge') {
-    Movement.charge(game, enemy, update)
-  } else if (enemy('movement') === 'explore') {
-    Movement.explore(game, enemy, update)
-  } else {
-    console.error('FACK', enemy('movement'))
-    Movement.charge(game, enemy, update)
-  }
+  // @ts-ignore
+  Movement[enemy('movement')](game, enemy, update)
 
-  // abstract me
+  // TODO: abstract me please....
   if (enemy('movement') === 'hover') {
     const firing = setInterval(() => {
       if (enemy('vy') === 0) {
@@ -75,34 +63,26 @@ export const Enemy = (game: Game, props: any) => {
     }, enemy('weaponDelay'))
   }
 
-  const takeDamage = (dmg: number) => {
+  const takeDamage = (dmg: number): void => {
     update({
       hp: enemy('hp') - dmg,
     })
   }
-  const draw = () => {
+
+  const draw = (): void => {
+    // update position and velocities
     const updated = Movement.handleAccelerations({ enemy, update })
-
-    // if (enemy('movement') === 'hover') {
-    //   const radians = enemy('radians') + 0.03
-    //   const x = enemy('x') + Math.cos(radians) * 2
-    //   const y = enemy('y') + Math.sin(radians) * 2
-    //   update({
-    //     radians,
-    //     x,
-    //     y,
-    //   })
-    // }
-
     game.context?.save()
     game.context?.translate(updated.x, updated.y)
 
+    // if tracking enemy, aim the enemy at player
     if (enemy('tracking')) {
       const { x, y } = getPosition(game.player!)
       const angle = Math.atan2(y - enemy('y'), x - enemy('x')) - Math.PI / 2
       game.context?.rotate(angle)
     }
 
+    // if contain enemy, let it bounce off edges
     if (enemy('contain')) {
       cond([
         [Movement.leavingLeftRight, Movement.reverseVx],
@@ -110,6 +90,7 @@ export const Enemy = (game: Game, props: any) => {
       ])({ enemy, update })
     }
 
+    // if spin enemy, rotate it in a circle
     if (enemy('spin')) {
       update({
         angle: enemy('angle') + 5 * radian,
@@ -117,6 +98,7 @@ export const Enemy = (game: Game, props: any) => {
       game.context?.rotate(enemy('angle'))
     }
 
+    // redraw image
     game.context?.drawImage(
       updated.img,
       -(updated.w / 2),
@@ -140,7 +122,7 @@ export const Enemy = (game: Game, props: any) => {
     },
   })
 
-  // Public Read Properties (convenience)
+  // Public Read Properties
   Object.defineProperties(enemyObject, {
     ...publicProperty('pointValue', () => enemy('pointValue')),
     ...publicProperty('item', () => enemy('item')),

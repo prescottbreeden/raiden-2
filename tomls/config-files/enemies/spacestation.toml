@@ -1,16 +1,17 @@
 name = "spacestation"
 
 # default attributes
-x = 250
-y = 0
 contain = true
 enter = "random"
-hp = 1000
+hp = 3000
 item = false
 movement = "hover"
 movementSpeed = 2
+pointValue = 1000
 spin = true
 tracking = false
 weaponDelay = 2000
 weaponSpeed = 4
 weaponType = "spincycle"
+x = 250
+y = 0

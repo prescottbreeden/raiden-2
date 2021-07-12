@@ -15,6 +15,7 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [ ] Code cleanup / utilities overhaul
 - [x] Fix spread shot
 - [x] Create toml parsing for EnemyFactory data
+- [x] Create script to run all toml directories (ignoring src)
 - [x] Make EnemyFactory JSON-configurable
 - [x] Add abstraction for enemy position locations
 - [x] Add spiral attack

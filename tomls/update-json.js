@@ -1,14 +1,8 @@
-const yargs = require('yargs-parser');
-const {createData} = require('./create-data');
-const {Maybe} = require('fp-tools');
-const {print, parseTomlFiles, readTomlFiles} = require('./helpers');
+const yargs = require('yargs-parser')
+const { runScript } = require('./helpers')
+const { _: files } = yargs(process.argv.slice(2))
 
-const {_: files} = yargs(process.argv.slice(2));
-
-Maybe.of(files)
-  .map(print('[ Reading TOML file(s) ]'))
-  .map(readTomlFiles)
-  .map(print('[ Parsing TOML file(s) ]'))
-  .map(parseTomlFiles)
-  .map(print('[ Writing Data ]'))
-  .map(createData);
+// Call this script with either:
+// Specified Paths: e.g. $ node update-json enemies/blackbird enemies/itemGiver
+// No Arguments: e.g. $ node update-json
+runScript(files)

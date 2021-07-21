@@ -1,72 +1,15 @@
-import { HEIGHT, WIDTH } from '..'
+import { Enemy, MOFO, Movement, Update } from '../types/blackbird.type'
 import { Game } from '../game/Game'
-import { getRandomInt } from '../game/utilities'
-import { EnemyType } from '../types/blackbird.type'
+import { HEIGHT, WIDTH } from '..'
 import { any, equals, __ } from 'ramda'
+import { getRandomInt } from '../game/utilities'
 
-type Enemy = (prop?: keyof EnemyType) => any
-type Update = (data: Partial<EnemyType>) => EnemyType
-type MOFO = {
-  enemy: Enemy
-  update: Update
-}
-
-export const handleAccelerations = ({ enemy, update }: MOFO) => {
+export const updatePositionAcceleration = ({ enemy, update }: MOFO) => {
   return update({
     vx: enemy('vx') + enemy('gx'),
     vy: enemy('vy') + enemy('gy'),
     y: enemy('y') + enemy('vy'),
     x: enemy('x') + enemy('vx'),
-  })
-}
-export const charge = (game: Game, enemy: Enemy, update: Update) => {
-  update({
-    vy: game.getVelocity() * 8,
-  })
-  setTimeout(() => {
-    update({
-      vy: 0,
-    })
-  }, 700)
-  setTimeout(() => {
-    update({
-      gx: enemy('x') < WIDTH / 2 ? -0.5 : 0.5,
-    })
-  }, 1400)
-}
-
-export const hover = (game: Game, _: Enemy, update: Update) => {
-  update({
-    vy: game.getVelocity() * 8,
-    x: WIDTH / 2,
-  })
-  setTimeout(() => {
-    update({
-      vy: 0,
-    })
-  }, 500)
-  setTimeout(() => {
-    update({
-      vy: 5,
-    })
-  }, 20000)
-}
-
-export const explore = (game: Game, _: Enemy, update: Update) => {
-  // TODO: set X position based on config setting
-  // TODO: set Y poisiont based on config setting
-  update({
-    x: getRandomInt(WIDTH * 0.1, WIDTH * 0.9),
-    vy: game.getVelocity() * 2,
-    vx: getRandomInt(0.1, 0.09) > 0.5 ? 1 : -1,
-  })
-}
-
-export const parabolic = (game: Game, enemy: Enemy, update: Update) => {
-  update({
-    vy: game.getVelocity() * 8,
-    vx: enemy('x') >= WIDTH / 2 ? 1 : -1,
-    gy: -0.05,
   })
 }
 
@@ -84,5 +27,66 @@ export const leavingTopBottom = ({ enemy }: MOFO) =>
 
 export const reverseVx = ({ enemy, update }: MOFO) =>
   update({ vx: enemy('vx') * -1 })
+
 export const reverseVy = ({ enemy, update }: MOFO) =>
   update({ vy: enemy('vy') * -1 })
+
+const charge = (game: Game, enemy: Enemy, update: Update) => {
+  update({
+    vy: game.getVelocity() * 8,
+  })
+  setTimeout(() => {
+    update({
+      vy: 0,
+    })
+  }, 700)
+  setTimeout(() => {
+    update({
+      gx: enemy('x') < WIDTH / 2 ? -0.5 : 0.5,
+    })
+  }, 1400)
+}
+
+const hover = (game: Game, _: Enemy, update: Update) => {
+  update({
+    vy: game.getVelocity() * 8,
+    x: WIDTH / 2,
+  })
+  setTimeout(() => {
+    update({
+      vy: 0,
+    })
+  }, 500)
+  setTimeout(() => {
+    update({
+      vy: 5,
+    })
+  }, 20000)
+}
+
+const explore = (game: Game, _: Enemy, update: Update) => {
+  // TODO: set X position based on config setting
+  // TODO: set Y poisiont based on config setting
+  update({
+    x: getRandomInt(WIDTH * 0.1, WIDTH * 0.9),
+    vy: game.getVelocity() * 2,
+    vx: getRandomInt(0.1, 0.09) > 0.5 ? 1 : -1,
+  })
+}
+
+const parabolic = (game: Game, enemy: Enemy, update: Update) => {
+  update({
+    vy: game.getVelocity() * 8,
+    vx: enemy('x') >= WIDTH / 2 ? 1 : -1,
+    gy: -0.05,
+  })
+}
+export const move = (movementType: Movement) => {
+  const lookup = {
+    parabolic,
+    explore,
+    charge,
+    hover,
+  }
+  return lookup[movementType]
+}

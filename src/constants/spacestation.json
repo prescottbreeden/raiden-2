@@ -17,7 +17,7 @@
  "vx": 0,
  "vy": 0,
  "w": 80,
- "weaponDelay": 2000,
+ "weaponDelay": 50,
  "weaponSpeed": 4,
  "weaponType": "spincycle",
  "x": 0,

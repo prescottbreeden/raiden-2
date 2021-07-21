@@ -19,15 +19,11 @@ export interface EnemyFactory {
 }
 
 export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
-  const [retrieveState, update] = useState<EnemyFactory>({
+  const { readState: factory, updateState: update } = useState<EnemyFactory>({
     game,
     enemies: [],
     config: props.enemies,
   })
-
-  const factory = (p?: keyof EnemyFactory): any | EnemyFactory =>
-    // @ts-ignore
-    p ? retrieveState()[p] : retrieveState()
 
   const addEnemy = (...enemies: EnemyType[]) => {
     const cleanUp = factory('enemies').filter(isOnScreen)

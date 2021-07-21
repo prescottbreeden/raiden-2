@@ -20,6 +20,6 @@ vy = 0
 w = 80
 weaponDelay = 2000
 weaponSpeed = 6
-weaponType = "tri-shot"
+weaponType = "trishot"
 x = 0
 y = 0

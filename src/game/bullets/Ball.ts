@@ -1,27 +1,38 @@
 import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
-import { Game } from '../Game'
 import { newImage, publicProperty, useState } from '../../utils/general'
+import { Game } from '../Game'
+import { EnemyType } from '../../types/blackbird.type'
+import { aimAtPlayer } from '../../utils/weapons'
 
-export const SpinCycle = (game: Game, ship: any) => {
+export const Ball = (game: Game, enemy: EnemyType) => {
   const { readState: bullet, updateState: update } = useState<any>({
+    ...enemy,
+    aim: true,
     class: 'enemy',
     h: 20,
     img: newImage(fireball),
     radians: Date.now(),
-    vx: ship.vx,
-    vy: ship.vy,
+    gx: 0,
+    gy: 0,
     w: 20,
-    x: ship.x,
-    y: ship.y,
   })
+
+  if (bullet('aim')) {
+    const { vx, vy } = aimAtPlayer(game, bullet())
+    update({ vx, vy })
+  }
 
   const draw = () => {
     update({
-      x: bullet('x') + Math.cos(bullet('radians')) * 3,
-      y: bullet('y') + Math.sin(bullet('radians')) * 3,
+      vx: bullet('vx') + bullet('gx'),
+      vy: bullet('vy') + bullet('gy'),
+      y: bullet('y') + bullet('vy'),
+      x: bullet('x') + bullet('vx'),
     })
+
     game.context?.save()
     game.context?.translate(bullet('x'), bullet('y'))
+
     game.context?.drawImage(
       bullet('img'),
       -(bullet('w') / 2),
@@ -39,12 +50,10 @@ export const SpinCycle = (game: Game, ship: any) => {
   // Read-only properties
   Object.defineProperties(bulletObject, {
     ...publicProperty<number>('h', () => bullet('h')),
-    ...publicProperty<number>('vx', () => bullet('vx')),
-    ...publicProperty<number>('vy', () => bullet('vy')),
+    ...publicProperty<number>('r', () => bullet('r')),
     ...publicProperty<number>('w', () => bullet('w')),
     ...publicProperty<number>('x', () => bullet('x')),
     ...publicProperty<number>('y', () => bullet('y')),
-    ...publicProperty<string>('class', () => bullet('class')),
   })
 
   return bulletObject

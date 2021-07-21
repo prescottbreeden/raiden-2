@@ -1,13 +1,19 @@
+export type Movement = 'parabolic' | 'charge' | 'explore' | 'hover'
+
+export type WeaponType = 'ball' | 'spread' | 'blaster' | 'spincycle'
+
 export type EnemyConfigOptions = {
+  aim: boolean
   angle: number
   contain: boolean
   enter: string
   gx: number
   gy: number
   h: number
+  hit: boolean
   hp: number
   item: boolean
-  movement: 'parabolic' | 'charge' | 'explore'
+  movement: Movement
   movementSpeed: number
   name: string
   pointValue: number
@@ -19,7 +25,7 @@ export type EnemyConfigOptions = {
   vy: number
   w: number
   weaponDelay: number
-  weaponType: 'ball' | 'spread' | 'blaster'
+  weaponType: WeaponType
   x: number
   y: number
 }
@@ -43,4 +49,10 @@ export interface StageTomlEnemyGroup {
 
 export interface StageTomlEnemies {
   enemies: StageTomlEnemyGroup[]
+}
+export type Enemy = (prop?: keyof EnemyType) => any
+export type Update = (data: Partial<EnemyType>) => EnemyType
+export type MOFO = {
+  enemy: Enemy
+  update: Update
 }

@@ -4,8 +4,8 @@ export function useState<T>(val: T) {
     state = { ...state, ...data }
     return state
   }
-  const readState = () => state
-  return [readState, updateState]
+  const readState = (p?: keyof T): any | T => (p ? state[p] : state)
+  return { readState, updateState }
 }
 
 export const valueOf = (f: any) => (typeof f === 'function' ? f() : f)
@@ -17,4 +17,10 @@ export function publicProperty<T>(name: string, val: () => T) {
       get: val,
     },
   }
+}
+
+export const newImage = (src: string) => {
+  const img = new Image()
+  img.src = src
+  return img
 }

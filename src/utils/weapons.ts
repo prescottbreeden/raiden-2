@@ -22,8 +22,7 @@ const spincycle = (game: Game, enemy: Enemy) => {
       if (shouldFire(enemy())) {
         const pew = new Audio(minigun)
         pew.play()
-        const bullet = SpinCycle(game, enemy())
-        game.bulletFactory?.addBullets(bullet)
+        game.bulletFactory?.addBullets(SpinCycle(game, enemy()))
       } else {
         clearInterval(firing)
       }
@@ -36,8 +35,7 @@ const ball = (game: Game, enemy: Enemy) => {
     if (shouldFire(enemy())) {
       const pew = new Audio(retroShotBlaster)
       pew.play()
-      const bullet = Ball(game, enemy())
-      game.bulletFactory?.addBullets(bullet)
+      game.bulletFactory?.addBullets(Ball(game, enemy()))
     } else {
       clearInterval(firing)
     }
@@ -49,8 +47,7 @@ const trishot = (game: Game, enemy: Enemy) => {
     if (shouldFire(enemy())) {
       const pew = new Audio(retroShotBlaster)
       pew.play()
-      const bullet = Ball(game, enemy())
-      game.bulletFactory?.addBullets(bullet)
+      game.bulletFactory?.addBullets(Ball(game, enemy()))
     } else {
       clearInterval(firing)
     }

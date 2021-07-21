@@ -1,4 +1,5 @@
-import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
+import defaults from '../../constants/fireball.json'
+import fireballImage from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
 import { newImage, publicProperty, useState } from '../../utils/general'
 import { Game } from '../Game'
 import { EnemyType } from '../../types/blackbird.type'
@@ -7,17 +8,12 @@ import { aimAtPlayer } from '../../utils/weapons'
 export const Ball = (game: Game, enemy: EnemyType) => {
   const { readState: bullet, updateState: update } = useState<any>({
     ...enemy,
-    aim: true,
-    class: 'enemy',
-    h: 20,
-    img: newImage(fireball),
+    ...defaults,
+    img: newImage(fireballImage),
     radians: Date.now(),
-    gx: 0,
-    gy: 0,
-    w: 20,
   })
 
-  if (bullet('aim')) {
+  if (enemy.aim) {
     const { vx, vy } = aimAtPlayer(game, bullet())
     update({ vx, vy })
   }

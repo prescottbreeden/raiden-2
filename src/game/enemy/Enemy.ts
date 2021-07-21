@@ -24,9 +24,14 @@ export const Enemy = (game: Game, props: EnemyType) => {
   }
 
   const draw = (): void => {
-    const updated = Movement.updatePositionAcceleration({ enemy, update })
+    update({
+      vx: enemy('vx') + enemy('gx'),
+      vy: enemy('vy') + enemy('gy'),
+      y: enemy('y') + enemy('vy'),
+      x: enemy('x') + enemy('vx'),
+    })
     game.context?.save()
-    game.context?.translate(updated.x, updated.y)
+    game.context?.translate(enemy('x'), enemy('y'))
 
     // if tracking enemy, aim the enemy at player
     if (enemy('tracking')) {
@@ -62,11 +67,11 @@ export const Enemy = (game: Game, props: EnemyType) => {
 
     // redraw src image
     game.context?.drawImage(
-      updated.img,
-      -(updated.w / 2),
-      -(updated.h / 2),
-      updated.h,
-      updated.w
+      enemy('img'),
+      -(enemy('w') / 2),
+      -(enemy('h') / 2),
+      enemy('h'),
+      enemy('w')
     )
 
     game.context?.restore()

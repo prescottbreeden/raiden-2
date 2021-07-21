@@ -256,6 +256,7 @@ export class Game {
             bullet.y
           )
           if (checkPlayerBullets < enemy.r + bullet.w / 2) {
+            // TODO: finish abstracting
             if (enemy.takeDamage) {
               enemy.takeDamage(bullet.power)
             } else {

@@ -1,5 +1,6 @@
 {
  "name": "spacestation",
+ "aim": false,
  "angle": 0,
  "contain": true,
  "enter": "random",

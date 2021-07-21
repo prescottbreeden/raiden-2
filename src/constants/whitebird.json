@@ -1,5 +1,6 @@
 {
  "name": "whitebird",
+ "aim": true,
  "angle": 0,
  "contain": false,
  "enter": "random",

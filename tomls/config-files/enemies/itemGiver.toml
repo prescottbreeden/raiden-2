@@ -1,6 +1,8 @@
 name = "itemGiver"
 
 # default attributes
+
+aim = true
 angle = 0
 contain = true
 enter = "random"

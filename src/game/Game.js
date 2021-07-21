@@ -133,7 +133,7 @@ export class Game {
     this.cloudFactory = new CloudFactory(this.canvas)
     this.player = new Player(playerOne, this.canvas)
     this.bulletFactory = new BulletFactory(this, this.player)
-    this.enemyFactory = new EnemyFactory(this, stage_1)
+    this.enemyFactory = EnemyFactory(this, stage_1)
     this.explosionFactory = new ExplosionFactory(this)
     this.itemFactory = new ItemFactory(this)
   }

@@ -1,16 +1,25 @@
 {
  "name": "itemGiver",
- "x": 250,
- "y": 0,
+ "angle": 0,
  "contain": true,
  "enter": "random",
+ "gx": 0,
+ "gy": 0,
+ "h": 80,
  "hp": 60,
  "item": true,
  "movement": "explore",
  "movementSpeed": 2,
+ "pointValue": 200,
+ "radians": 0,
  "spin": true,
  "tracking": false,
+ "vx": 0,
+ "vy": 0,
+ "w": 80,
  "weaponDelay": 2000,
  "weaponSpeed": 6,
- "weaponType": "tri-shot"
+ "weaponType": "tri-shot",
+ "x": 0,
+ "y": 0
 }

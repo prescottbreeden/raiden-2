@@ -1,16 +1,25 @@
 name = "whitebird"
 
 # default attributes
-x = 250
-y = 0
+angle = 0
 contain = false
 enter = "random"
+gx = 0
+gy = 0
+h= 67
 hp = 10
 item = false
 movement = "charge"
 movementSpeed = 8
+pointValue = 100
+radians = 0
 spin = false
 tracking = true
+vx = 0
+vy = 0
+w = 67
 weaponDelay = 1000
 weaponSpeed = 4
 weaponType = "ball"
+x = 0
+y = 0

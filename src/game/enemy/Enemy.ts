@@ -10,20 +10,14 @@ import { getPosition, shouldFire } from '../utilities'
 import { useState } from '../../utils/general'
 import { Spiral } from '../bullets/Spiral'
 
-export const Enemy = (game: Game, props: any) => {
+export const Enemy = (game: Game, props: EnemyType) => {
   const img = new Image()
   img.src = props.src
 
-  const [retrieveState, update] = useState<EnemyType>({
+  const [retrieveState, update] = useState<EnemyType & { game: Game }>({
+    ...props,
     game,
     img,
-    angle: 0,
-    vy: 0,
-    vx: 0,
-    gy: 0,
-    gx: 0,
-    radians: 0,
-    ...props,
   })
 
   const enemy = (p?: keyof EnemyType): any | EnemyType =>

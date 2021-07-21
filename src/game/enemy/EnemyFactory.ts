@@ -1,45 +1,75 @@
 import { Blackbird } from './Blackbird'
-import { Whitebird } from './Whitebird'
-import { SpaceStation } from './SpaceStation'
-import { isOnScreen } from '../utilities'
-import { ItemGiver } from './ItemGiver'
+import {
+  EnemyType,
+  StageOptions,
+  StageTomlEnemies,
+  StageTomlEnemyGroup,
+} from '../../types/blackbird.type'
 import { Game } from '../Game'
-import { EnemyType } from '../../types/blackbird.type'
+import { ItemGiver } from './ItemGiver'
+import { SpaceStation } from './SpaceStation'
+import { Whitebird } from './Whitebird'
+import { isOnScreen } from '../utilities'
+import { useState } from '../../utils/general'
 
-export class EnemyFactory {
+export interface EnemyFactory {
   game: Game
   canvas: HTMLCanvasElement | undefined | null
   enemies: EnemyType[]
-  config: any
-  constructor(game: Game, config = {}) {
-    this.game = game
-    this.canvas = game.canvas
-    this.enemies = []
-    this.config = config
+  config: StageTomlEnemyGroup[]
+}
+
+export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
+  const [retrieveState, update] = useState<EnemyFactory>({
+    game,
+    canvas: game.canvas,
+    enemies: [],
+    config: props.enemies,
+  })
+
+  const factory = (p?: keyof EnemyFactory): any | EnemyFactory =>
+    // @ts-ignore
+    p ? retrieveState()[p] : retrieveState()
+
+  const addEnemy = (...enemies: EnemyType[]) => {
+    const cleanUp = factory('enemies').filter(isOnScreen)
+    update({
+      enemies: [...cleanUp, ...enemies],
+    })
   }
 
-  addEnemy = (...enemies: EnemyType[]) => {
-    const cleanUp = this.enemies.filter(isOnScreen)
-    this.enemies = [...cleanUp, ...enemies]
-  }
-
-  // TODO fix types here, enemy config type = enemy type?
-  createAllEnemies() {
-    const lookup: { [key: string]: (x: EnemyType) => any } = {
-      whitebird: (t: EnemyType) => Whitebird(this.game, t),
-      blackbird: (t: EnemyType) => Blackbird(this.game, t),
-      spacestation: (t: EnemyType) => SpaceStation(this.game, t),
-      itemGiver: (t: EnemyType) => ItemGiver(this.game, t),
+  const createAllEnemies = () => {
+    const selectEnemy: { [key: string]: (x: StageOptions) => any } = {
+      whitebird: (toml: StageOptions) => Whitebird(factory('game'), toml),
+      blackbird: (toml: StageOptions) => Blackbird(factory('game'), toml),
+      spacestation: (toml: StageOptions) => SpaceStation(factory('game'), toml),
+      itemGiver: (toml: StageOptions) => ItemGiver(factory('game'), toml),
     }
-    const { enemies } = this.config
-    enemies.map((enemyGroup: any) => {
+    factory('config').forEach((enemyGroup: StageTomlEnemyGroup) => {
       setTimeout(() => {
-        enemyGroup.types.map((t: any, i: number) => {
+        enemyGroup.types.map((t: StageOptions, i: number) => {
           setTimeout(() => {
-            this.addEnemy(lookup[t.type](t))
+            addEnemy(selectEnemy[t.type](t))
           }, t.delay * (i + 1))
         })
       }, enemyGroup.timestamp * 1000)
     })
   }
+  const enemyFactory = {
+    createAllEnemies,
+  }
+
+  const publicProperty = (name: string, val: () => any) => ({
+    [name]: {
+      enumerable: true,
+      get: val,
+    },
+  })
+
+  // Public Read Properties
+  Object.defineProperties(enemyFactory, {
+    ...publicProperty('enemies', () => factory('enemies')),
+  })
+
+  return enemyFactory
 }

@@ -10,11 +10,10 @@ import { ItemGiver } from './ItemGiver'
 import { SpaceStation } from './SpaceStation'
 import { Whitebird } from './Whitebird'
 import { isOnScreen } from '../utilities'
-import { useState } from '../../utils/general'
+import { publicProperty, useState } from '../../utils/general'
 
 export interface EnemyFactory {
   game: Game
-  canvas: HTMLCanvasElement | undefined | null
   enemies: EnemyType[]
   config: StageTomlEnemyGroup[]
 }
@@ -22,7 +21,6 @@ export interface EnemyFactory {
 export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
   const [retrieveState, update] = useState<EnemyFactory>({
     game,
-    canvas: game.canvas,
     enemies: [],
     config: props.enemies,
   })
@@ -55,20 +53,13 @@ export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
       }, enemyGroup.timestamp * 1000)
     })
   }
+
   const enemyFactory = {
     createAllEnemies,
   }
 
-  const publicProperty = (name: string, val: () => any) => ({
-    [name]: {
-      enumerable: true,
-      get: val,
-    },
-  })
-
-  // Public Read Properties
   Object.defineProperties(enemyFactory, {
-    ...publicProperty('enemies', () => factory('enemies')),
+    ...publicProperty<EnemyType[]>('enemies', () => factory('enemies')),
   })
 
   return enemyFactory

@@ -10,7 +10,7 @@ export const Whitebird = (game: Game, props: StageOptions) => {
     ...props,
     r: 67 / 2.1,
     src: whitebirdImg,
-    weaponSpeed: game.getVelocity() * defaults.weaponSpeed,
+    x: 500,
   }
   return Enemy(game, attr)
 }

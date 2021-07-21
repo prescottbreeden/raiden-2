@@ -7,22 +7,23 @@ import { Game, radian } from '../Game'
 import { aimAtPlayer } from '../../utils/weapons'
 import { cond, __ } from 'ramda'
 import { getPosition, shouldFire } from '../utilities'
-import { useState } from '../../utils/general'
-import { Spiral } from '../bullets/Spiral'
+import { publicProperty, useState } from '../../utils/general'
+import { SpinCycle } from '../bullets/Spiral'
 
 export const Enemy = (game: Game, props: EnemyType) => {
   const img = new Image()
   img.src = props.src
 
-  const [retrieveState, update] = useState<EnemyType & { game: Game }>({
+  const [readState, update] = useState<EnemyType & { game: Game }>({
     ...props,
     game,
     img,
+    weaponSpeed: game.getVelocity() * props.weaponSpeed,
   })
 
   const enemy = (p?: keyof EnemyType): any | EnemyType =>
     // @ts-ignore
-    p ? retrieveState()[p] : retrieveState()
+    p ? readState()[p] : readState()
 
   // @ts-ignore
   Movement[enemy('movement')](game, enemy, update)
@@ -34,7 +35,7 @@ export const Enemy = (game: Game, props: EnemyType) => {
         if (shouldFire(enemy())) {
           const pew = new Audio(minigun)
           pew.play()
-          const bullet = new Spiral(game, enemy())
+          const bullet = SpinCycle(game, enemy())
           game.bulletFactory?.bullets.push(bullet)
         } else {
           clearInterval(firing)
@@ -103,33 +104,25 @@ export const Enemy = (game: Game, props: EnemyType) => {
     game.context?.restore()
   }
 
-  // Public Methods
   const enemyObject = {
     takeDamage,
     draw,
   }
 
-  const publicProperty = (name: string, val: () => any) => ({
-    [name]: {
-      enumerable: true,
-      get: val,
-    },
-  })
-
-  // Public Read Properties
+  // Read-only properties
   Object.defineProperties(enemyObject, {
-    ...publicProperty('pointValue', () => enemy('pointValue')),
-    ...publicProperty('item', () => enemy('item')),
-    ...publicProperty('hp', () => enemy('hp')),
-    ...publicProperty('h', () => enemy('h')),
-    ...publicProperty('w', () => enemy('w')),
-    ...publicProperty('r', () => enemy('r')),
-    ...publicProperty('x', () => enemy('x')),
-    ...publicProperty('y', () => enemy('y')),
-    ...publicProperty('vx', () => enemy('vx')),
-    ...publicProperty('vy', () => enemy('vy')),
-    ...publicProperty('gy', () => enemy('gy')),
-    ...publicProperty('gx', () => enemy('gx')),
+    ...publicProperty<boolean>('item', () => enemy('item')),
+    ...publicProperty<number>('gx', () => enemy('gx')),
+    ...publicProperty<number>('gy', () => enemy('gy')),
+    ...publicProperty<number>('h', () => enemy('h')),
+    ...publicProperty<number>('hp', () => enemy('hp')),
+    ...publicProperty<number>('pointValue', () => enemy('pointValue')),
+    ...publicProperty<number>('r', () => enemy('r')),
+    ...publicProperty<number>('vx', () => enemy('vx')),
+    ...publicProperty<number>('vy', () => enemy('vy')),
+    ...publicProperty<number>('w', () => enemy('w')),
+    ...publicProperty<number>('x', () => enemy('x')),
+    ...publicProperty<number>('y', () => enemy('y')),
   })
 
   return enemyObject

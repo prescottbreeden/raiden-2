@@ -10,7 +10,6 @@ export const SpaceStation = (game: Game, props: StageOptions) => {
     ...props,
     r: 40,
     src: spacestationImg,
-    weaponSpeed: game.getVelocity() * defaults.weaponSpeed,
   }
   return Enemy(game, attr)
 }

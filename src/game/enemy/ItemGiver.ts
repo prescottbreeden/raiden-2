@@ -10,7 +10,6 @@ export const ItemGiver = (game: Game, props: StageOptions) => {
     ...props,
     r: 40,
     src: itemGiverImg,
-    weaponSpeed: game.getVelocity() * defaults.weaponSpeed,
   }
   return Enemy(game, attr)
 }

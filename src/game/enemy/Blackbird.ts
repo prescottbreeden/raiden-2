@@ -10,7 +10,7 @@ export const Blackbird = (game: Game, props: StageOptions) => {
     ...props,
     r: 67 / 2.1,
     src: blackbird,
-    weaponSpeed: game.getVelocity() * defaults.weaponSpeed,
+    x: 250,
   }
   return Enemy(game, attr)
 }

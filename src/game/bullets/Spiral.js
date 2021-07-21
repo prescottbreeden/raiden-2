@@ -1,8 +1,14 @@
 import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
 import { Bullet } from './Bullet'
 
+export const Spincycle = (game: Game, ship: any) => {
+  const attr = {}
+
+  return Bullet(game, ship)
+}
+
 export class Spiral extends Bullet {
-  constructor(game, ship, i) {
+  constructor(game, ship) {
     super(game, ship)
 
     this.class = 'enemy'

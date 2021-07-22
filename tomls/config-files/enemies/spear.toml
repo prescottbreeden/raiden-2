@@ -1,0 +1,27 @@
+name = "spear"
+
+# default attributes
+
+aim = false
+angle = 0
+contain = false
+enter = "position"
+gx = 0
+gy = 0
+h = 80
+hp = 5
+item = false
+movement = "kamakaze"
+movementSpeed = 12
+pointValue = 100
+radians = 0
+spin = false
+tracking = true
+vx = 0
+vy = 0
+w = 40
+weaponDelay = 10000
+weaponSpeed = 6
+weaponType = "ball"
+x = 250
+y = 0

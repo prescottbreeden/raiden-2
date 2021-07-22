@@ -28,3 +28,21 @@
   z-index: 1;
 }
 
+.menu {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 80rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #04070c;
+  // background-color: #000200;
+
+  &__image {
+    width: 80rem;
+  }
+
+}

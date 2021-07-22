@@ -11,6 +11,7 @@ import { SpaceStation } from './SpaceStation'
 import { Whitebird } from './Whitebird'
 import { isOnScreen } from '../utilities'
 import { publicProperty, useState } from '../../utils/general'
+import { Spear } from './Spear'
 
 export interface EnemyFactory {
   game: Game
@@ -38,6 +39,7 @@ export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
       blackbird: (toml: StageOptions) => Blackbird(factory('game'), toml),
       spacestation: (toml: StageOptions) => SpaceStation(factory('game'), toml),
       itemGiver: (toml: StageOptions) => ItemGiver(factory('game'), toml),
+      spear: (toml: StageOptions) => Spear(factory('game'), toml),
     }
     factory('config').forEach((enemyGroup: StageTomlEnemyGroup) => {
       setTimeout(() => {

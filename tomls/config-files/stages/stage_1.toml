@@ -13,7 +13,7 @@ name = "stage_1"
 # sprinkler -- threat: med
 
 [[enemies]]
-timestamp = 1
+timestamp = 10
 [[enemies.types]]
 delay = 800
 enter = 'left'
@@ -41,7 +41,7 @@ movement = 'parabolic'
 type = "whitebird"
 
 [[enemies]]
-timestamp = 6
+timestamp = 16
 [[enemies.types]]
 delay = 800
 enter = 'right'
@@ -69,7 +69,7 @@ movement = 'parabolic'
 type = "blackbird"
 
 [[enemies]]
-timestamp = 12
+timestamp = 22
 [[enemies.types]]
 delay = 0
 enter = 'center'
@@ -77,7 +77,7 @@ movement = 'explore'
 type = "itemGiver"
 
 [[enemies]]
-timestamp = 18
+timestamp = 28
 [[enemies.types]]
 delay = 200
 enter = 'center'
@@ -110,7 +110,7 @@ movement = 'parabolic'
 type = "whitebird"
 
 [[enemies]]
-timestamp = 22
+timestamp = 32
 [[enemies.types]]
 delay = 200
 enter = 'right'
@@ -133,7 +133,7 @@ movement = 'charge'
 type = "blackbird"
 
 [[enemies]]
-timestamp = 30
+timestamp = 40
 [[enemies.types]]
 delay = 800
 enter = 'left'
@@ -161,7 +161,7 @@ movement = 'parabolic'
 type = "whitebird"
 
 [[enemies]]
-timestamp = 36
+timestamp = 46
 [[enemies.types]]
 delay = 800
 enter = 'right'
@@ -187,86 +187,70 @@ delay = 800
 enter = 'right'
 movement = 'parabolic'
 type = "blackbird"
-
-[[enemies]]
-timestamp = 42
-[[enemies.types]]
-delay = 0
-enter = 'center'
-movement = 'explore'
-type = "itemGiver"
-
-[[enemies]]
-timestamp = 48
-[[enemies.types]]
-delay = 200
-enter = 'center'
-movement = 'explore'
-type = "itemGiver"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'parabolic'
-type = "whitebird"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'parabolic'
-type = "whitebird"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'parabolic'
-type = "whitebird"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'parabolic'
-type = "whitebird"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'parabolic'
-type = "whitebird"
 
 [[enemies]]
 timestamp = 52
 [[enemies.types]]
-delay = 200
-enter = 'right'
-movement = 'charge'
-type = "blackbird"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'charge'
-type = "blackbird"
-[[enemies.types]]
-delay = 200
-enter = 'right'
-movement = 'charge'
-type = "blackbird"
-[[enemies.types]]
-delay = 200
-enter = 'left'
-movement = 'charge'
-type = "blackbird"
-
-[[enemies]]
-timestamp = 55
-[[enemies.types]]
-delay = 0
-enter = 'center'
-movement = 'hover'
-type = "spacestation"
-
-[[enemies]]
-timestamp = 60
-[[enemies.types]]
 delay = 0
 enter = 'center'
 movement = 'explore'
 type = "itemGiver"
+
+[[enemies]]
+timestamp = 58
+[[enemies.types]]
+delay = 200
+enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'parabolic'
+type = "whitebird"
+
+[[enemies]]
+timestamp = 62
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'right'
+movement = 'charge'
+type = "blackbird"
+[[enemies.types]]
+delay = 200
+enter = 'left'
+movement = 'charge'
+type = "blackbird"
 
 [[enemies]]
 timestamp = 65
@@ -281,5 +265,477 @@ timestamp = 70
 [[enemies.types]]
 delay = 0
 enter = 'center'
+movement = 'explore'
+type = "itemGiver"
+
+[[enemies]]
+timestamp = 75
+[[enemies.types]]
+delay = 0
+enter = 'center'
 movement = 'hover'
 type = "spacestation"
+
+[[enemies]]
+timestamp = 75
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+
+[[enemies]]
+timestamp = 80
+[[enemies.types]]
+delay = 0
+enter = 'center'
+movement = 'hover'
+type = "spacestation"
+
+[[enemies]]
+timestamp = 80
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"
+[[enemies.types]]
+delay = 100
+enter = 'random'
+movement = 'kamakaze'
+type = "spear"

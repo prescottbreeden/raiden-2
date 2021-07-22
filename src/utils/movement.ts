@@ -81,8 +81,20 @@ const parabolic = (game: Game, enemy: Enemy, update: Update) => {
     gy: -0.05,
   })
 }
+
+const kamakaze = (game: Game, enemy: Enemy, update: Update) => {
+  update({
+    vy: game.getVelocity() * 8,
+  })
+  setTimeout(() => {
+    update({
+      vy: 0,
+    })
+  }, 500)
+}
 export const move = (movementType: Movement) => {
   const lookup = {
+    kamakaze,
     parabolic,
     explore,
     charge,

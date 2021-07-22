@@ -2,7 +2,7 @@
  "name": "stage_1",
  "enemies": [
   {
-   "timestamp": 1,
+   "timestamp": 10,
    "types": [
     {
      "delay": 800,
@@ -37,7 +37,7 @@
    ]
   },
   {
-   "timestamp": 6,
+   "timestamp": 16,
    "types": [
     {
      "delay": 800,
@@ -72,7 +72,7 @@
    ]
   },
   {
-   "timestamp": 12,
+   "timestamp": 22,
    "types": [
     {
      "delay": 0,
@@ -83,7 +83,7 @@
    ]
   },
   {
-   "timestamp": 18,
+   "timestamp": 28,
    "types": [
     {
      "delay": 200,
@@ -124,7 +124,7 @@
    ]
   },
   {
-   "timestamp": 22,
+   "timestamp": 32,
    "types": [
     {
      "delay": 200,
@@ -153,7 +153,7 @@
    ]
   },
   {
-   "timestamp": 30,
+   "timestamp": 40,
    "types": [
     {
      "delay": 800,
@@ -188,7 +188,7 @@
    ]
   },
   {
-   "timestamp": 36,
+   "timestamp": 46,
    "types": [
     {
      "delay": 800,
@@ -219,58 +219,6 @@
      "enter": "right",
      "movement": "parabolic",
      "type": "blackbird"
-    }
-   ]
-  },
-  {
-   "timestamp": 42,
-   "types": [
-    {
-     "delay": 0,
-     "enter": "center",
-     "movement": "explore",
-     "type": "itemGiver"
-    }
-   ]
-  },
-  {
-   "timestamp": 48,
-   "types": [
-    {
-     "delay": 200,
-     "enter": "center",
-     "movement": "explore",
-     "type": "itemGiver"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "parabolic",
-     "type": "whitebird"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "parabolic",
-     "type": "whitebird"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "parabolic",
-     "type": "whitebird"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "parabolic",
-     "type": "whitebird"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "parabolic",
-     "type": "whitebird"
     }
    ]
   },
@@ -278,50 +226,80 @@
    "timestamp": 52,
    "types": [
     {
-     "delay": 200,
-     "enter": "right",
-     "movement": "charge",
-     "type": "blackbird"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "charge",
-     "type": "blackbird"
-    },
-    {
-     "delay": 200,
-     "enter": "right",
-     "movement": "charge",
-     "type": "blackbird"
-    },
-    {
-     "delay": 200,
-     "enter": "left",
-     "movement": "charge",
-     "type": "blackbird"
-    }
-   ]
-  },
-  {
-   "timestamp": 55,
-   "types": [
-    {
-     "delay": 0,
-     "enter": "center",
-     "movement": "hover",
-     "type": "spacestation"
-    }
-   ]
-  },
-  {
-   "timestamp": 60,
-   "types": [
-    {
      "delay": 0,
      "enter": "center",
      "movement": "explore",
      "type": "itemGiver"
+    }
+   ]
+  },
+  {
+   "timestamp": 58,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "parabolic",
+     "type": "whitebird"
+    }
+   ]
+  },
+  {
+   "timestamp": 62,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "right",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "right",
+     "movement": "charge",
+     "type": "blackbird"
+    },
+    {
+     "delay": 200,
+     "enter": "left",
+     "movement": "charge",
+     "type": "blackbird"
     }
    ]
   },
@@ -342,8 +320,580 @@
     {
      "delay": 0,
      "enter": "center",
+     "movement": "explore",
+     "type": "itemGiver"
+    }
+   ]
+  },
+  {
+   "timestamp": 75,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
      "movement": "hover",
      "type": "spacestation"
+    }
+   ]
+  },
+  {
+   "timestamp": 75,
+   "types": [
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    }
+   ]
+  },
+  {
+   "timestamp": 80,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "center",
+     "movement": "hover",
+     "type": "spacestation"
+    }
+   ]
+  },
+  {
+   "timestamp": 80,
+   "types": [
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
+    },
+    {
+     "delay": 100,
+     "enter": "random",
+     "movement": "kamakaze",
+     "type": "spear"
     }
    ]
   }

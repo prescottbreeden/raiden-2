@@ -31,6 +31,7 @@ const spincycle = (game: Game, enemy: Enemy) => {
 }
 
 const ball = (game: Game, enemy: Enemy) => {
+  console.log(enemy('weaponDelay'))
   const firing = setInterval(() => {
     if (shouldFire(enemy())) {
       const pew = new Audio(retroShotBlaster)

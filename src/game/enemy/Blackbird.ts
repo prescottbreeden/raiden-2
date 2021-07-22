@@ -8,7 +8,6 @@ export const Blackbird = (game: Game, props: StageOptions) => {
   const attr: any = {
     ...defaults,
     ...props,
-    // tracking: false,
     r: 67 / 2.1,
     src: blackbird,
     x: 250,

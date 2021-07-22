@@ -23,6 +23,7 @@ export const Enemy = (game: Game, props: EnemyType) => {
   }
 
   const draw = (): void => {
+    const { x: playerX, y: playerY } = game.player!
     update({
       vx: enemy('vx') + enemy('gx'),
       vy: enemy('vy') + enemy('gy'),
@@ -33,10 +34,16 @@ export const Enemy = (game: Game, props: EnemyType) => {
     game.context?.translate(enemy('x'), enemy('y'))
 
     // if tracking enemy, aim the enemy at player
-    if (enemy('tracking')) {
-      const { x, y } = game.player!
-      const angle = Math.atan2(y - enemy('y'), x - enemy('x')) - Math.PI / 2
+    if (enemy('tracking') && enemy('movement') !== 'kamakaze') {
+      const angle =
+        Math.atan2(playerY - enemy('y'), playerX - enemy('x')) - Math.PI / 2
       game.context?.rotate(angle)
+    }
+
+    if (enemy('movement') === 'kamakaze') {
+      if (enemy('vy') <= 0) {
+        update({ gy: (enemy('gy') + 0.15) % 2 })
+      }
     }
 
     // if contain enemy, let it bounce off edges
@@ -69,8 +76,8 @@ export const Enemy = (game: Game, props: EnemyType) => {
       enemy('img'),
       -(enemy('w') / 2),
       -(enemy('h') / 2),
-      enemy('h'),
-      enemy('w')
+      enemy('w'),
+      enemy('h')
     )
 
     game.context?.restore()

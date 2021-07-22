@@ -1,6 +1,7 @@
-import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
+import artwork from '../assets/images/artwork.jpg'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
+import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
 import playerOne from '../assets/images/mship1.png'
 import raidenJam from '../assets/music/soundtrack.mp3'
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3'
@@ -157,16 +158,24 @@ export class Game {
   showMenu() {
     const button = document.createElement('button')
     button.className = 'start-button'
-    button.id = 'start-button'
     button.onclick = this.startGame
     button.textContent = 'Start New Game'
-    const gameNode = document.getElementById('bullets')
-    gameNode.appendChild(button)
+
+    const menuPane = document.createElement('div')
+    menuPane.className = 'menu'
+    menuPane.id = 'menu'
+    const image = new Image()
+    image.className = 'menu__image'
+    image.src = artwork
+    const bulletDiv = document.getElementById('bullets')
+    bulletDiv.appendChild(menuPane)
+    menuPane.appendChild(image)
+    menuPane.appendChild(button)
   }
 
   hideMenu() {
-    const gameNode = document.getElementById('bullets')
-    gameNode.removeChild(document.getElementById('start-button'))
+    const menu = document.getElementById('menu')
+    menu.style.display = 'none'
   }
 
   // ============================ //

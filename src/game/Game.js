@@ -46,6 +46,7 @@ export class Game {
     this.height = HEIGHT
 
     this.createCanvas()
+    this.createBulletCanvas()
     this.displayFPS()
     // bind event listeners
     this.bindEvents()
@@ -74,6 +75,17 @@ export class Game {
     gameNode.appendChild(canvas)
     this.canvas = canvas
     this.context = canvas.getContext('2d')
+  }
+  createBulletCanvas = () => {
+    const bulletNode = document.getElementById('bullets')
+    const canvas = document.createElement('canvas')
+    canvas.id = 'bullet-ctx'
+    canvas.className = 'bullet-canvas'
+    canvas.width = this.width
+    canvas.height = this.height
+    bulletNode.appendChild(canvas)
+    this.bulletCanvas = canvas
+    this.bulletContext = canvas.getContext('2d')
   }
 
   pewpew = () => {
@@ -148,12 +160,12 @@ export class Game {
     button.id = 'start-button'
     button.onclick = this.startGame
     button.textContent = 'Start New Game'
-    const gameNode = document.getElementById('game')
+    const gameNode = document.getElementById('bullets')
     gameNode.appendChild(button)
   }
 
   hideMenu() {
-    const gameNode = document.getElementById('game')
+    const gameNode = document.getElementById('bullets')
     gameNode.removeChild(document.getElementById('start-button'))
   }
 
@@ -169,10 +181,8 @@ export class Game {
 
     // clear canvas
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this.bulletContext.clearRect(0, 0, this.canvas.width, this.canvas.height)
     // this.canvas.width = this.canvas.width;
-
-    // animate background
-    this.animateBackground()
 
     // draw clouds
     this.checkCollisions()
@@ -207,8 +217,6 @@ export class Game {
   // ============================ //
   // ======== FUNCTIONS ========= //
   // ============================ //
-
-  animateBackground() {}
 
   drawCollection(collection) {
     collection.forEach((obj) => obj.draw())
@@ -285,7 +293,7 @@ export class Game {
     const enemies = this.enemyFactory.enemies
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i]
-      const distance = getDistance(enemy, this.player.position)
+      const distance = getDistance(enemy, this.player)
       if (distance < enemy.r) {
         const hit = new Audio(explosionSound)
         hit.play()

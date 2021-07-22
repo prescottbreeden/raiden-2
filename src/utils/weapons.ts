@@ -4,15 +4,15 @@ import { Ball } from '../game/bullets/Ball'
 import { Enemy, EnemyType, WeaponType } from '../types/blackbird.type'
 import { Game } from '../game/Game'
 import { SpinCycle } from '../game/bullets/Spiral'
-import { getDistance, getPosition } from '../game/utilities'
+import { getDistance } from '../game/utilities'
 import { shouldFire } from '../game/utilities'
 
 export const aimAtPlayer = (game: Game, enemy: EnemyType) => {
-  const player = getPosition(game.player!)
+  const { x, y } = game.player!
   const distance = getDistance(game.player, enemy)
   return {
-    vx: ((player.x - enemy.x) / distance) * enemy.weaponSpeed,
-    vy: ((player.y - enemy.y) / distance) * enemy.weaponSpeed,
+    vx: ((x - enemy.x) / distance) * enemy.weaponSpeed,
+    vy: ((y - enemy.y) / distance) * enemy.weaponSpeed,
   }
 }
 

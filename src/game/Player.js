@@ -1,77 +1,74 @@
-import { getPosition } from './utilities';
-
 export class Player {
   constructor(src, canvas) {
-    this.canvas = canvas;
-    this.context = this.canvas.getContext('2d');
+    this.canvas = canvas
+    this.context = this.canvas.getContext('2d')
 
     // specs
-    this.h = 100 * 0.67;
-    this.w = 85 * 0.67;
-    this.r = (this.w / 1.4) * 0.67;
-    this.x = this.canvas.width / 2;
-    this.y = this.canvas.height - this.h;
-    this.vy = 0;
-    this.vx = 0;
-    this.src = src;
-    this.img = null;
-    this.weaponType = 'spread';
-    this.weaponStr = 1;
-    this.hitBox = { a: '', b: '', c: '' };
+    this.h = 100 * 0.67
+    this.w = 85 * 0.67
+    this.r = (this.w / 1.4) * 0.67
+    this.x = this.canvas.width / 2
+    this.y = this.canvas.height - this.h
+    this.vy = 0
+    this.vx = 0
+    this.src = src
+    this.img = null
+    this.weaponType = 'spread'
+    this.weaponStr = 1
+    this.hitBox = { a: '', b: '', c: '' }
 
-    this.create();
+    this.create()
   }
 
   create() {
-    this.img = new Image();
-    this.img.src = this.src;
+    this.img = new Image()
+    this.img.src = this.src
   }
 
   currentHitBox() {
-    this.position = getPosition(this);
     this.hitBox.a = {
-      x: this.position.x,
-      y: this.position.y - this.r,
-    };
+      x: this.x,
+      y: this.y - this.r,
+    }
     this.hitBox.b = {
-      x: this.position.x - this.r * 0.66,
-      y: this.position.y + this.r * 0.66,
-    };
+      x: this.x - this.r * 0.66,
+      y: this.y + this.r * 0.66,
+    }
     this.hitBox.c = {
-      x: this.position.x + this.r * 0.66,
-      y: this.position.y + this.r * 0.66,
-    };
+      x: this.x + this.r * 0.66,
+      y: this.y + this.r * 0.66,
+    }
   }
 
   update() {
-    this.currentHitBox();
+    this.currentHitBox()
     if (this.img != null) {
-      this.y += this.vy;
-      this.x += this.vx;
+      this.y += this.vy
+      this.x += this.vx
 
       if (this.y + this.h / 2 > this.canvas.height) {
-        this.y = this.canvas.height - this.h / 2;
+        this.y = this.canvas.height - this.h / 2
       } else if (this.y - this.h / 2 < 0) {
-        this.y = this.h / 2;
+        this.y = this.h / 2
       }
 
       if (this.x + this.w / 2 > this.canvas.width) {
-        this.x = this.canvas.width - this.w / 2;
+        this.x = this.canvas.width - this.w / 2
       } else if (this.x - this.w / 2 < 0) {
-        this.x = this.w / 2;
+        this.x = this.w / 2
       }
 
-      this.context.save();
-      this.context.translate(this.x, this.y);
-      this.context.beginPath();
+      this.context.save()
+      this.context.translate(this.x, this.y)
+      this.context.beginPath()
       this.context.drawImage(
         this.img,
         -(this.w / 2),
         -(this.h / 2),
         this.w,
         this.h
-      );
-      this.context.restore();
+      )
+      this.context.restore()
 
       // this.context.arc(this.position.x, this.position.y, this.r, 0, 360 * radian, false);
       // this.context.strokeStyle = 'white';

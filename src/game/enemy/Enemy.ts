@@ -3,7 +3,6 @@ import * as Weapons from '../../utils/weapons'
 import { EnemyType } from '../../types/blackbird.type'
 import { Game, radian } from '../Game'
 import { cond, __ } from 'ramda'
-import { getPosition } from '../utilities'
 import { newImage, publicProperty, useState } from '../../utils/general'
 
 export const Enemy = (game: Game, props: EnemyType) => {
@@ -35,7 +34,7 @@ export const Enemy = (game: Game, props: EnemyType) => {
 
     // if tracking enemy, aim the enemy at player
     if (enemy('tracking')) {
-      const { x, y } = getPosition(game.player!)
+      const { x, y } = game.player!
       const angle = Math.atan2(y - enemy('y'), x - enemy('x')) - Math.PI / 2
       game.context?.rotate(angle)
     }

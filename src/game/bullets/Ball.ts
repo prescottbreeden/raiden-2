@@ -25,18 +25,17 @@ export const Ball = (game: Game, enemy: EnemyType) => {
       y: bullet('y') + bullet('vy'),
       x: bullet('x') + bullet('vx'),
     })
+    game.bulletContext?.save()
+    game.bulletContext?.translate(bullet('x'), bullet('y'))
 
-    game.context?.save()
-    game.context?.translate(bullet('x'), bullet('y'))
-
-    game.context?.drawImage(
+    game.bulletContext?.drawImage(
       bullet('img'),
       -(bullet('w') / 2),
       -(bullet('h') / 2),
       bullet('h'),
       bullet('w')
     )
-    game.context?.restore()
+    game.bulletContext?.restore()
   }
 
   const bulletObject = {

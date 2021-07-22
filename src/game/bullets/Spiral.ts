@@ -20,16 +20,16 @@ export const SpinCycle = (game: Game, ship: any) => {
       x: bullet('x') + Math.cos(bullet('radians')) * 3,
       y: bullet('y') + Math.sin(bullet('radians')) * 3,
     })
-    game.context?.save()
-    game.context?.translate(bullet('x'), bullet('y'))
-    game.context?.drawImage(
+    game.bulletContext?.save()
+    game.bulletContext?.translate(bullet('x'), bullet('y'))
+    game.bulletContext?.drawImage(
       bullet('img'),
       -(bullet('w') / 2),
       -(bullet('h') / 2),
       bullet('h'),
       bullet('w')
     )
-    game.context?.restore()
+    game.bulletContext?.restore()
   }
 
   const bulletObject = {

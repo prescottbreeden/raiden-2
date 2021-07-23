@@ -1,10 +1,10 @@
 import defaults from '../../constants/spacestation.json'
 import spacestationImg from '../../assets/images/spacestation.png'
-import { EnemyType, StageOptions } from '../../types/blackbird.type'
 import { Enemy } from './Enemy'
 import { Game } from '../Game'
+import { IStageOptions } from '../../interfaces/IStageOptions.interface'
 
-export const SpaceStation = (game: Game, props: StageOptions) => {
+export const SpaceStation = (game: Game, props: IStageOptions) => {
   const attr: any = {
     ...defaults,
     ...props,

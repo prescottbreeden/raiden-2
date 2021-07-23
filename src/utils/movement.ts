@@ -1,10 +1,15 @@
-import { Enemy, MOFO, Movement, Update } from '../types/blackbird.type'
 import { Game } from '../game/Game'
 import { HEIGHT, WIDTH } from '..'
 import { any, equals, __ } from 'ramda'
 import { getRandomInt } from '../game/utilities'
+import {
+  EnemyState,
+  IStateObject,
+  Update,
+} from '../interfaces/IStateObject.interface'
+import { MovementName } from '../types/MovementName.type'
 
-export const updatePositionAcceleration = ({ enemy, update }: MOFO) => {
+export const updatePositionAcceleration = ({ enemy, update }: IStateObject) => {
   return update({
     vx: enemy('vx') + enemy('gx'),
     vy: enemy('vy') + enemy('gy'),
@@ -13,25 +18,25 @@ export const updatePositionAcceleration = ({ enemy, update }: MOFO) => {
   })
 }
 
-export const leavingLeftRight = ({ enemy }: MOFO) =>
+export const leavingLeftRight = ({ enemy }: IStateObject) =>
   any(equals(true), [
     enemy('x') <= 5 && enemy('vx') < 0,
     enemy('x') >= WIDTH - enemy('w') && enemy('vx') > 0,
   ])
 
-export const leavingTopBottom = ({ enemy }: MOFO) =>
+export const leavingTopBottom = ({ enemy }: IStateObject) =>
   any(equals(true), [
     enemy('y') <= enemy('h') && enemy('vy') < 0,
     enemy('y') >= HEIGHT - enemy('h') && enemy('vy') > 0,
   ])
 
-export const reverseVx = ({ enemy, update }: MOFO) =>
+export const reverseVx = ({ enemy, update }: IStateObject) =>
   update({ vx: enemy('vx') * -1 })
 
-export const reverseVy = ({ enemy, update }: MOFO) =>
+export const reverseVy = ({ enemy, update }: IStateObject) =>
   update({ vy: enemy('vy') * -1 })
 
-const charge = (game: Game, enemy: Enemy, update: Update) => {
+const charge = (game: Game, enemy: EnemyState, update: Update) => {
   update({
     vy: game.getVelocity() * 8,
   })
@@ -47,7 +52,7 @@ const charge = (game: Game, enemy: Enemy, update: Update) => {
   }, 1400)
 }
 
-const hover = (game: Game, _: Enemy, update: Update) => {
+const hover = (game: Game, _: EnemyState, update: Update) => {
   update({
     vy: game.getVelocity() * 8,
     x: WIDTH / 2,
@@ -64,7 +69,7 @@ const hover = (game: Game, _: Enemy, update: Update) => {
   }, 20000)
 }
 
-const explore = (game: Game, _: Enemy, update: Update) => {
+const explore = (game: Game, _: EnemyState, update: Update) => {
   // TODO: set X position based on config setting
   // TODO: set Y poisiont based on config setting
   update({
@@ -74,7 +79,7 @@ const explore = (game: Game, _: Enemy, update: Update) => {
   })
 }
 
-const parabolic = (game: Game, enemy: Enemy, update: Update) => {
+const parabolic = (game: Game, enemy: EnemyState, update: Update) => {
   update({
     vy: game.getVelocity() * 8,
     vx: enemy('x') >= WIDTH / 2 ? 1 : -1,
@@ -82,7 +87,7 @@ const parabolic = (game: Game, enemy: Enemy, update: Update) => {
   })
 }
 
-const kamakaze = (game: Game, enemy: Enemy, update: Update) => {
+const kamakaze = (game: Game, _: EnemyState, update: Update) => {
   update({
     vy: game.getVelocity() * 8,
   })
@@ -92,13 +97,16 @@ const kamakaze = (game: Game, enemy: Enemy, update: Update) => {
     })
   }, 500)
 }
-export const move = (movementType: Movement) => {
+export const move = (movementType: MovementName) => {
   const lookup = {
+    charge,
+    dive: () => null,
+    explore,
+    hover,
     kamakaze,
     parabolic,
-    explore,
-    charge,
-    hover,
+    roll: () => null,
+    swoop: () => null,
   }
   return lookup[movementType]
 }

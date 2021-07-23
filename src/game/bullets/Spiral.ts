@@ -1,18 +1,15 @@
+import defaults from '../../constants/fireball.json'
 import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
 import { Game } from '../Game'
 import { newImage, publicProperty, useState } from '../../utils/general'
+import { IEnemy } from '../../interfaces/IEnemy.interface'
 
-export const SpinCycle = (game: Game, ship: any) => {
+export const SpinCycle = (game: Game, enemy: IEnemy) => {
   const { readState: bullet, updateState: update } = useState<any>({
-    class: 'enemy',
-    h: 20,
+    ...enemy,
+    ...defaults,
     img: newImage(fireball),
     radians: Date.now(),
-    vx: ship.vx,
-    vy: ship.vy,
-    w: 20,
-    x: ship.x,
-    y: ship.y,
   })
 
   const draw = () => {

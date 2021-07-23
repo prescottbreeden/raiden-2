@@ -1,32 +1,32 @@
 import { Blackbird } from './Blackbird'
-import {
-  EnemyType,
-  StageOptions,
-  StageTomlEnemies,
-  StageTomlEnemyGroup,
-} from '../../types/blackbird.type'
 import { Game } from '../Game'
+import { IEnemy } from '../../interfaces/IEnemy.interface'
+import { IStageOptions } from '../../interfaces/IStageOptions.interface'
+import {
+  IStageTomlEnemies,
+  IStageTomlEnemyGroup,
+} from '../../interfaces/IStageTomlEnemyGroup.interface'
 import { ItemGiver } from './ItemGiver'
 import { SpaceStation } from './SpaceStation'
+import { Spear } from './Spear'
 import { Whitebird } from './Whitebird'
 import { isOnScreen } from '../utilities'
 import { publicProperty, useState } from '../../utils/general'
-import { Spear } from './Spear'
 
 export interface EnemyFactory {
   game: Game
-  enemies: EnemyType[]
-  config: StageTomlEnemyGroup[]
+  enemies: IEnemy[]
+  config: IStageTomlEnemyGroup[]
 }
 
-export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
+export const EnemyFactory = (game: Game, props: IStageTomlEnemies) => {
   const { readState: factory, updateState: update } = useState<EnemyFactory>({
     game,
     enemies: [],
     config: props.enemies,
   })
 
-  const addEnemy = (...enemies: EnemyType[]) => {
+  const addEnemy = (...enemies: IEnemy[]) => {
     const cleanUp = factory('enemies').filter(isOnScreen)
     update({
       enemies: [...cleanUp, ...enemies],
@@ -34,16 +34,17 @@ export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
   }
 
   const createAllEnemies = () => {
-    const selectEnemy: { [key: string]: (x: StageOptions) => any } = {
-      whitebird: (toml: StageOptions) => Whitebird(factory('game'), toml),
-      blackbird: (toml: StageOptions) => Blackbird(factory('game'), toml),
-      spacestation: (toml: StageOptions) => SpaceStation(factory('game'), toml),
-      itemGiver: (toml: StageOptions) => ItemGiver(factory('game'), toml),
-      spear: (toml: StageOptions) => Spear(factory('game'), toml),
+    const selectEnemy: { [key: string]: (x: IStageOptions) => any } = {
+      whitebird: (toml: IStageOptions) => Whitebird(factory('game'), toml),
+      blackbird: (toml: IStageOptions) => Blackbird(factory('game'), toml),
+      spacestation: (toml: IStageOptions) =>
+        SpaceStation(factory('game'), toml),
+      itemGiver: (toml: IStageOptions) => ItemGiver(factory('game'), toml),
+      spear: (toml: IStageOptions) => Spear(factory('game'), toml),
     }
-    factory('config').forEach((enemyGroup: StageTomlEnemyGroup) => {
+    factory('config').forEach((enemyGroup: IStageTomlEnemyGroup) => {
       setTimeout(() => {
-        enemyGroup.types.map((t: StageOptions, i: number) => {
+        enemyGroup.types.map((t: IStageOptions, i: number) => {
           setTimeout(() => {
             addEnemy(selectEnemy[t.type](t))
           }, t.delay * (i + 1))
@@ -57,7 +58,7 @@ export const EnemyFactory = (game: Game, props: StageTomlEnemies) => {
   }
 
   Object.defineProperties(enemyFactory, {
-    ...publicProperty<EnemyType[]>('enemies', () => factory('enemies')),
+    ...publicProperty<IEnemy[]>('enemies', () => factory('enemies')),
   })
 
   return enemyFactory

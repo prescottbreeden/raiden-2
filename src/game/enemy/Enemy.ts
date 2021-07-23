@@ -1,12 +1,12 @@
 import * as Movement from '../../utils/movement'
 import * as Weapons from '../../utils/weapons'
-import { EnemyType } from '../../types/blackbird.type'
 import { Game, radian } from '../Game'
+import { IEnemy } from '../../interfaces/IEnemy.interface'
 import { cond, __ } from 'ramda'
 import { newImage, publicProperty, useState } from '../../utils/general'
 
-export const Enemy = (game: Game, props: EnemyType) => {
-  const { readState: enemy, updateState: update } = useState<EnemyType>({
+export const Enemy = (game: Game, props: IEnemy) => {
+  const { readState: enemy, updateState: update } = useState<IEnemy>({
     ...props,
     img: newImage(props.src),
     weaponSpeed: game.getVelocity() * props.weaponSpeed,

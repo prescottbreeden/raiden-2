@@ -1,5 +1,5 @@
-import { Bullet } from './Bullet'
 import bulletSrc from '../../assets/images/M484BulletCollection2.png'
+import { Bullet } from './Bullet'
 
 export class Spread extends Bullet {
   constructor(game, ship, x = 0, y = 0, { vx, rotate } = { vx: 0, rotate: 0 }) {

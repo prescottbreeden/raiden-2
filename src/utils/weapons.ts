@@ -1,13 +1,15 @@
 import minigun from '../assets/sfx/r2/r2-big-laser-3.mp3'
 import retroShotBlaster from '../assets/sfx/retro-shot-blaster-1.mp3'
 import { Ball } from '../game/bullets/Ball'
-import { Enemy, EnemyType, WeaponType } from '../types/blackbird.type'
 import { Game } from '../game/Game'
 import { SpinCycle } from '../game/bullets/Spiral'
 import { getDistance } from '../game/utilities'
 import { shouldFire } from '../game/utilities'
+import { IEnemy } from '../interfaces/IEnemy.interface'
+import { EnemyState } from '../interfaces/IStateObject.interface'
+import { EnemyWeaponName } from '../types/EnemyWeaponName.type'
 
-export const aimAtPlayer = (game: Game, enemy: EnemyType) => {
+export const aimAtPlayer = (game: Game, enemy: IEnemy) => {
   const { x, y } = game.player!
   const distance = getDistance(game.player, enemy)
   return {
@@ -16,7 +18,7 @@ export const aimAtPlayer = (game: Game, enemy: EnemyType) => {
   }
 }
 
-const spincycle = (game: Game, enemy: Enemy) => {
+const spincycle = (game: Game, enemy: EnemyState) => {
   const firing = setInterval(() => {
     if (enemy('vy') === 0) {
       if (shouldFire(enemy())) {
@@ -30,7 +32,7 @@ const spincycle = (game: Game, enemy: Enemy) => {
   }, enemy('weaponDelay'))
 }
 
-const ball = (game: Game, enemy: Enemy) => {
+const ball = (game: Game, enemy: EnemyState) => {
   console.log(enemy('weaponDelay'))
   const firing = setInterval(() => {
     if (shouldFire(enemy())) {
@@ -43,7 +45,7 @@ const ball = (game: Game, enemy: Enemy) => {
   }, enemy('weaponDelay'))
 }
 
-const trishot = (game: Game, enemy: Enemy) => {
+const trishot = (game: Game, enemy: EnemyState) => {
   const firing = setInterval(() => {
     if (shouldFire(enemy())) {
       const pew = new Audio(retroShotBlaster)
@@ -55,13 +57,16 @@ const trishot = (game: Game, enemy: Enemy) => {
   }, enemy('weaponDelay'))
 }
 
-export const fire = (weaponType: WeaponType) => {
+export const fire = (weaponType: EnemyWeaponName) => {
   const weaponTypes = {
-    spincycle,
     ball,
+    flak: ball,
+    rip: ball,
+    shotgun: ball,
+    sniper: ball,
+    spincycle,
+    sprinkler: ball,
     trishot,
-    spread: ball, // separate enemy vs player?
-    blaster: ball,
   }
   return weaponTypes[weaponType]
 }

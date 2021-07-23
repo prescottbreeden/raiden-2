@@ -2,10 +2,10 @@ import defaults from '../../constants/fireball.json'
 import fireballImage from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
 import { newImage, publicProperty, useState } from '../../utils/general'
 import { Game } from '../Game'
-import { EnemyType } from '../../types/blackbird.type'
 import { aimAtPlayer } from '../../utils/weapons'
+import { IEnemy } from '../../interfaces/IEnemy.interface'
 
-export const Ball = (game: Game, enemy: EnemyType) => {
+export const Ball = (game: Game, enemy: IEnemy) => {
   const { readState: bullet, updateState: update } = useState<any>({
     ...enemy,
     ...defaults,

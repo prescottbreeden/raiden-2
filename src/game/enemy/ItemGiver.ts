@@ -1,10 +1,10 @@
 import defaults from '../../constants/itemGiver.json'
 import itemGiverImg from '../../assets/images/item-giver-2.png'
-import { EnemyType, StageOptions } from '../../types/blackbird.type'
 import { Enemy } from './Enemy'
 import { Game } from '../Game'
+import { IStageOptions } from '../../interfaces/IStageOptions.interface'
 
-export const ItemGiver = (game: Game, props: StageOptions) => {
+export const ItemGiver = (game: Game, props: IStageOptions) => {
   const attr: any = {
     ...defaults,
     ...props,

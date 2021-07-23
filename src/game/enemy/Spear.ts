@@ -1,12 +1,12 @@
 import { WIDTH } from '../..'
 import spear from '../../assets/images/spear.png'
 import defaults from '../../constants/spear.json'
-import { EnemyType, StageOptions } from '../../types/blackbird.type'
+import { IStageOptions } from '../../interfaces/IStageOptions.interface'
 import { Game } from '../Game'
 import { getRandomInt } from '../utilities'
 import { Enemy } from './Enemy'
 
-export const Spear = (game: Game, props: StageOptions) => {
+export const Spear = (game: Game, props: IStageOptions) => {
   const attr: any = {
     ...defaults,
     ...props,

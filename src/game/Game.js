@@ -327,7 +327,6 @@ export class Game {
     items.forEach((item) => item.draw())
   }
 
-  // TODO: seems overkill to check every item for a collision...
   checkItemCollection() {
     const items = this.itemFactory.items
     for (let i = 0; i < items.length; i++) {
@@ -338,7 +337,6 @@ export class Game {
         items.splice(i, 1)
         const chaching = new Audio(itemPickip)
         chaching.play()
-        // TODO: mod number here?
         this.player.weaponStr += 1
         if (this.player.weaponStr > 6) {
           this.player.weaponStr = 6

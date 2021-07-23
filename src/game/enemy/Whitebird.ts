@@ -1,10 +1,10 @@
 import defaults from '../../constants/whitebird.json'
 import whitebirdImg from '../../assets/images/whitebird.png'
-import { EnemyType, StageOptions } from '../../types/blackbird.type'
 import { Game } from '../Game'
 import { Enemy } from './Enemy'
+import { IStageOptions } from '../../interfaces/IStageOptions.interface'
 
-export const Whitebird = (game: Game, props: StageOptions) => {
+export const Whitebird = (game: Game, props: IStageOptions) => {
   const attr: any = {
     ...defaults,
     ...props,

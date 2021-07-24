@@ -11,18 +11,17 @@ Because this game is still in dev, players are immune from bullets for testing p
 
 ## Roadmap
 
-- [ ] Add Jest
-- [ ] Code cleanup / utilities overhaul
 - [x] Fix spread shot
 - [x] Create toml parsing for EnemyFactory data
 - [x] Create script to run all toml directories (ignoring src)
 - [x] Make EnemyFactory JSON-configurable
+- [x] Create launch sequence for game start
 - [x] Add abstraction for enemy position locations
 - [x] Add spiral attack
 - [ ] Add sprinkler attack
 - [ ] Add powerup random chance item
-- [ ] Add abstraction for weapontypes
-- [ ] Add abstraction for enemey movement types
+- [x] Add abstraction for weapontypes
+- [x] Add abstraction for enemey movement types
 - [ ] Add abstraction for simultaneous enemies
 - [ ] Add bullet collision for player
 - [ ] Add weapon release after player death
@@ -37,6 +36,8 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [ ] Create window size detection
 - [ ] Create Game Menu / Main Menu options
 - [ ] Mobile controls? (probably not...)
+- [ ] Add Jest
+- [ ] Code cleanup / utilities overhaul
 
 ## Point logic
 

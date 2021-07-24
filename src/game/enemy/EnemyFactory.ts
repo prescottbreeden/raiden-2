@@ -1,4 +1,3 @@
-import { Blackbird } from './Blackbird'
 import { Game } from '../Game'
 import { IEnemy } from '../../interfaces/IEnemy.interface'
 import { IStageOptions } from '../../interfaces/IStageOptions.interface'
@@ -6,12 +5,9 @@ import {
   IStageTomlEnemies,
   IStageTomlEnemyGroup,
 } from '../../interfaces/IStageTomlEnemyGroup.interface'
-import { ItemGiver } from './ItemGiver'
-import { SpaceStation } from './SpaceStation'
-import { Spear } from './Spear'
-import { Whitebird } from './Whitebird'
 import { isOnScreen } from '../utilities'
 import { publicProperty, useState } from '../../utils/general'
+import { Enemy } from './Enemy'
 
 export interface EnemyFactory {
   game: Game
@@ -26,7 +22,7 @@ export const EnemyFactory = (game: Game, props: IStageTomlEnemies) => {
     config: props.enemies,
   })
 
-  const addEnemy = (...enemies: IEnemy[]) => {
+  const addEnemy = (...enemies: any[]) => {
     const cleanUp = factory('enemies').filter(isOnScreen)
     update({
       enemies: [...cleanUp, ...enemies],
@@ -34,20 +30,12 @@ export const EnemyFactory = (game: Game, props: IStageTomlEnemies) => {
   }
 
   const createAllEnemies = () => {
-    const selectEnemy: { [key: string]: (x: IStageOptions) => any } = {
-      whitebird: (toml: IStageOptions) => Whitebird(factory('game'), toml),
-      blackbird: (toml: IStageOptions) => Blackbird(factory('game'), toml),
-      spacestation: (toml: IStageOptions) =>
-        SpaceStation(factory('game'), toml),
-      itemGiver: (toml: IStageOptions) => ItemGiver(factory('game'), toml),
-      spear: (toml: IStageOptions) => Spear(factory('game'), toml),
-    }
     factory('config').forEach((enemyGroup: IStageTomlEnemyGroup) => {
       setTimeout(() => {
-        enemyGroup.types.map((t: IStageOptions, i: number) => {
+        enemyGroup.types.map((options: IStageOptions, i: number) => {
           setTimeout(() => {
-            addEnemy(selectEnemy[t.type](t))
-          }, t.delay * (i + 1))
+            addEnemy(Enemy(factory('game'), options))
+          }, options.delay * (i + 1))
         })
       }, enemyGroup.timestamp * 1000)
     })

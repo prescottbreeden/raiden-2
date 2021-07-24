@@ -1,4 +1,4 @@
-name = "itemGiver"
+name = "vendor"
 
 # default attributes
 
@@ -6,6 +6,7 @@ aim = true
 angle = 0
 contain = true
 enter = "random"
+explosion = "default"
 gx = 0
 gy = 0
 h = 80
@@ -14,6 +15,7 @@ item = true
 movement = "explore"
 movementSpeed = 2
 pointValue = 200
+r= 40
 radians = 0
 spin = true
 tracking = false

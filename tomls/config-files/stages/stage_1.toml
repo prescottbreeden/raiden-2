@@ -13,32 +13,38 @@ name = "stage_1"
 # sprinkler -- threat: med
 
 [[enemies]]
-timestamp = 10
+timestamp = 12
 [[enemies.types]]
 delay = 800
 enter = 'left'
 movement = 'parabolic'
 type = "whitebird"
+x = 300
 [[enemies.types]]
 delay = 800
 enter = 'left'
 movement = 'parabolic'
 type = "whitebird"
+x = 600
 [[enemies.types]]
 delay = 800
 enter = 'left'
 movement = 'parabolic'
 type = "whitebird"
+x = 300
 [[enemies.types]]
 delay = 800
 enter = 'left'
 movement = 'parabolic'
 type = "whitebird"
+x = 600
 [[enemies.types]]
 delay = 800
 enter = 'left'
 movement = 'parabolic'
 type = "whitebird"
+x = 300
+
 
 [[enemies]]
 timestamp = 16
@@ -69,12 +75,47 @@ movement = 'parabolic'
 type = "blackbird"
 
 [[enemies]]
+timestamp = 18
+[[enemies.types]]
+delay = 0
+enter = 'right'
+movement = 'explore'
+type = "vendor"
+
+[[enemies]]
 timestamp = 22
 [[enemies.types]]
 delay = 0
-enter = 'center'
+enter = 'left'
 movement = 'explore'
-type = "itemGiver"
+type = "vendor"
+
+[[enemies]]
+timestamp = 24
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 250
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 300
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 350
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 400
 
 [[enemies]]
 timestamp = 28
@@ -82,7 +123,8 @@ timestamp = 28
 delay = 200
 enter = 'center'
 movement = 'explore'
-type = "itemGiver"
+type = "vendor"
+
 [[enemies.types]]
 delay = 200
 enter = 'left'
@@ -113,24 +155,55 @@ type = "whitebird"
 timestamp = 32
 [[enemies.types]]
 delay = 200
-enter = 'right'
+enter = 'position'
 movement = 'charge'
 type = "blackbird"
+x = 250
 [[enemies.types]]
 delay = 200
-enter = 'left'
+enter = 'position'
 movement = 'charge'
 type = "blackbird"
+x = 300
 [[enemies.types]]
 delay = 200
-enter = 'right'
+enter = 'position'
 movement = 'charge'
 type = "blackbird"
+x = 350
 [[enemies.types]]
 delay = 200
-enter = 'left'
+enter = 'position'
 movement = 'charge'
 type = "blackbird"
+x = 400
+
+[[enemies]]
+timestamp = 38
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 500
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 450
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 400
+[[enemies.types]]
+delay = 200
+enter = 'position'
+movement = 'charge'
+type = "blackbird"
+x = 350
 
 [[enemies]]
 timestamp = 40
@@ -194,7 +267,7 @@ timestamp = 52
 delay = 0
 enter = 'center'
 movement = 'explore'
-type = "itemGiver"
+type = "vendor"
 
 [[enemies]]
 timestamp = 58
@@ -202,7 +275,7 @@ timestamp = 58
 delay = 200
 enter = 'center'
 movement = 'explore'
-type = "itemGiver"
+type = "vendor"
 [[enemies.types]]
 delay = 200
 enter = 'left'
@@ -266,7 +339,7 @@ timestamp = 70
 delay = 0
 enter = 'center'
 movement = 'explore'
-type = "itemGiver"
+type = "vendor"
 
 [[enemies]]
 timestamp = 75

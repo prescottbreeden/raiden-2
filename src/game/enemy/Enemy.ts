@@ -2,14 +2,17 @@ import * as Movement from '../../utils/movement'
 import * as Weapons from '../../utils/weapons'
 import { Game, radian } from '../Game'
 import { IEnemy } from '../../interfaces/IEnemy.interface'
-import { cond, __ } from 'ramda'
+import { IStageOptions } from '../../interfaces/IStageOptions.interface'
+import { cond } from 'ramda'
+import { enemyDefaults } from '../../utils/enemies'
+import { images } from '../../utils/images'
 import { newImage, publicProperty, useState } from '../../utils/general'
 
-export const Enemy = (game: Game, props: IEnemy) => {
+export const Enemy = (game: Game, props: IStageOptions) => {
   const { readState: enemy, updateState: update } = useState<IEnemy>({
+    ...enemyDefaults[props.type],
     ...props,
-    img: newImage(props.src),
-    weaponSpeed: game.getVelocity() * props.weaponSpeed,
+    img: newImage(images[props.type]),
   })
 
   Movement.move(enemy('movement'))(game, enemy, update)
@@ -33,20 +36,21 @@ export const Enemy = (game: Game, props: IEnemy) => {
     game.context?.save()
     game.context?.translate(enemy('x'), enemy('y'))
 
-    // if tracking enemy, aim the enemy at player
+    // if enemy.tracking, aim the enemy at player
     if (enemy('tracking') && enemy('movement') !== 'kamakaze') {
       const angle =
         Math.atan2(playerY - enemy('y'), playerX - enemy('x')) - Math.PI / 2
       game.context?.rotate(angle)
     }
 
+    // if enemy is suicidal, rapidly accelerate after it slows down to fire
     if (enemy('movement') === 'kamakaze') {
       if (enemy('vy') <= 0) {
         update({ gy: (enemy('gy') + 0.15) % 2 })
       }
     }
 
-    // if contain enemy, let it bounce off edges
+    // if enemy.contain, let it bounce off edges
     if (enemy('contain')) {
       cond([
         [Movement.leavingLeftRight, Movement.reverseVx],
@@ -54,7 +58,7 @@ export const Enemy = (game: Game, props: IEnemy) => {
       ])({ enemy, update })
     }
 
-    // if spin enemy, rotate it in a circle
+    // if enemy.spin rotate it in a circle
     if (enemy('spin')) {
       update({ angle: enemy('angle') + 5 * radian })
       game.context?.rotate(enemy('angle'))
@@ -90,9 +94,8 @@ export const Enemy = (game: Game, props: IEnemy) => {
 
   // Read-only properties
   Object.defineProperties(enemyObject, {
+    ...publicProperty<boolean>('explosion', () => enemy('explosion')),
     ...publicProperty<boolean>('item', () => enemy('item')),
-    ...publicProperty<number>('gx', () => enemy('gx')),
-    ...publicProperty<number>('gy', () => enemy('gy')),
     ...publicProperty<number>('h', () => enemy('h')),
     ...publicProperty<number>('hp', () => enemy('hp')),
     ...publicProperty<number>('pointValue', () => enemy('pointValue')),

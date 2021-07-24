@@ -8,31 +8,47 @@
      "delay": 800,
      "enter": "left",
      "movement": "parabolic",
-     "type": "whitebird"
+     "type": "whitebird",
+     "x": 300
     },
     {
      "delay": 800,
      "enter": "left",
      "movement": "parabolic",
-     "type": "whitebird"
+     "type": "whitebird",
+     "x": 600
     },
     {
      "delay": 800,
      "enter": "left",
      "movement": "parabolic",
-     "type": "whitebird"
+     "type": "whitebird",
+     "x": 300
     },
     {
      "delay": 800,
      "enter": "left",
      "movement": "parabolic",
-     "type": "whitebird"
+     "type": "whitebird",
+     "x": 600
     },
     {
      "delay": 800,
      "enter": "left",
      "movement": "parabolic",
-     "type": "whitebird"
+     "type": "whitebird",
+     "x": 300
+    }
+   ]
+  },
+  {
+   "timestamp": 13,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "right",
+     "movement": "explore",
+     "type": "vendor"
     }
    ]
   },
@@ -76,9 +92,42 @@
    "types": [
     {
      "delay": 0,
-     "enter": "center",
+     "enter": "left",
      "movement": "explore",
-     "type": "itemGiver"
+     "type": "vendor"
+    }
+   ]
+  },
+  {
+   "timestamp": 24,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 250
+    },
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 300
+    },
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 350
+    },
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 400
     }
    ]
   },
@@ -89,7 +138,7 @@
      "delay": 200,
      "enter": "center",
      "movement": "explore",
-     "type": "itemGiver"
+     "type": "vendor"
     },
     {
      "delay": 200,
@@ -128,27 +177,64 @@
    "types": [
     {
      "delay": 200,
-     "enter": "right",
+     "enter": "position",
      "movement": "charge",
-     "type": "blackbird"
+     "type": "blackbird",
+     "x": 250
     },
     {
      "delay": 200,
-     "enter": "left",
+     "enter": "position",
      "movement": "charge",
-     "type": "blackbird"
+     "type": "blackbird",
+     "x": 300
     },
     {
      "delay": 200,
-     "enter": "right",
+     "enter": "position",
      "movement": "charge",
-     "type": "blackbird"
+     "type": "blackbird",
+     "x": 350
     },
     {
      "delay": 200,
-     "enter": "left",
+     "enter": "position",
      "movement": "charge",
-     "type": "blackbird"
+     "type": "blackbird",
+     "x": 400
+    }
+   ]
+  },
+  {
+   "timestamp": 38,
+   "types": [
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 500
+    },
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 450
+    },
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 400
+    },
+    {
+     "delay": 200,
+     "enter": "position",
+     "movement": "charge",
+     "type": "blackbird",
+     "x": 350
     }
    ]
   },
@@ -229,7 +315,7 @@
      "delay": 0,
      "enter": "center",
      "movement": "explore",
-     "type": "itemGiver"
+     "type": "vendor"
     }
    ]
   },
@@ -240,7 +326,7 @@
      "delay": 200,
      "enter": "center",
      "movement": "explore",
-     "type": "itemGiver"
+     "type": "vendor"
     },
     {
      "delay": 200,
@@ -321,7 +407,7 @@
      "delay": 0,
      "enter": "center",
      "movement": "explore",
-     "type": "itemGiver"
+     "type": "vendor"
     }
    ]
   },

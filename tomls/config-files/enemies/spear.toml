@@ -6,6 +6,7 @@ aim = false
 angle = 0
 contain = false
 enter = "position"
+explosion = "small"
 gx = 0
 gy = 0
 h = 80
@@ -14,6 +15,7 @@ item = false
 movement = "kamakaze"
 movementSpeed = 12
 pointValue = 100
+r = 40
 radians = 0
 spin = false
 tracking = true
@@ -25,3 +27,5 @@ weaponSpeed = 6
 weaponType = "ball"
 x = 250
 y = 0
+
+# x: getRandomInt(WIDTH * 0.1, WIDTH * 0.9),

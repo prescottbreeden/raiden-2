@@ -1,6 +1,7 @@
 import artwork from '../assets/images/artwork.jpg'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
+import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
 import playerOne from '../assets/images/mship1.png'
 import raidenJam from '../assets/music/soundtrack.mp3'
@@ -56,7 +57,7 @@ export class Game {
   setCurrentState = (newState) => (this._currentState = newState)
 
   getVelocity = () => this._velocity
-  // setVelocity = (newVelocity) => (this._velocity = newVelocity);
+  setVelocity = (newVelocity) => (this._velocity = newVelocity)
 
   getDifficulty = () => this._difficulty
 
@@ -104,6 +105,32 @@ export class Game {
     this.setCurrentState(GAME_PLAYING)
     this.start()
     this.hideMenu()
+    this.launchSequence()
+  }
+
+  launchSequence() {
+    for (let i = 1; i <= 10; i++) {
+      setTimeout(() => {
+        this.setVelocity(this.getVelocity() + i)
+      }, i * 200)
+    }
+    for (let i = 1; i <= 9; i++) {
+      setTimeout(() => {
+        this.setVelocity(this.getVelocity() - i)
+      }, 3000 + i * 400)
+    }
+    setTimeout(() => {
+      this.setVelocity(this.getVelocity() - 9)
+    }, 7000)
+    setTimeout(() => {
+      this.setVelocity(this.getVelocity() - 0.25)
+    }, 7400)
+    setTimeout(() => {
+      this.setVelocity(this.getVelocity() - 0.25)
+    }, 7800)
+    setTimeout(() => {
+      this.setVelocity(1)
+    }, 8200)
   }
 
   start() {
@@ -282,12 +309,16 @@ export class Game {
             bullets.splice(i, 1)
             if (enemy.hp <= 0) {
               if (enemy.item) {
-                console.log('item is true')
                 this.itemFactory.generateItem(enemy)
               }
               this.updateScore(enemy.pointValue)
-              const hit = new Audio(explosionSound)
-              hit.play()
+              if (enemy.explosion === 'small') {
+                const hit = new Audio(smallExplosion)
+                hit.play()
+              } else {
+                const hit = new Audio(explosionSound)
+                hit.play()
+              }
               const enemyCopy = { ...enemy }
               this.explosionFactory.generateExplosions(enemyCopy)
               enemies.splice(j, 1)

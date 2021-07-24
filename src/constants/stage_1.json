@@ -2,7 +2,7 @@
  "name": "stage_1",
  "enemies": [
   {
-   "timestamp": 10,
+   "timestamp": 12,
    "types": [
     {
      "delay": 800,
@@ -38,17 +38,6 @@
      "movement": "parabolic",
      "type": "whitebird",
      "x": 300
-    }
-   ]
-  },
-  {
-   "timestamp": 13,
-   "types": [
-    {
-     "delay": 0,
-     "enter": "right",
-     "movement": "explore",
-     "type": "vendor"
     }
    ]
   },
@@ -84,6 +73,17 @@
      "enter": "right",
      "movement": "parabolic",
      "type": "blackbird"
+    }
+   ]
+  },
+  {
+   "timestamp": 18,
+   "types": [
+    {
+     "delay": 0,
+     "enter": "right",
+     "movement": "explore",
+     "type": "vendor"
     }
    ]
   },

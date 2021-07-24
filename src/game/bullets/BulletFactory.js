@@ -23,15 +23,15 @@ export class BulletFactory {
     this.addBullets(bullet)
   }
   spread = () => ({
-    1: [new Spread(this.game, this.ship, this.ship.x - playerOffset)],
+    1: [Spread(this.game, this.ship, this.ship.x - playerOffset)],
     2: [
-      new Spread(
+      Spread(
         this.game,
         this.ship,
         this.ship.x - this.ship.w / 2,
         this.ship.y + this.ship.h / 2
       ),
-      new Spread(
+      Spread(
         this.game,
         this.ship,
         this.ship.x + this.ship.w / 2 - 5,
@@ -39,107 +39,107 @@ export class BulletFactory {
       ),
     ],
     3: [
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5),
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4),
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5),
     ],
     4: [
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
         vx: -5,
         rotate: -0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
         vx: -5,
         rotate: -0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
         vx: -5,
         rotate: -0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
         vx: -5,
         rotate: -0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
         vx: 5,
         rotate: 0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
         vx: 5,
         rotate: 0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
         vx: 5,
         rotate: 0.1125,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
         vx: 5,
         rotate: 0.1125,
       }),
     ],
     5: [
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
         vx: -10,
         rotate: -0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
         vx: -10,
         rotate: -0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
         vx: -10,
         rotate: -0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
         vx: -10,
         rotate: -0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
         vx: 10,
         rotate: 0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
         vx: 10,
         rotate: 0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
         vx: 10,
         rotate: 0.225,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
         vx: 10,
         rotate: 0.225,
       }),
     ],
     6: [
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
         vx: -20,
         rotate: -0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
         vx: -20,
         rotate: -0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
         vx: -20,
         rotate: -0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
         vx: -20,
         rotate: -0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 2, 0, {
         vx: 20,
         rotate: 0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 2 - 5, 0, {
         vx: 20,
         rotate: 0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
+      Spread(this.game, this.ship, this.ship.x - this.ship.w / 4, 0, {
         vx: 20,
         rotate: 0.45,
       }),
-      new Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
+      Spread(this.game, this.ship, this.ship.x + this.ship.w / 4 - 5, 0, {
         vx: 20,
         rotate: 0.45,
       }),

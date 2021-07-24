@@ -1,10 +1,8 @@
 import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
-import { Bullet } from './Bullet'
 
-export class BrokenSprinklerHead extends Bullet {
+export class BrokenSprinklerHead {
   constructor(game, ship) {
-    super(game, ship)
-
+    this.context = game.context
     this.class = 'enemy'
     this.vy = ship.vy
     this.vx = ship.vx

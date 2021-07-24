@@ -16,6 +16,7 @@ import { ItemFactory } from './events/ItemFactory'
 import { Player } from './Player'
 import { Sound } from './Sound'
 import { getPointDistance, getDistance } from './utilities'
+import { forEach, pipe, prop } from 'ramda'
 
 export const radian = Math.PI / 180
 export const INITIAL = 1
@@ -105,10 +106,10 @@ export class Game {
     this.setCurrentState(GAME_PLAYING)
     this.start()
     this.hideMenu()
-    this.launchSequence()
   }
 
   launchSequence() {
+    this.cloudFactory.cloudLaunch()
     for (let i = 1; i <= 10; i++) {
       setTimeout(() => {
         this.setVelocity(this.getVelocity() + i)
@@ -136,8 +137,7 @@ export class Game {
   start() {
     this.createObjects()
     this.runGameLoop()
-    this.cloudFactory.generateClouds()
-    this.enemyFactory.createAllEnemies()
+    this.launchSequence()
   }
 
   runGameLoop() {
@@ -170,7 +170,7 @@ export class Game {
   }
 
   createObjects() {
-    this.cloudFactory = new CloudFactory(this.canvas)
+    this.cloudFactory = CloudFactory(this)
     this.player = new Player(playerOne, this.canvas)
     this.bulletFactory = new BulletFactory(this, this.player)
     this.enemyFactory = EnemyFactory(this, stage_1)
@@ -211,23 +211,23 @@ export class Game {
 
   drawGamePlayingScreen() {
     if (this.getMusic()) {
-      this.toggleMusic()
       this.soundtrack = new Sound(raidenJam)
+      this.toggleMusic()
     }
 
-    // clear canvas
+    // clear canvi
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     this.bulletContext.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    // this.canvas.width = this.canvas.width;
 
-    // draw clouds
     this.checkCollisions()
     this.checkItemCollection()
-    this.drawClouds()
-    this.drawBullets()
-    this.drawEnemies()
     this.drawExplosions()
     this.drawItems()
+    ;[
+      this.cloudFactory.clouds,
+      this.enemyFactory.enemies,
+      this.bulletFactory.bullets,
+    ].forEach(this.drawCollection)
 
     // draw player
     this.player.update()
@@ -255,23 +255,10 @@ export class Game {
   // ============================ //
 
   drawCollection(collection) {
-    collection.forEach((obj) => obj.draw())
-  }
-
-  drawEnemies() {
-    this.drawCollection(this.enemyFactory.enemies)
-  }
-
-  drawBullets() {
-    this.drawCollection(this.bulletFactory.bullets)
-  }
-
-  drawClouds() {
-    const clouds = this.cloudFactory.clouds
-    clouds.forEach((cloud) => {
-      cloud.draw()
-      cloud.y += this.getVelocity()
-    })
+    forEach(
+      pipe(prop('draw'), (f) => f()),
+      collection
+    )
   }
 
   updateScore(score) {
@@ -426,6 +413,12 @@ export class Game {
           case KEY_CODE.spacebar:
             game.ceaseFire()
             down = false
+            break
+          case KEY_CODE.f:
+            console.log('f')
+            break
+          default:
+            console.log(e.keyCode)
         }
       }
     })

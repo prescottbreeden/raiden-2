@@ -1,8 +1,8 @@
 import './sass/main.scss'
 import { Game } from './game/Game'
 
-export const WIDTH = 800
-export const HEIGHT = window.innerHeight - 50
+export const WIDTH = 760
+export const HEIGHT = 1000
 
 window.onload = () => {
   const newGame = new Game({

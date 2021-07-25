@@ -16,8 +16,8 @@ export const Carrier = (game: Game) => {
     vy: 0,
     vx: 0,
     launcherFrame: 0,
-    launcherX: 325,
-    launcherY: HEIGHT / 2 + 90,
+    launcherX: 304,
+    launcherY: (HEIGHT - height) / 2 + 560,
   })
 
   const currentHitBox = () => {
@@ -57,7 +57,6 @@ export const Carrier = (game: Game) => {
 
   const drawCarrier = () => {
     game.context?.save()
-    // game.context?.translate(carrier('x'), carrier('y'))
     game.context?.drawImage(
       carrier('img'), // img
       0, // sx
@@ -146,33 +145,3 @@ export const Carrier = (game: Game) => {
 
   return carrierObject
 }
-// game.context?.drawImage(
-//   carrier('img'),
-//   -(carrier('w') / 2),
-//   -(carrier('h') / 2),
-//   carrier('w'),
-//   carrier('h')
-// )
-// this.context.arc(this.position.x, this.position.y, this.r, 0, 360 * radian, false);
-// this.context.strokeStyle = 'white';
-// this.context.fillStyle = 'rgba(350, 350, 350, .2)';
-// this.context.lineWidth = 2;
-// this.context.stroke();
-// this.context.fill();
-
-// this.context.save();
-// this.context.strokeStyle = 'red';
-// this.context.beginPath();
-// this.context.moveTo(this.hitBox.a.x, this.hitBox.a.y);
-// this.context.lineTo(this.hitBox.b.x, this.hitBox.b.y);
-// this.context.lineTo(this.hitBox.c.x, this.hitBox.c.y);
-// this.context.lineTo(this.hitBox.a.x, this.hitBox.a.y);
-// this.context.stroke();
-// this.context.restore();
-
-// this.context.save();
-// this.context.fillStyle = 'rgba(250,250,250,.2)';
-// this.context.translate(this.x, this.y)
-// this.context.fillRect(-(this.w/2), -(this.h/2), this.w, this.h);
-// this.context.fill();
-// this.context.restore();

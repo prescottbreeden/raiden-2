@@ -51,6 +51,8 @@ export class Game {
     this.height = HEIGHT
     this.firing = false
     this.audioTrack = null
+    this.bulletContext = null
+    this.context = null
 
     this.createCanvas()
     this.createBulletCanvas()
@@ -77,10 +79,9 @@ export class Game {
     const canvas = document.createElement('canvas')
     canvas.id = 'ctx'
     canvas.className = 'canvas'
-    canvas.width = this.width
-    canvas.height = this.height
+    canvas.width = WIDTH
+    canvas.height = HEIGHT
     gameNode.appendChild(canvas)
-    this.canvas = canvas
     this.context = canvas.getContext('2d')
   }
   createBulletCanvas = () => {
@@ -88,10 +89,9 @@ export class Game {
     const canvas = document.createElement('canvas')
     canvas.id = 'bullet-ctx'
     canvas.className = 'bullet-canvas'
-    canvas.width = this.width
-    canvas.height = this.height
+    canvas.width = WIDTH
+    canvas.height = HEIGHT
     bulletNode.appendChild(canvas)
-    this.bulletCanvas = canvas
     this.bulletContext = canvas.getContext('2d')
   }
 
@@ -117,32 +117,6 @@ export class Game {
     }, 1000)
   }
 
-  launchSequence() {
-    // this.cloudFactory.cloudLaunch()
-    for (let i = 1; i <= 10; i++) {
-      setTimeout(() => {
-        this.setVelocity(this.getVelocity() + i)
-      }, i * 200)
-    }
-    for (let i = 1; i <= 9; i++) {
-      setTimeout(() => {
-        this.setVelocity(this.getVelocity() - i)
-      }, 3000 + i * 400)
-    }
-    setTimeout(() => {
-      this.setVelocity(this.getVelocity() - 9)
-    }, 7000)
-    setTimeout(() => {
-      this.setVelocity(this.getVelocity() - 0.25)
-    }, 7400)
-    setTimeout(() => {
-      this.setVelocity(this.getVelocity() - 0.25)
-    }, 7800)
-    setTimeout(() => {
-      this.setVelocity(1)
-    }, 8200)
-  }
-
   start() {
     this.createObjects()
     this.runGameLoop()
@@ -157,6 +131,7 @@ export class Game {
         this.drawGamePlayingScreen()
         break
       case GAME_OVER:
+        this.ceaseFire()
         this.drawGameOverScreen()
         break
     }
@@ -184,7 +159,7 @@ export class Game {
     this.player = Player(this)
     this.bulletFactory = new BulletFactory(this, this.player)
     this.enemyFactory = EnemyFactory(this, stage_1)
-    this.explosionFactory = new ExplosionFactory(this)
+    this.explosionFactory = ExplosionFactory(this)
     this.itemFactory = new ItemFactory(this)
   }
 
@@ -228,20 +203,20 @@ export class Game {
     }
 
     // clear canvi
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    this.bulletContext.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this.context.clearRect(0, 0, WIDTH, HEIGHT)
+    this.bulletContext.clearRect(0, 0, WIDTH, HEIGHT)
 
     this.checkCollisions()
     this.checkItemCollection()
-    this.drawExplosions()
-    this.drawItems()
     ;[
       this.cloudFactory.clouds,
-      this.carrier,
-      this.enemyFactory.enemies,
-      this.bulletFactory.bullets,
+      [this.carrier],
+      this.explosionFactory.explosions,
+      this.itemFactory.items,
     ].forEach(this.drawCollection)
-    this.carrier && this.carrier.draw()
+    ;[this.enemyFactory.enemies, this.bulletFactory.bullets].forEach(
+      this.drawCollection
+    )
 
     // draw player
     this.player.update()
@@ -253,15 +228,11 @@ export class Game {
 
   drawGameOverScreen() {
     this.context.fillStyle = 'black'
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
+    this.context.fillRect(0, 0, WIDTH, HEIGHT)
 
     this.context.fillStyle = 'white'
     this.context.font = '36 Courier'
-    this.context.fillText(
-      'game over',
-      this.canvas.width / 2 - 100,
-      this.canvas.height / 2
-    )
+    this.context.fillText('game over', WIDTH / 2 - 100, HEIGHT / 2)
   }
 
   // ============================ //
@@ -301,12 +272,7 @@ export class Game {
             bullet.y
           )
           if (checkPlayerBullets < enemy.r + bullet.w / 2) {
-            // TODO: finish abstracting
-            if (enemy.takeDamage) {
-              enemy.takeDamage(bullet.power)
-            } else {
-              enemy.hp -= bullet.power
-            }
+            enemy.takeDamage(bullet.power)
             bullets.splice(i, 1)
             if (enemy.hp <= 0) {
               if (enemy.item) {
@@ -320,8 +286,7 @@ export class Game {
                 const hit = new Audio(explosionSound)
                 hit.play()
               }
-              const enemyCopy = { ...enemy }
-              this.explosionFactory.generateExplosions(enemyCopy)
+              this.explosionFactory.generateExplosions(enemy)
               enemies.splice(j, 1)
             }
           }
@@ -341,22 +306,6 @@ export class Game {
         this.setCurrentState(GAME_OVER)
       }
     }
-  }
-
-  drawExplosions() {
-    const explosions = this.explosionFactory.explosions
-    for (let i = 0; i < explosions.length; i++) {
-      const explosion = explosions[i]
-      explosion.draw()
-      if (explosion.row + explosion.col === 15) {
-        explosions.splice(i, 1)
-      }
-    }
-  }
-
-  drawItems() {
-    const items = this.itemFactory.items
-    items.forEach((item) => item.draw())
   }
 
   checkItemCollection() {

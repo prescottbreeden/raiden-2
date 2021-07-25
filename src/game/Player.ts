@@ -1,4 +1,3 @@
-import playerOne from '../assets/images/mship1.png'
 import raidenSprites from '../assets/images/raiden-3-sprites.png'
 import { Game } from './Game'
 import { HEIGHT, WIDTH } from '..'

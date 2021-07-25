@@ -5,34 +5,62 @@
     <title>Overhead Shooter</title>
   </head>
   <body>
-    <div class="game__container">
-      <div class="player-bar">
-        <div class="player-bar__container">
-          <p class="player-bar__title" id="title">Raiden Arcade</p>
-        </div>
-        <div class="player-bar__container">
-          <div class="player-score__container">
-            <p class="player-score">Score</p>
-            <p id="player-score" class="player-score">0</p>
+    <div class="container">
+      <div class="info">
+        <div class="info__section">
+          <h1 class="info__title">Raiden Clone</h1>
+          <p>This game is a clone of the 1993 arcade game, Raiden II.
+            It is purely a creative experiment and with no monetary value.
+          </p>
+          <div class="info__section">
+            <h2>Movement</h2>
+            <p>up, down, left, right</p>
+            <p>w, s, a, d</p>
           </div>
-        </div>
-        <div class="player-bar__container">
-          <div class="player-lives">
-            <p class="player-lives--text">Lives</p>
-            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
-            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
-            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
+          <div class="info__section">
+            <h2>Weapon Fire</h2>
+            <p>spacebar</p>
+            <p>enter</p>
+          </div>
+          <div class="info__section">
+            <h2>Menu</h2>
+            <p>delete</p>
+          </div>
+          <div class="info__section">
+            <h2>Special Thanks</h2>
+            <ul class="attributes">
+              <li>Bob Ross</li>
+              <li>Dingo</li>
+              <li>Semicolon</li>
+              <li>Chuck Norris</li>
+            </ul>
           </div>
         </div>
       </div>
       <div id="game" class="game">
-        <div id="environment" class="bullets"></div>
-        <div id="bullets" class="bullets"></div>
+        <div id="bullets"></div>
+        <div class="player-info player-info--left">
+          <p class="player-info__name">1UP</p>
+          <p id="player-score"class="player-info__score">0</p>
+          <div class="player-info__lives">
+            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
+            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
+            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
+          </div>
+        </div>
+        <!-- <div class="player-info player-info--right"> -->
+        <!--   <p class="player-info__name">2UP</p> -->
+        <!--   <p id="player-info__score"class="player-score">Press Start</p> -->
+        <!--   <div class="player-info__lives"> -->
+        <!--     <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" /> -->
+        <!--     <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" /> -->
+        <!--     <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" /> -->
+        <!--   </div> -->
+        <!-- </div> -->
         <div class="fps">
           <span>FPS:</span>
           <span id="fps"></span>
         </div>
       </div>
-    </div>
   </body>
 </html>

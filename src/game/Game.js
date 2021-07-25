@@ -87,7 +87,7 @@ export class Game {
     const bulletNode = document.getElementById('bullets')
     const canvas = document.createElement('canvas')
     canvas.id = 'bullet-ctx'
-    canvas.className = 'bullet-canvas'
+    canvas.className = 'canvas'
     canvas.width = WIDTH
     canvas.height = HEIGHT
     bulletNode.appendChild(canvas)

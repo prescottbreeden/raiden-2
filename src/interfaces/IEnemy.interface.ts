@@ -1,30 +1,21 @@
-export interface IEnemy {
+import { IShip } from './IShip.interface'
+
+export interface IEnemy extends IShip {
   aim: boolean
   angle: number
   contain: boolean
   enter: string
-  explosion: string
-  gx: number
-  gy: number
-  h: number
   hit?: boolean
   hp: number
-  img?: HTMLImageElement
   item: boolean
   movement: string
   movementSpeed: number
-  name: string
   pointValue: number
-  r?: number
   radians: number
   spin: boolean
   tracking: boolean
-  vx: number
-  vy: number
-  w: number
   weaponDelay: number
   weaponSpeed: number
-  weaponType: string
   x: number
   y: number
 }

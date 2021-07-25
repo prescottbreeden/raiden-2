@@ -7,7 +7,7 @@ export const Blaster = (game: Game, ship: any) => {
     class: 'player',
     vy: -20,
     vx: 0,
-    power: 4 + ship.weaponStr * 1.25,
+    power: 5 + ship.weaponStr * 1.25,
     img: newImage(spreadSrc),
     w: 5,
     h: 10,

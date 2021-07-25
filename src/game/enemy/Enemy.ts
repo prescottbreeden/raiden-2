@@ -2,6 +2,7 @@ import * as Movement from '../../utils/movement'
 import * as Weapons from '../../utils/weapons'
 import { Game, radian } from '../Game'
 import { IEnemy } from '../../interfaces/IEnemy.interface'
+import { IShip } from '../../interfaces/IShip.interface'
 import { IStageOptions } from '../../interfaces/IStageOptions.interface'
 import { cond } from 'ramda'
 import { enemyDefaults } from '../../utils/enemies'
@@ -26,7 +27,7 @@ export const Enemy = (game: Game, props: IStageOptions) => {
   }
 
   const draw = (): void => {
-    const { x: playerX, y: playerY } = game.player!
+    const { x: playerX, y: playerY } = game.player! as unknown as IShip
     update({
       vx: enemy('vx') + enemy('gx'),
       vy: enemy('vy') + enemy('gy'),

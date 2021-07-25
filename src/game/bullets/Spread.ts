@@ -2,6 +2,7 @@ import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png'
 import { newImage, publicProperty, useState } from '../../utils/general'
 import { Game } from '../Game'
 
+// TODO: single player bullet function?
 export const Spread = (
   game: Game,
   ship: any,
@@ -20,18 +21,12 @@ export const Spread = (
     h: 15,
     img: newImage(spreadSrc),
     rotate: rotate ? rotate : 0,
-    x: x !== 0 ? x : ship.x - 5 / 2,
+    x: x !== 0 ? x : ship.x + ship.w / 2,
     y: y !== 0 ? y : ship.y,
   })
 
-  const draw = () => {
-    update({
-      y: bullet('y') + bullet('vy'),
-      x: bullet('x') + bullet('vx'),
-    })
-    game.context?.save()
-
-    // red beam
+  // TODO: util
+  const redBeam = () => {
     game.context?.drawImage(
       bullet('img'), // img
       347, // sx
@@ -43,33 +38,46 @@ export const Spread = (
       bullet('w'), // dwidth
       bullet('h') // dheight
     )
+  }
+
+  // TODO: util
+  const largeOvalBullet = () => {
+    game.context?.drawImage(
+      bullet('img'), // img
+      428, // sx
+      160, // sy
+      9, // swidth
+      25, // sheight
+      bullet('x'), // dx
+      bullet('y'), // dy
+      bullet('w'), // dwidth
+      bullet('h') // dheight
+    )
+  }
+
+  // TODO: util
+  const ovalBullet = () => {
+    game.context?.drawImage(
+      bullet('img'), // img
+      428, // sx
+      82, // sy
+      9, // swidth
+      25, // sheight
+      bullet('x'), // dx
+      bullet('y'), // dy
+      bullet('w'), // dwidth
+      bullet('h') // dheight
+    )
+  }
+
+  const draw = () => {
+    update({
+      y: bullet('y') + bullet('vy'),
+      x: bullet('x') + bullet('vx'),
+    })
+    game.context?.save()
+    redBeam()
     game.context?.rotate(bullet('roate'))
-
-    // larger oval bullet
-    // game.context?.drawImage(
-    //   bullet('img'), // img
-    //   428, // sx
-    //   160, // sy
-    //   9, // swidth
-    //   25, // sheight
-    //   bullet('x'), // dx
-    //   bullet('y'), // dy
-    //   bullet('w'), // dwidth
-    //   bullet('h') // dheight
-    // )
-
-    // oval red bullet
-    // game.context?.drawImage(
-    //   bullet('img'), // img
-    //   428, // sx
-    //   82, // sy
-    //   9, // swidth
-    //   25, // sheight
-    //   bullet('x'), // dx
-    //   bullet('y'), // dy
-    //   bullet('w'), // dwidth
-    //   bullet('h') // dheight
-    // )
 
     game.context?.restore()
   }

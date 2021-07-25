@@ -2,7 +2,6 @@ import artwork from '../assets/images/artwork.jpg'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
 import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
-import playerOne from '../assets/images/mship1.png'
 import raidenJam from '../assets/music/soundtrack.mp3'
 import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3'
@@ -110,7 +109,7 @@ export class Game {
   }
 
   launchSequence() {
-    this.cloudFactory.cloudLaunch()
+    // this.cloudFactory.cloudLaunch()
     for (let i = 1; i <= 10; i++) {
       setTimeout(() => {
         this.setVelocity(this.getVelocity() + i)
@@ -138,7 +137,7 @@ export class Game {
   start() {
     this.createObjects()
     this.runGameLoop()
-    this.launchSequence()
+    // this.launchSequence()
   }
 
   runGameLoop() {
@@ -172,7 +171,7 @@ export class Game {
 
   createObjects() {
     this.cloudFactory = CloudFactory(this)
-    this.player = new Player(playerOne, this.canvas)
+    this.player = Player(this)
     this.bulletFactory = new BulletFactory(this, this.player)
     this.enemyFactory = EnemyFactory(this, stage_1)
     this.explosionFactory = new ExplosionFactory(this)
@@ -290,6 +289,7 @@ export class Game {
           if (checkPlayerBullets < enemy.r + bullet.w / 2) {
             // TODO: finish abstracting
             if (enemy.takeDamage) {
+              console.log(bullet.power)
               enemy.takeDamage(bullet.power)
             } else {
               enemy.hp -= bullet.power
@@ -352,14 +352,10 @@ export class Game {
       const item = items[i]
       const distance = getDistance(item, this.player)
       if (distance < item.w) {
-        this.player.weaponType = item.prop
+        this.player.changeWeapon(item.prop)
         items.splice(i, 1)
         const chaching = new Audio(itemPickip)
         chaching.play()
-        this.player.weaponStr += 1
-        if (this.player.weaponStr > 6) {
-          this.player.weaponStr = 6
-        }
         if (this.firing) {
           this.shoot()
         }
@@ -397,22 +393,22 @@ export class Game {
         switch (e.keyCode) {
           case KEY_CODE.left:
             if (game.player.vx < 0) {
-              game.player.vx = 0
+              game.player?.move.stopX()
             }
             break
           case KEY_CODE.up:
             if (game.player.vy < 0) {
-              game.player.vy = 0
+              game.player?.move.stopY()
             }
             break
           case KEY_CODE.right:
             if (game.player.vx > 0) {
-              game.player.vx = 0
+              game.player?.move.stopX()
             }
             break
           case KEY_CODE.down:
             if (game.player.vy > 0) {
-              game.player.vy = 0
+              game.player?.move.stopY()
             }
             break
           case KEY_CODE.spacebar:
@@ -431,16 +427,16 @@ export class Game {
       if (game.getState() === GAME_PLAYING) {
         switch (e.keyCode) {
           case KEY_CODE.left:
-            game.player.vx = -4.5
+            game.player?.move.left()
             break
           case KEY_CODE.up:
-            game.player.vy = -4.5
+            game.player?.move.up()
             break
           case KEY_CODE.right:
-            game.player.vx = 4.5
+            game.player?.move.right()
             break
           case KEY_CODE.down:
-            game.player.vy = 4.5
+            game.player?.move.down()
             break
           case KEY_CODE.spacebar:
             if (game.firing) return

@@ -5,8 +5,8 @@ import { HEIGHT, WIDTH } from '..'
 import { newImage, publicProperty, useState } from '../utils/general'
 
 export const Player = (game: Game) => {
-  const width = 70
-  const height = 85
+  const width = 60
+  const height = 80
   const frameWidth = 34
   const frame = (index: number) => frameWidth * index
 
@@ -15,8 +15,8 @@ export const Player = (game: Game) => {
     h: height,
     w: width,
     r: (width / 1.4) * 0.67,
-    x: WIDTH / 2,
-    y: HEIGHT - height,
+    x: WIDTH / 2 - 53,
+    y: HEIGHT / 2 - 18,
     vy: 0,
     vx: 0,
     weaponType: 'spread',
@@ -117,7 +117,7 @@ export const Player = (game: Game) => {
       10, // swidth
       10, // sheight
       player('x') + 1, // dx
-      player('y') + 35,
+      player('y') + 30,
       20, // dwidth
       20 // dheight
     )
@@ -127,8 +127,8 @@ export const Player = (game: Game) => {
       99, // sy
       10, // swidth
       10, // sheight
-      player('x') - 24, // dx
-      player('y') + 35,
+      player('x') - 20, // dx
+      player('y') + 30,
       20, // dwidth
       20 // dheight
     )

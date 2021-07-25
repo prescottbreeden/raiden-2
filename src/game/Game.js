@@ -1,8 +1,10 @@
-import artwork from '../assets/images/artwork.jpg'
+import artwork from '../assets/images/title_image.png'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
 import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
 import raidenJam from '../assets/music/soundtrack.mp3'
+import menuJam from '../assets/music/Name-Entry.mp3'
+import selectStart from '../assets/sfx/r2/select-start.mp3'
 import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3'
 import stage_1 from '../constants/stage_1.json'
@@ -16,6 +18,7 @@ import { Player } from './Player'
 import { Sound } from './Sound'
 import { __, cond, forEach, gt, pipe, prop } from 'ramda'
 import { getPointDistance, getDistance } from './utilities'
+import { Carrier } from './environment/Carrier'
 
 export const radian = Math.PI / 180
 export const INITIAL = 1
@@ -47,6 +50,7 @@ export class Game {
     this.width = WIDTH
     this.height = HEIGHT
     this.firing = false
+    this.audioTrack = null
 
     this.createCanvas()
     this.createBulletCanvas()
@@ -103,9 +107,14 @@ export class Game {
   }
 
   startGame = () => {
-    this.setCurrentState(GAME_PLAYING)
-    this.start()
-    this.hideMenu()
+    this.audioTrack.pause()
+    this.audioTrack = new Audio(selectStart)
+    this.audioTrack.play()
+    setTimeout(() => {
+      this.hideMenu()
+      this.setCurrentState(GAME_PLAYING)
+      this.start()
+    }, 1000)
   }
 
   launchSequence() {
@@ -137,7 +146,7 @@ export class Game {
   start() {
     this.createObjects()
     this.runGameLoop()
-    // this.launchSequence()
+    this.carrier.animateLaunchSequence()
   }
 
   runGameLoop() {
@@ -171,6 +180,7 @@ export class Game {
 
   createObjects() {
     this.cloudFactory = CloudFactory(this)
+    this.carrier = Carrier(this)
     this.player = Player(this)
     this.bulletFactory = new BulletFactory(this, this.player)
     this.enemyFactory = EnemyFactory(this, stage_1)
@@ -183,6 +193,8 @@ export class Game {
   // ============================ //
 
   showMenu() {
+    this.audioTrack = new Audio(menuJam)
+    this.audioTrack.play()
     const button = document.createElement('button')
     button.className = 'start-button'
     button.onclick = this.startGame
@@ -225,9 +237,11 @@ export class Game {
     this.drawItems()
     ;[
       this.cloudFactory.clouds,
+      this.carrier,
       this.enemyFactory.enemies,
       this.bulletFactory.bullets,
     ].forEach(this.drawCollection)
+    this.carrier && this.carrier.draw()
 
     // draw player
     this.player.update()
@@ -289,7 +303,6 @@ export class Game {
           if (checkPlayerBullets < enemy.r + bullet.w / 2) {
             // TODO: finish abstracting
             if (enemy.takeDamage) {
-              console.log(bullet.power)
               enemy.takeDamage(bullet.power)
             } else {
               enemy.hp -= bullet.power

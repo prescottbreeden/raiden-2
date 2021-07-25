@@ -1,10 +1,10 @@
 import artwork from '../assets/images/artwork.jpg'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
-import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
 import playerOne from '../assets/images/mship1.png'
 import raidenJam from '../assets/music/soundtrack.mp3'
+import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3'
 import stage_1 from '../constants/stage_1.json'
 import { BulletFactory } from './bullets/BulletFactory'
@@ -15,8 +15,8 @@ import { HEIGHT, WIDTH } from '..'
 import { ItemFactory } from './events/ItemFactory'
 import { Player } from './Player'
 import { Sound } from './Sound'
+import { __, cond, forEach, gt, pipe, prop } from 'ramda'
 import { getPointDistance, getDistance } from './utilities'
-import { forEach, pipe, prop } from 'ramda'
 
 export const radian = Math.PI / 180
 export const INITIAL = 1
@@ -47,6 +47,7 @@ export class Game {
     this.fps = 0
     this.width = WIDTH
     this.height = HEIGHT
+    this.firing = false
 
     this.createCanvas()
     this.createBulletCanvas()
@@ -359,6 +360,9 @@ export class Game {
         if (this.player.weaponStr > 6) {
           this.player.weaponStr = 6
         }
+        if (this.firing) {
+          this.shoot()
+        }
       }
     }
   }
@@ -366,17 +370,19 @@ export class Game {
   reset() {}
 
   ceaseFire() {
+    this.firing = false
     clearInterval(this.playerFire)
   }
 
   shoot() {
-    if (this.player.weaponStr > 5) {
-      this.playerFire = setInterval(this.pewpew, 75)
-    } else if (this.player.weaponStr > 3) {
-      this.playerFire = setInterval(this.pewpew, 100)
-    } else {
-      this.playerFire = setInterval(this.pewpew, 150)
-    }
+    this.firing = true
+    clearInterval(this.playerFire)
+    const delay = cond([
+      [pipe(prop('weaponStr'), gt(__, 5)), () => 75],
+      [pipe(prop('weaponStr'), gt(__, 3)), () => 100],
+      [() => true, () => 150],
+    ])(this.player)
+    this.playerFire = setInterval(this.pewpew, delay)
   }
 
   // ============================ //
@@ -384,7 +390,6 @@ export class Game {
   // ============================ //
 
   bindEvents() {
-    let down = false
     let game = this
 
     window.addEventListener('keyup', function (e) {
@@ -412,7 +417,6 @@ export class Game {
             break
           case KEY_CODE.spacebar:
             game.ceaseFire()
-            down = false
             break
           case KEY_CODE.f:
             console.log('f')
@@ -439,8 +443,7 @@ export class Game {
             game.player.vy = 4.5
             break
           case KEY_CODE.spacebar:
-            if (down) return
-            down = true
+            if (game.firing) return
             game.shoot()
         }
       }

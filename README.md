@@ -12,32 +12,39 @@ Because this game is still in dev, players are immune from bullets for testing p
 ## Roadmap
 
 - [x] Fix spread shot
-- [x] Create toml parsing for EnemyFactory data
-- [x] Create script to run all toml directories (ignoring src)
+- [x] Toml parsing for EnemyFactory data
+- [x] Script to run all toml directories (ignoring src)
 - [x] Make EnemyFactory JSON-configurable
-- [x] Create launch sequence for game start
-- [x] Add abstraction for enemy position locations
-- [x] Add spiral attack
-- [ ] Add sprinkler attack
-- [ ] Add powerup random chance item
-- [x] Add abstraction for weapontypes
-- [x] Add abstraction for enemey movement types
-- [ ] Add abstraction for simultaneous enemies
-- [ ] Add bullet collision for player
-- [ ] Add weapon release after player death
-- [ ] Add abstraction for stages
-- [ ] Add foreground/background w/ enemy shadows
-- [ ] Add player bombs
-- [ ] Add player missiles
-- [ ] Add player lives
-- [ ] Add player continue
-- [ ] Add high score saving
-- [ ] Create dynamic web portal (small: 67%, large: 100%)
-- [ ] Create window size detection
-- [ ] Create Game Menu / Main Menu options
+- [x] Carrier launch with launcher animation
+- [x] Abstraction for enemy position locations
+- [x] Spiral attack
+- [x] Raiden ship
+- [x] Exhaust animation
+- [ ] Sprinkler attack
+- [ ] Powerup random chance item
+- [x] Abstraction for weapontypes
+- [x] Abstraction for enemey movement types
+- [ ] Abstraction for simultaneous enemies
+- [ ] Bullet collision for player
+- [ ] Weapon release after player death
+- [ ] Abstraction for stages
+- [ ] Foreground/background w/ enemy shadows
+- [ ] Player bombs
+- [ ] Player missiles
+- [ ] Player lives
+- [ ] Player continue
+- [ ] High score saving
+- [ ] Dynamic web portal (small: 67%, large: 100%)
+- [ ] Window size detection
+- [ ] Game Menu / Main Menu options
 - [ ] Mobile controls? (probably not...)
 - [ ] Add Jest
 - [ ] Code cleanup / utilities overhaul
+
+## Bug list
+
+- [ ] Memory leak once 800 spear mobs attack with sprinkler mobs
+- [ ] Game over doesn't stop player weapon firing
 
 ## Point logic
 

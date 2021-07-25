@@ -1,4 +1,5 @@
 import { newImage, publicProperty, useState } from '../../utils/general'
+import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png'
 import { Game } from '../Game'
 
 export const Blaster = (game: Game, ship: any) => {
@@ -7,9 +8,9 @@ export const Blaster = (game: Game, ship: any) => {
     vy: -20,
     vx: 0,
     power: 4 + ship.weaponStr * 1.25,
+    img: newImage(spreadSrc),
     w: 5,
     h: 10,
-    // img: newImage(spreadSrc),
   })
 
   switch (ship.weaponStr) {
@@ -60,11 +61,19 @@ export const Blaster = (game: Game, ship: any) => {
       x: bullet('x') + bullet('vx'),
     })
     game.context?.save()
-    game.context?.translate(bullet('x'), bullet('y'))
-    if (game.context) {
-      game.context.fillStyle = 'blue'
-    }
-    game.context?.fillRect(0, 0, bullet('w'), bullet('h'))
+
+    // blue beam
+    game.context?.drawImage(
+      bullet('img'), // img
+      347, // sx
+      200, // sy
+      9, // swidth
+      30, // sheight
+      bullet('x'), // dx
+      bullet('y'), // dy
+      bullet('w'), // dwidth
+      bullet('h') // dheight
+    )
     game.context?.restore()
   }
 

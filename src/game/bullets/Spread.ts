@@ -1,4 +1,4 @@
-import spreadSrc from '../../assets/images/M484BulletCollection2.png'
+import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png'
 import { newImage, publicProperty, useState } from '../../utils/general'
 import { Game } from '../Game'
 
@@ -13,13 +13,13 @@ export const Spread = (
     class: 'player',
     ship: ship,
     vy: -20,
+    // vy: -5,
     vx: vx ? vx : 0,
     power: 4 + ship.weaponStr * 1.25,
     w: 5,
-    h: 10,
+    h: 15,
     img: newImage(spreadSrc),
     rotate: rotate ? rotate : 0,
-    // this.x = ship.x - this.w;,
     x: x !== 0 ? x : ship.x - 5 / 2,
     y: y !== 0 ? y : ship.y,
   })
@@ -30,24 +30,47 @@ export const Spread = (
       x: bullet('x') + bullet('vx'),
     })
     game.context?.save()
-    game.context?.translate(bullet('x'), bullet('y'))
-    if (game.context) {
-      game.context.fillStyle = 'red'
-    }
-    game.context?.fillRect(0, 0, bullet('w'), bullet('h'))
+
+    // red beam
+    game.context?.drawImage(
+      bullet('img'), // img
+      347, // sx
+      68, // sy
+      9, // swidth
+      30, // sheight
+      bullet('x'), // dx
+      bullet('y'), // dy
+      bullet('w'), // dwidth
+      bullet('h') // dheight
+    )
     game.context?.rotate(bullet('roate'))
-    // this.context.drawImage(
-    //   this.img,
-    //   100 * this.col,
-    //   100 * this.row,
-    //   100,
-    //   100,
-    //   this.x - 50,
-    //   this.y - 50,
-    //   this.w,
-    //   this.h
-    // );
-    // this.context.drawImage(this.img, 500, 200, 20, 20, 0, 0, 20, 20);
+
+    // larger oval bullet
+    // game.context?.drawImage(
+    //   bullet('img'), // img
+    //   428, // sx
+    //   160, // sy
+    //   9, // swidth
+    //   25, // sheight
+    //   bullet('x'), // dx
+    //   bullet('y'), // dy
+    //   bullet('w'), // dwidth
+    //   bullet('h') // dheight
+    // )
+
+    // oval red bullet
+    // game.context?.drawImage(
+    //   bullet('img'), // img
+    //   428, // sx
+    //   82, // sy
+    //   9, // swidth
+    //   25, // sheight
+    //   bullet('x'), // dx
+    //   bullet('y'), // dy
+    //   bullet('w'), // dwidth
+    //   bullet('h') // dheight
+    // )
+
     game.context?.restore()
   }
 

@@ -2,23 +2,22 @@ import artwork from '../assets/images/title_image.png'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
 import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
-import raidenJam from '../assets/music/soundtrack.mp3'
 import menuJam from '../assets/music/Name-Entry.mp3'
+import raidenJam from '../assets/music/soundtrack.mp3'
 import selectStart from '../assets/sfx/r2/select-start.mp3'
 import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3'
 import stage_1 from '../constants/stage_1.json'
 import { BulletFactory } from './bullets/BulletFactory'
+import { Carrier } from './environment/Carrier'
 import { CloudFactory } from './environment/CloudFactory'
 import { EnemyFactory } from './enemy/EnemyFactory'
 import { ExplosionFactory } from './events/ExplosionFactory'
 import { HEIGHT, WIDTH } from '..'
 import { ItemFactory } from './events/ItemFactory'
 import { Player } from './Player'
-import { Sound } from './Sound'
 import { __, cond, forEach, gt, pipe, prop } from 'ramda'
 import { getPointDistance, getDistance } from './utilities'
-import { Carrier } from './environment/Carrier'
 
 export const radian = Math.PI / 180
 export const INITIAL = 1
@@ -114,6 +113,8 @@ export class Game {
       this.hideMenu()
       this.setCurrentState(GAME_PLAYING)
       this.start()
+      this.soundtrack = new Audio(raidenJam)
+      this.soundtrack.play()
     }, 1000)
   }
 
@@ -160,7 +161,7 @@ export class Game {
     this.bulletFactory = new BulletFactory(this, this.player)
     this.enemyFactory = EnemyFactory(this, stage_1)
     this.explosionFactory = ExplosionFactory(this)
-    this.itemFactory = new ItemFactory(this)
+    this.itemFactory = ItemFactory(this)
   }
 
   // ============================ //
@@ -197,11 +198,6 @@ export class Game {
   // ============================ //
 
   drawGamePlayingScreen() {
-    if (this.getMusic()) {
-      this.soundtrack = new Sound(raidenJam)
-      this.toggleMusic()
-    }
-
     // clear canvi
     this.context.clearRect(0, 0, WIDTH, HEIGHT)
     this.bulletContext.clearRect(0, 0, WIDTH, HEIGHT)
@@ -314,7 +310,7 @@ export class Game {
       const item = items[i]
       const distance = getDistance(item, this.player)
       if (distance < item.w) {
-        this.player.changeWeapon(item.prop)
+        this.player.changeWeapon(item.type)
         items.splice(i, 1)
         const chaching = new Audio(itemPickip)
         chaching.play()

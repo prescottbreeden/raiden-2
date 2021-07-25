@@ -5,16 +5,11 @@ import { Game } from '../Game'
 
 export const Explosion = (game: Game, enemy: IEnemy) => {
   const { readState: explosion, updateState: update } = useState<any>({
+    ...enemy,
     src: explosionImg,
     img: newImage(explosionImg),
     col: 0,
     row: 0,
-    x: enemy.x,
-    y: enemy.y,
-    vy: enemy.vy,
-    vx: enemy.vx,
-    w: 100,
-    h: 100,
   })
 
   const updateFrame = () => {

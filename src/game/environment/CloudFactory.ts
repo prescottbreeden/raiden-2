@@ -33,7 +33,7 @@ export const CloudFactory = (game: Game) => {
   };
 
   Object.defineProperties(cloudFactory, {
-    ...publicProperty<ICloud[]>('clouds', () => factory('clouds')),
+    ...publicProperty('clouds', () => factory('clouds')),
   });
 
   return cloudFactory;

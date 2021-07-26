@@ -135,12 +135,12 @@ export const Carrier = (game: Game) => {
 
   // Read-only properties
   Object.defineProperties(carrierObject, {
-    ...publicProperty<number>('h', () => carrier('h')),
-    ...publicProperty<number>('w', () => carrier('w')),
-    ...publicProperty<number>('x', () => carrier('x')),
-    ...publicProperty<number>('y', () => carrier('y')),
-    ...publicProperty<number>('vx', () => carrier('vx')),
-    ...publicProperty<number>('vy', () => carrier('vy')),
+    ...publicProperty('h', () => carrier('h')),
+    ...publicProperty('w', () => carrier('w')),
+    ...publicProperty('x', () => carrier('x')),
+    ...publicProperty('y', () => carrier('y')),
+    ...publicProperty('vx', () => carrier('vx')),
+    ...publicProperty('vy', () => carrier('vy')),
   });
 
   return carrierObject;

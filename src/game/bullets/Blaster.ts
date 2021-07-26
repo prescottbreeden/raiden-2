@@ -1,19 +1,25 @@
 import { newImage, publicProperty, useState } from '../../utils/general';
 import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png';
 import { Game } from '../Game';
+import { IEnemy } from '../../interfaces/IEnemy.interface';
 
-export const Blaster = (game: Game, ship: any) => {
+type TempGame = Game & {
+  player: IEnemy & {
+    weaponStr: number;
+  };
+};
+export const Blaster = (game: TempGame) => {
   const { readState: bullet, updateState: update } = useState<any>({
     class: 'player',
     vy: -20,
     vx: 0,
-    power: 5 + ship.weaponStr * 1.25,
+    power: 5 + game.player.weaponStr * 1.25,
     img: newImage(spreadSrc),
     w: 5,
     h: 10,
   });
 
-  switch (ship.weaponStr) {
+  switch (game.player.weaponStr) {
     case 1:
       update({ h: 45, w: 5 });
       break;
@@ -35,9 +41,9 @@ export const Blaster = (game: Game, ship: any) => {
   }
 
   update({
-    x: ship.x - bullet('w') / 2,
-    y: ship.y,
-    power: ship.weaponStr * 10,
+    x: game.player.x - bullet('w') / 2,
+    y: game.player.y,
+    power: game.player.weaponStr * 10,
   });
 
   const drawCenter = () => {
@@ -82,14 +88,14 @@ export const Blaster = (game: Game, ship: any) => {
   };
 
   Object.defineProperties(bulletObject, {
-    ...publicProperty<number>('h', () => bullet('h')),
-    ...publicProperty<number>('vx', () => bullet('vx')),
-    ...publicProperty<number>('vy', () => bullet('vy')),
-    ...publicProperty<number>('w', () => bullet('w')),
-    ...publicProperty<number>('x', () => bullet('x')),
-    ...publicProperty<number>('y', () => bullet('y')),
-    ...publicProperty<string>('class', () => bullet('class')),
-    ...publicProperty<string>('power', () => bullet('power')),
+    ...publicProperty('h', () => bullet('h')),
+    ...publicProperty('vx', () => bullet('vx')),
+    ...publicProperty('vy', () => bullet('vy')),
+    ...publicProperty('w', () => bullet('w')),
+    ...publicProperty('x', () => bullet('x')),
+    ...publicProperty('y', () => bullet('y')),
+    ...publicProperty('class', () => bullet('class')),
+    ...publicProperty('power', () => bullet('power')),
   });
 
   return bulletObject;

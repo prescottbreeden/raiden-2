@@ -1,0 +1,15 @@
+name = "player1"
+
+# default attributes
+exhaustFrame = 0
+explosion = 'break'
+frame = 5
+gx = 0
+gy = 0
+h = 80
+lives = 3
+vx = 0
+vy = 0
+w = 60
+weaponStr = 1
+weaponType = 'spread'

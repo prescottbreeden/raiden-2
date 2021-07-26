@@ -35,13 +35,13 @@ export const SpinCycle = (game: Game, enemy: IEnemy) => {
 
   // Read-only properties
   Object.defineProperties(bulletObject, {
-    ...publicProperty<number>('h', () => bullet('h')),
-    ...publicProperty<number>('vx', () => bullet('vx')),
-    ...publicProperty<number>('vy', () => bullet('vy')),
-    ...publicProperty<number>('w', () => bullet('w')),
-    ...publicProperty<number>('x', () => bullet('x')),
-    ...publicProperty<number>('y', () => bullet('y')),
-    ...publicProperty<string>('class', () => bullet('class')),
+    ...publicProperty('h', () => bullet('h')),
+    ...publicProperty('vx', () => bullet('vx')),
+    ...publicProperty('vy', () => bullet('vy')),
+    ...publicProperty('w', () => bullet('w')),
+    ...publicProperty('x', () => bullet('x')),
+    ...publicProperty('y', () => bullet('y')),
+    ...publicProperty('class', () => bullet('class')),
   });
 
   return bulletObject;

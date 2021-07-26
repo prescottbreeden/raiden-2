@@ -78,11 +78,11 @@ export const Item = (game: Game, enemy: IEnemy) => {
 
   // Read-only properties
   Object.defineProperties(itemObject, {
-    ...publicProperty<number>('h', () => item('h')),
-    ...publicProperty<number>('w', () => item('w')),
-    ...publicProperty<number>('x', () => item('x')),
-    ...publicProperty<number>('y', () => item('y')),
-    ...publicProperty<number>('type', () => item('type')),
+    ...publicProperty('h', () => item('h')),
+    ...publicProperty('w', () => item('w')),
+    ...publicProperty('x', () => item('x')),
+    ...publicProperty('y', () => item('y')),
+    ...publicProperty('type', () => item('type')),
   });
 
   return itemObject;

@@ -38,10 +38,10 @@ export const Cloud = (game: Game) => {
     draw,
   };
   Object.defineProperties(cloudObject, {
-    ...publicProperty<number>('h', () => cloud('h')),
-    ...publicProperty<number>('w', () => cloud('w')),
-    ...publicProperty<number>('x', () => cloud('x')),
-    ...publicProperty<number>('y', () => cloud('y')),
+    ...publicProperty('h', () => cloud('h')),
+    ...publicProperty('w', () => cloud('w')),
+    ...publicProperty('x', () => cloud('x')),
+    ...publicProperty('y', () => cloud('y')),
   });
 
   return cloudObject;

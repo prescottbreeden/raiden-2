@@ -11,6 +11,7 @@ Because this game is still in dev, players are immune from bullets for testing p
 
 ## Roadmap
 
+- [ ] Convert to TypeScript
 - [x] Fix spread shot
 - [x] Toml parsing for EnemyFactory data
 - [x] Script to run all toml directories (ignoring src)
@@ -20,6 +21,8 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [x] Spiral attack
 - [x] Raiden ship
 - [x] Exhaust animation
+- [ ] Render Lives Images with JS
+- [ ] Add High Score
 - [ ] Circular item floating
 - [ ] Sprinkler attack
 - [ ] Powerup random chance item
@@ -37,9 +40,9 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [ ] High score saving
 - [ ] Window size instruction
 - [ ] Game Menu / Main Menu options
-- [ ] Minimize Side Bar
+- [ ] Hide/Show Side Bar
 - [ ] Mobile controls? (probably not...)
-- [ ] Add Jest
+- [ ] Add Jest / tests
 - [ ] Code cleanup / utilities overhaul
 
 ## Point logic

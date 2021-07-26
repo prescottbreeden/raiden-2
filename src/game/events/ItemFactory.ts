@@ -19,7 +19,7 @@ export const ItemFactory = (game: Game) => {
 
   // Read-only properties
   Object.defineProperties(itemFactory, {
-    ...publicProperty<boolean>('items', () => factory('items')),
+    ...publicProperty('items', () => factory('items')),
   });
   return itemFactory;
 };

@@ -49,13 +49,13 @@ export const Explosion = (game: Game, enemy: IEnemy) => {
 
   // Read-only properties
   Object.defineProperties(explosionObject, {
-    ...publicProperty<number>('h', () => explosion('h')),
-    ...publicProperty<number>('r', () => explosion('r')),
-    ...publicProperty<number>('w', () => explosion('w')),
-    ...publicProperty<number>('x', () => explosion('x')),
-    ...publicProperty<number>('y', () => explosion('y')),
-    ...publicProperty<number>('vx', () => explosion('vx')),
-    ...publicProperty<number>('vy', () => explosion('vy')),
+    ...publicProperty('h', () => explosion('h')),
+    ...publicProperty('r', () => explosion('r')),
+    ...publicProperty('w', () => explosion('w')),
+    ...publicProperty('x', () => explosion('x')),
+    ...publicProperty('y', () => explosion('y')),
+    ...publicProperty('vx', () => explosion('vx')),
+    ...publicProperty('vy', () => explosion('vy')),
   });
 
   return explosionObject;

@@ -95,17 +95,17 @@ export const Enemy = (game: Game, props: IStageOptions) => {
 
   // Read-only properties
   Object.defineProperties(enemyObject, {
-    ...publicProperty<boolean>('explosion', () => enemy('explosion')),
-    ...publicProperty<boolean>('item', () => enemy('item')),
-    ...publicProperty<number>('h', () => enemy('h')),
-    ...publicProperty<number>('hp', () => enemy('hp')),
-    ...publicProperty<number>('pointValue', () => enemy('pointValue')),
-    ...publicProperty<number>('r', () => enemy('r')),
-    ...publicProperty<number>('vx', () => enemy('vx')),
-    ...publicProperty<number>('vy', () => enemy('vy')),
-    ...publicProperty<number>('w', () => enemy('w')),
-    ...publicProperty<number>('x', () => enemy('x')),
-    ...publicProperty<number>('y', () => enemy('y')),
+    ...publicProperty('explosion', () => enemy('explosion')),
+    ...publicProperty('item', () => enemy('item')),
+    ...publicProperty('h', () => enemy('h')),
+    ...publicProperty('hp', () => enemy('hp')),
+    ...publicProperty('pointValue', () => enemy('pointValue')),
+    ...publicProperty('r', () => enemy('r')),
+    ...publicProperty('vx', () => enemy('vx')),
+    ...publicProperty('vy', () => enemy('vy')),
+    ...publicProperty('w', () => enemy('w')),
+    ...publicProperty('x', () => enemy('x')),
+    ...publicProperty('y', () => enemy('y')),
   });
 
   return enemyObject;

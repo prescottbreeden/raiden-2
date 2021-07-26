@@ -44,11 +44,11 @@ export const Ball = (game: Game, enemy: IEnemy) => {
 
   // Read-only properties
   Object.defineProperties(bulletObject, {
-    ...publicProperty<number>('h', () => bullet('h')),
-    ...publicProperty<number>('r', () => bullet('r')),
-    ...publicProperty<number>('w', () => bullet('w')),
-    ...publicProperty<number>('x', () => bullet('x')),
-    ...publicProperty<number>('y', () => bullet('y')),
+    ...publicProperty('h', () => bullet('h')),
+    ...publicProperty('r', () => bullet('r')),
+    ...publicProperty('w', () => bullet('w')),
+    ...publicProperty('x', () => bullet('x')),
+    ...publicProperty('y', () => bullet('y')),
   });
 
   return bulletObject;

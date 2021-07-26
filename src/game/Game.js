@@ -5,13 +5,13 @@ import { Carrier } from './environment/Carrier';
 import { CloudFactory } from './environment/CloudFactory';
 import { EnemyFactory } from './enemy/EnemyFactory';
 import { ExplosionFactory } from './events/ExplosionFactory';
+import { GameMusic } from './sounds/GameMusic';
 import { HEIGHT, WIDTH } from '..';
 import { ItemFactory } from './events/ItemFactory';
 import { Player } from './Player';
+import { SoundEffect } from './sounds/SoundEffect';
 import { __, cond, forEach, gt, pipe, prop } from 'ramda';
 import { getPointDistance, getDistance } from './utilities';
-import { SoundEffect } from './sounds/SoundEffect';
-import { GameMusic } from './sounds/GameMusic';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -82,6 +82,7 @@ export class Game {
     gameNode.appendChild(canvas);
     this.context = canvas.getContext('2d');
   };
+
   createBulletCanvas = () => {
     const bulletNode = document.getElementById('bullets');
     const canvas = document.createElement('canvas');

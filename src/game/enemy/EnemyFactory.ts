@@ -36,7 +36,7 @@ export const EnemyFactory = (
   const enemyFactory = {};
 
   Object.defineProperties(enemyFactory, {
-    ...publicProperty<IEnemy[]>('enemies', () => factory('enemies')),
+    ...publicProperty('enemies', () => factory('enemies')),
   });
 
   return enemyFactory;

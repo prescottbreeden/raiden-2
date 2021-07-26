@@ -21,7 +21,7 @@ export const ExplosionFactory = (game: Game) => {
   };
 
   Object.defineProperties(explosionFactory, {
-    ...publicProperty<any>('explosions', () => factory('explosions')),
+    ...publicProperty('explosions', () => factory('explosions')),
   });
 
   return explosionFactory;

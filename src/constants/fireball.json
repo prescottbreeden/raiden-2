@@ -1,8 +1,8 @@
 {
-  "name": "fireball",
-  "class": "enemy",
-  "h": 20,
-  "gx": 0,
-  "gy": 0,
-  "w": 20
+ "name": "fireball",
+ "class": "enemy",
+ "h": 20,
+ "gx": 0,
+ "gy": 0,
+ "w": 20
 }

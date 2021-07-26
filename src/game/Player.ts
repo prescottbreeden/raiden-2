@@ -1,28 +1,22 @@
+import player1Defaults from '../constants/player1.json';
 import raidenSprites from '../assets/images/raiden-3-sprites.png';
 import { Game } from './Game';
 import { HEIGHT, WIDTH } from '..';
+import { IPlayer } from '../interfaces/IPlayer.interface';
 import { newImage, publicProperty, useState } from '../utils/general';
+import { cond, gt, lt, __ } from 'ramda';
 
 export const Player = (game: Game) => {
-  const width = 60;
-  const height = 80;
   const frameWidth = 34;
   const frame = (index: number) => frameWidth * index;
 
-  const { readState: player, updateState: updatePlayer } = useState<any>({
+  const { readState: player, updateState: updatePlayer } = useState<IPlayer>({
+    ...player1Defaults,
+    hitBox: { a: { x: 0, y: 0 }, b: { x: 0, y: 0 }, c: { x: 0, y: 0 } },
     img: newImage(raidenSprites),
-    h: height,
-    w: width,
-    r: (width / 1.4) * 0.67,
-    x: WIDTH / 2 - 53,
-    y: HEIGHT / 2 - 18,
-    vy: 0,
-    vx: 0,
-    weaponType: 'spread',
-    weaponStr: 1,
-    hitBox: { a: '', b: '', c: '' },
-    frame: 5,
-    exhaustFrame: 0,
+    r: player1Defaults.w / 1.4,
+    x: WIDTH / 2 - 53, // starting position on launchpad
+    y: HEIGHT / 2 - 18, // starting position on launchpad
   });
 
   const currentHitBox = () => {
@@ -53,24 +47,27 @@ export const Player = (game: Game) => {
     stopY: () => updatePlayer({ vy: 0 }),
   };
 
-  const handleRoll = () => {
-    if (player('vx') < 0) {
-      updatePlayer({ frame: player('frame') > 0 ? player('frame') - 1 : 0 });
-    }
-    if (player('vx') > 0) {
-      updatePlayer({ frame: player('frame') < 10 ? player('frame') + 1 : 10 });
-    }
-    if (player('vx') === 0) {
-      updatePlayer({
-        frame:
-          player('frame') < 5
-            ? player('frame') + 1
-            : player('frame') > 5
-            ? player('frame') - 1
-            : 5,
-      });
-    }
-  };
+  const rollLeft = () =>
+    updatePlayer({ frame: player('frame') > 0 ? player('frame') - 1 : 0 });
+
+  const rollRight = () =>
+    updatePlayer({ frame: player('frame') < 10 ? player('frame') + 1 : 10 });
+
+  const flattenOut = () =>
+    updatePlayer({
+      frame:
+        player('frame') < 5
+          ? player('frame') + 1
+          : player('frame') > 5
+          ? player('frame') - 1
+          : 5,
+    });
+
+  const handleRoll = cond<number, void>([
+    [lt(__, 0), rollLeft],
+    [gt(__, 0), rollRight],
+    [() => true, flattenOut],
+  ]);
 
   const updatePosition = () => {
     updatePlayer({
@@ -78,12 +75,14 @@ export const Player = (game: Game) => {
       x: player('x') + player('vx'),
     });
 
+    // don't fly off the screen!
     if (player('y') + player('h') / 2 > HEIGHT) {
       updatePlayer({ y: HEIGHT - player('h') / 2 });
     } else if (player('y') - player('h') / 2 < 0) {
       updatePlayer({ y: player('h') / 2 });
     }
 
+    // don't fly off the screen!
     if (player('x') + player('w') / 2 > WIDTH) {
       updatePlayer({ x: WIDTH - player('w') / 2 });
     } else if (player('x') - player('w') / 2 < 0) {
@@ -144,7 +143,7 @@ export const Player = (game: Game) => {
   const update = () => {
     updatePosition();
     currentHitBox();
-    handleRoll();
+    handleRoll(player('vx'));
     drawExhaust();
     drawPlayer();
 
@@ -160,15 +159,15 @@ export const Player = (game: Game) => {
 
   // Read-only properties
   Object.defineProperties(playerObject, {
-    ...publicProperty<number>('h', () => player('h')),
-    ...publicProperty<number>('r', () => player('r')),
-    ...publicProperty<number>('w', () => player('w')),
-    ...publicProperty<number>('x', () => player('x')),
-    ...publicProperty<number>('y', () => player('y')),
-    ...publicProperty<number>('vx', () => player('vx')),
-    ...publicProperty<number>('vy', () => player('vy')),
-    ...publicProperty<number>('weaponType', () => player('weaponType')),
-    ...publicProperty<number>('weaponStr', () => player('weaponStr')),
+    ...publicProperty('h', () => player('h')),
+    ...publicProperty('r', () => player('r')),
+    ...publicProperty('vx', () => player('vx')),
+    ...publicProperty('vy', () => player('vy')),
+    ...publicProperty('w', () => player('w')),
+    ...publicProperty('weaponStr', () => player('weaponStr')),
+    ...publicProperty('weaponType', () => player('weaponType')),
+    ...publicProperty('x', () => player('x')),
+    ...publicProperty('y', () => player('y')),
   });
 
   return playerObject;

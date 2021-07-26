@@ -3,14 +3,12 @@
   padding: 0;
 }
 
-html {
-  // font-size: 66.25%;
-}
-
 body {
   color: #eee;
   background-color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: monospace;
 }
-// p {
-//   font-size: 1.4rem;
-// }

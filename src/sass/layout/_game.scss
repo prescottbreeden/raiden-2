@@ -1,15 +1,24 @@
+.container {
+  display: flex;
+  width: 100vw;
+}
 .game {
   position: relative;
   border: 1px solid #eee;
 }
-.container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
 .info {
-  text-align: center;
+  // text-align: center;
   width: 50%;
+  margin-left: 3rem;
+
+  &__section {
+    margin-bottom: 2rem;
+    max-width: 50%;
+  }
+
+  &__title {
+    // max
+  }
 }
 
 .menu {

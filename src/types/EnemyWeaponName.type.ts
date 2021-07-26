@@ -6,4 +6,4 @@ export type EnemyWeaponName =
   | 'sniper'
   | 'spincycle'
   | 'sprinkler'
-  | 'trishot'
+  | 'trishot';

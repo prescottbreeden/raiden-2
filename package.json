@@ -39,7 +39,7 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "printWidth": 80,
-    "semi": false,
+    "semi": true,
     "bracketSpacing": true
   }
 }

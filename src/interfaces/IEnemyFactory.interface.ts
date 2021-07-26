@@ -1,5 +1,5 @@
-import { IEnemy } from './IEnemy.interface'
+import { IEnemy } from './IEnemy.interface';
 
 export interface IEnemyFactory {
-  enemies: IEnemy[]
+  enemies: IEnemy[];
 }

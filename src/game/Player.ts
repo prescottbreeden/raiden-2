@@ -1,13 +1,13 @@
-import raidenSprites from '../assets/images/raiden-3-sprites.png'
-import { Game } from './Game'
-import { HEIGHT, WIDTH } from '..'
-import { newImage, publicProperty, useState } from '../utils/general'
+import raidenSprites from '../assets/images/raiden-3-sprites.png';
+import { Game } from './Game';
+import { HEIGHT, WIDTH } from '..';
+import { newImage, publicProperty, useState } from '../utils/general';
 
 export const Player = (game: Game) => {
-  const width = 60
-  const height = 80
-  const frameWidth = 34
-  const frame = (index: number) => frameWidth * index
+  const width = 60;
+  const height = 80;
+  const frameWidth = 34;
+  const frame = (index: number) => frameWidth * index;
 
   const { readState: player, updateState: updatePlayer } = useState<any>({
     img: newImage(raidenSprites),
@@ -23,7 +23,7 @@ export const Player = (game: Game) => {
     hitBox: { a: '', b: '', c: '' },
     frame: 5,
     exhaustFrame: 0,
-  })
+  });
 
   const currentHitBox = () => {
     updatePlayer({
@@ -41,8 +41,8 @@ export const Player = (game: Game) => {
           y: player('y') + player('r') * 0.66,
         },
       },
-    })
-  }
+    });
+  };
 
   const move = {
     left: () => updatePlayer({ vx: -4.5 }),
@@ -51,14 +51,14 @@ export const Player = (game: Game) => {
     up: () => updatePlayer({ vy: -4.5 }),
     down: () => updatePlayer({ vy: 4.5 }),
     stopY: () => updatePlayer({ vy: 0 }),
-  }
+  };
 
   const handleRoll = () => {
     if (player('vx') < 0) {
-      updatePlayer({ frame: player('frame') > 0 ? player('frame') - 1 : 0 })
+      updatePlayer({ frame: player('frame') > 0 ? player('frame') - 1 : 0 });
     }
     if (player('vx') > 0) {
-      updatePlayer({ frame: player('frame') < 10 ? player('frame') + 1 : 10 })
+      updatePlayer({ frame: player('frame') < 10 ? player('frame') + 1 : 10 });
     }
     if (player('vx') === 0) {
       updatePlayer({
@@ -68,30 +68,31 @@ export const Player = (game: Game) => {
             : player('frame') > 5
             ? player('frame') - 1
             : 5,
-      })
+      });
     }
-  }
+  };
 
   const updatePosition = () => {
     updatePlayer({
       y: player('y') + player('vy'),
       x: player('x') + player('vx'),
-    })
+    });
+
     if (player('y') + player('h') / 2 > HEIGHT) {
-      updatePlayer({ y: HEIGHT - player('h') / 2 })
+      updatePlayer({ y: HEIGHT - player('h') / 2 });
     } else if (player('y') - player('h') / 2 < 0) {
-      updatePlayer({ y: player('h') / 2 })
+      updatePlayer({ y: player('h') / 2 });
     }
 
     if (player('x') + player('w') / 2 > WIDTH) {
-      updatePlayer({ x: WIDTH - player('w') / 2 })
+      updatePlayer({ x: WIDTH - player('w') / 2 });
     } else if (player('x') - player('w') / 2 < 0) {
-      updatePlayer({ x: player('w') / 2 })
+      updatePlayer({ x: player('w') / 2 });
     }
-  }
+  };
 
   const drawPlayer = () => {
-    game.context?.save()
+    game.context?.save();
     game.context?.drawImage(
       player('img'), // img
       frame(player('frame')), // sx
@@ -102,16 +103,16 @@ export const Player = (game: Game) => {
       player('y') - player('h') / 2, // dy
       player('w'), // dwidth
       player('h') // dheight
-    )
-  }
+    );
+  };
 
   const drawExhaust = () => {
-    const exaustFrames = [21, 43, 65, 87]
-    updatePlayer({ exhaustFrame: (player('exhaustFrame') + 1) % 4 })
-    game.context?.save()
+    const frameXLocations = [21, 43, 65, 87];
+    updatePlayer({ exhaustFrame: (player('exhaustFrame') + 1) % 4 });
+    game.context?.save();
     game.context?.drawImage(
       player('img'), // img
-      exaustFrames[player('exhaustFrame')], // sx
+      frameXLocations[player('exhaustFrame')], // sx
       99, // sy
       10, // swidth
       10, // sheight
@@ -119,10 +120,10 @@ export const Player = (game: Game) => {
       player('y') + 30,
       20, // dwidth
       20 // dheight
-    )
+    );
     game.context?.drawImage(
       player('img'), // img
-      exaustFrames[player('exhaustFrame')], // sx
+      frameXLocations[player('exhaustFrame')], // sx
       99, // sy
       10, // swidth
       10, // sheight
@@ -130,32 +131,32 @@ export const Player = (game: Game) => {
       player('y') + 30,
       20, // dwidth
       20 // dheight
-    )
-  }
+    );
+  };
 
   const changeWeapon = (weaponType: 'spread' | 'blaster') => {
     updatePlayer({
       weaponType,
       weaponStr: player('weaponStr') < 6 ? player('weaponStr') + 1 : 6,
-    })
-  }
+    });
+  };
 
   const update = () => {
-    updatePosition()
-    currentHitBox()
-    handleRoll()
-    drawExhaust()
-    drawPlayer()
+    updatePosition();
+    currentHitBox();
+    handleRoll();
+    drawExhaust();
+    drawPlayer();
 
-    game.context?.save()
-    game.context?.restore()
-  }
+    game.context?.save();
+    game.context?.restore();
+  };
 
   const playerObject = {
     changeWeapon,
     move,
     update,
-  }
+  };
 
   // Read-only properties
   Object.defineProperties(playerObject, {
@@ -168,10 +169,10 @@ export const Player = (game: Game) => {
     ...publicProperty<number>('vy', () => player('vy')),
     ...publicProperty<number>('weaponType', () => player('weaponType')),
     ...publicProperty<number>('weaponStr', () => player('weaponStr')),
-  })
+  });
 
-  return playerObject
-}
+  return playerObject;
+};
 // game.context?.drawImage(
 //   player('img'),
 //   -(player('w') / 2),

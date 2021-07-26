@@ -1,5 +1,5 @@
 export interface IStageOptions {
-  delay: number
-  enter: string
-  type: string
+  delay: number;
+  enter: string;
+  type: string;
 }

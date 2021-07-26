@@ -19,13 +19,12 @@
   }
 
   &__name {
-    transform: scale(1.1, .9);
+    transform: scale(1.1, 0.9);
     margin-left: 2rem;
   }
   &__score {
-    transform: scale(1.1, .9);
+    transform: scale(1.1, 0.9);
     margin-left: 2rem;
-
   }
   &__lives {
     display: flex;

@@ -1,6 +1,6 @@
-import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png'
-import { newImage, publicProperty, useState } from '../../utils/general'
-import { Game } from '../Game'
+import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png';
+import { newImage, publicProperty, useState } from '../../utils/general';
+import { Game } from '../Game';
 
 // TODO: single player bullet function?
 export const Spread = (
@@ -23,7 +23,7 @@ export const Spread = (
     rotate: rotate ? rotate : 0,
     x: x !== 0 ? x : ship.x + ship.w / 2,
     y: y !== 0 ? y : ship.y,
-  })
+  });
 
   // TODO: util
   const redBeam = () => {
@@ -37,8 +37,8 @@ export const Spread = (
       bullet('y'), // dy
       bullet('w'), // dwidth
       bullet('h') // dheight
-    )
-  }
+    );
+  };
 
   // TODO: util
   const largeOvalBullet = () => {
@@ -52,8 +52,8 @@ export const Spread = (
       bullet('y'), // dy
       bullet('w'), // dwidth
       bullet('h') // dheight
-    )
-  }
+    );
+  };
 
   // TODO: util
   const ovalBullet = () => {
@@ -67,24 +67,24 @@ export const Spread = (
       bullet('y'), // dy
       bullet('w'), // dwidth
       bullet('h') // dheight
-    )
-  }
+    );
+  };
 
   const draw = () => {
     update({
       y: bullet('y') + bullet('vy'),
       x: bullet('x') + bullet('vx'),
-    })
-    game.context?.save()
-    redBeam()
-    game.context?.rotate(bullet('roate'))
+    });
+    game.context?.save();
+    redBeam();
+    game.context?.rotate(bullet('roate'));
 
-    game.context?.restore()
-  }
+    game.context?.restore();
+  };
 
   const bulletObject = {
     draw,
-  }
+  };
 
   Object.defineProperties(bulletObject, {
     ...publicProperty<number>('h', () => bullet('h')),
@@ -95,7 +95,7 @@ export const Spread = (
     ...publicProperty<number>('y', () => bullet('y')),
     ...publicProperty<string>('class', () => bullet('class')),
     ...publicProperty<string>('power', () => bullet('power')),
-  })
+  });
 
-  return bulletObject
-}
+  return bulletObject;
+};

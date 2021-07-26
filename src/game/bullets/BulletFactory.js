@@ -1,27 +1,27 @@
-import { Blaster } from './Blaster'
-import { Spread } from './Spread'
-import { isOnScreen } from '../utilities'
+import { Blaster } from './Blaster';
+import { Spread } from './Spread';
+import { isOnScreen } from '../utilities';
 
-const playerOffset = 2.5
+const playerOffset = 2.5;
 export class BulletFactory {
   constructor(game, ship) {
-    this.game = game
-    this.canvas = game.canvas
-    this.context = game.context
-    this.ship = ship
-    this.bullets = []
+    this.game = game;
+    this.canvas = game.canvas;
+    this.context = game.context;
+    this.ship = ship;
+    this.bullets = [];
   }
 
   addBullets = (...bullets) => {
-    const cleanUp = this.bullets.filter(isOnScreen)
-    this.bullets = [...cleanUp, ...bullets]
-  }
+    const cleanUp = this.bullets.filter(isOnScreen);
+    this.bullets = [...cleanUp, ...bullets];
+  };
 
   // BLASTER
   blasterShot = () => {
-    let bullet = new Blaster(this.game, this.ship)
-    this.addBullets(bullet)
-  }
+    let bullet = new Blaster(this.game, this.ship);
+    this.addBullets(bullet);
+  };
   spread = () => ({
     1: [Spread(this.game, this.ship, this.ship.x - playerOffset)],
     2: [
@@ -144,34 +144,34 @@ export class BulletFactory {
         rotate: 0.45,
       }),
     ],
-  })
+  });
 
   // SPREAD SHOT
   spreadShot = () => {
-    this.addBullets(...this.spread()['1'])
+    this.addBullets(...this.spread()['1']);
     if (this.ship.weaponStr > 1) {
-      this.addBullets(...this.spread()['2'])
+      this.addBullets(...this.spread()['2']);
     }
     if (this.ship.weaponStr > 2) {
-      this.addBullets(...this.spread()['3'])
+      this.addBullets(...this.spread()['3']);
     }
     if (this.ship.weaponStr > 3) {
-      this.addBullets(...this.spread()['4'])
+      this.addBullets(...this.spread()['4']);
     }
     if (this.ship.weaponStr > 4) {
-      this.addBullets(...this.spread()['5'])
+      this.addBullets(...this.spread()['5']);
     }
     if (this.ship.weaponStr > 5) {
-      this.addBullets(...this.spread()['6'])
+      this.addBullets(...this.spread()['6']);
     }
-  }
+  };
   generatePlayerBullets() {
-    const weapon = this.game.player.weaponType
+    const weapon = this.game.player.weaponType;
     if (weapon === 'blaster') {
-      this.blasterShot()
+      this.blasterShot();
     }
     if (weapon === 'spread') {
-      this.spreadShot()
+      this.spreadShot();
     }
   }
 

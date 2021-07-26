@@ -1,6 +1,6 @@
-import { ICloud } from '../game/environment/Cloud'
-import { Game } from '../game/Game'
+import { ICloud } from '../game/environment/Cloud';
+import { Game } from '../game/Game';
 
 export interface ICloudFactory {
-  clouds: ICloud[]
+  clouds: ICloud[];
 }

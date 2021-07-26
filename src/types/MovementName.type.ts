@@ -6,4 +6,4 @@ export type MovementName =
   | 'kamakaze'
   | 'parabolic'
   | 'roll'
-  | 'swoop'
+  | 'swoop';

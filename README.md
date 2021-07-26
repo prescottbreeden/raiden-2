@@ -20,6 +20,7 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [x] Spiral attack
 - [x] Raiden ship
 - [x] Exhaust animation
+- [ ] Circular item floating
 - [ ] Sprinkler attack
 - [ ] Powerup random chance item
 - [x] Abstraction for weapontypes
@@ -34,17 +35,12 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [ ] Player lives
 - [ ] Player continue
 - [ ] High score saving
-- [ ] Dynamic web portal (small: 67%, large: 100%)
-- [ ] Window size detection
+- [ ] Window size instruction
 - [ ] Game Menu / Main Menu options
+- [ ] Minimize Side Bar
 - [ ] Mobile controls? (probably not...)
 - [ ] Add Jest
 - [ ] Code cleanup / utilities overhaul
-
-## Bug list
-
-- [ ] Memory leak once 800 spear mobs attack with sprinkler mobs
-- [ ] Game over doesn't stop player weapon firing
 
 ## Point logic
 

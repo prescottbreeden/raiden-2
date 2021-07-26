@@ -1,9 +1,9 @@
-import defaults from '../../constants/fireball.json'
-import fireballImage from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png'
-import { newImage, publicProperty, useState } from '../../utils/general'
-import { Game } from '../Game'
-import { aimAtPlayer } from '../../utils/weapons'
-import { IEnemy } from '../../interfaces/IEnemy.interface'
+import defaults from '../../constants/fireball.json';
+import fireballImage from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png';
+import { newImage, publicProperty, useState } from '../../utils/general';
+import { Game } from '../Game';
+import { aimAtPlayer } from '../../utils/weapons';
+import { IEnemy } from '../../interfaces/IEnemy.interface';
 
 export const Ball = (game: Game, enemy: IEnemy) => {
   const { readState: bullet, updateState: update } = useState<any>({
@@ -11,11 +11,11 @@ export const Ball = (game: Game, enemy: IEnemy) => {
     ...defaults,
     img: newImage(fireballImage),
     radians: Date.now(),
-  })
+  });
 
   if (enemy.aim) {
-    const { vx, vy } = aimAtPlayer(game, bullet())
-    update({ vx, vy })
+    const { vx, vy } = aimAtPlayer(game, bullet());
+    update({ vx, vy });
   }
 
   const draw = () => {
@@ -24,9 +24,9 @@ export const Ball = (game: Game, enemy: IEnemy) => {
       vy: bullet('vy') + bullet('gy'),
       y: bullet('y') + bullet('vy'),
       x: bullet('x') + bullet('vx'),
-    })
-    game.bulletContext?.save()
-    game.bulletContext?.translate(bullet('x'), bullet('y'))
+    });
+    game.bulletContext?.save();
+    game.bulletContext?.translate(bullet('x'), bullet('y'));
 
     game.bulletContext?.drawImage(
       bullet('img'),
@@ -34,13 +34,13 @@ export const Ball = (game: Game, enemy: IEnemy) => {
       -(bullet('h') / 2),
       bullet('h'),
       bullet('w')
-    )
-    game.bulletContext?.restore()
-  }
+    );
+    game.bulletContext?.restore();
+  };
 
   const bulletObject = {
     draw,
-  }
+  };
 
   // Read-only properties
   Object.defineProperties(bulletObject, {
@@ -49,7 +49,7 @@ export const Ball = (game: Game, enemy: IEnemy) => {
     ...publicProperty<number>('w', () => bullet('w')),
     ...publicProperty<number>('x', () => bullet('x')),
     ...publicProperty<number>('y', () => bullet('y')),
-  })
+  });
 
-  return bulletObject
-}
+  return bulletObject;
+};

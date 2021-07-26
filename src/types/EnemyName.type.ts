@@ -6,4 +6,4 @@ export type EnemyName =
   | 'spacestation'
   | 'spear'
   | 'tank'
-  | 'whitebird'
+  | 'whitebird';

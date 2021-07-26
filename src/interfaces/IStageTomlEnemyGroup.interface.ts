@@ -1,10 +1,10 @@
-import { IStageOptions } from './IStageOptions.interface'
+import { IStageOptions } from './IStageOptions.interface';
 
 export interface IStageTomlEnemies {
-  enemies: IStageTomlEnemyGroup[]
+  enemies: IStageTomlEnemyGroup[];
 }
 
 export interface IStageTomlEnemyGroup {
-  timestamp: number
-  types: IStageOptions[]
+  timestamp: number;
+  types: IStageOptions[];
 }

@@ -6,7 +6,7 @@
   &--left {
     left: 0;
     color: red;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-family: monospace;
     z-index: 1000;
   }
@@ -18,14 +18,17 @@
     z-index: 1000;
   }
 
+  &__name {
+    transform: scale(1.1, .9);
+    margin-left: 2rem;
+  }
   &__score {
+    transform: scale(1.1, .9);
+    margin-left: 2rem;
 
   }
   &__lives {
     display: flex;
     align-items: center;
-    &--text {
-      margin-right: 1rem;
-    }
   }
 }

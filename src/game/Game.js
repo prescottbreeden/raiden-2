@@ -2,8 +2,6 @@ import artwork from '../assets/images/title_image.png'
 import blastershot from '../assets/sfx/r2/r2-blue-beam.mp3'
 import explosionSound from '../assets/sfx/explosion1.mp3'
 import itemPickip from '../assets/sfx/r2/r2-medal.mp3'
-import menuJam from '../assets/music/Name-Entry.mp3'
-import raidenJam from '../assets/music/soundtrack.mp3'
 import selectStart from '../assets/sfx/r2/select-start.mp3'
 import smallExplosion from '../assets/sfx/r2/pew-1.mp3'
 import spreadshot from '../assets/sfx/r2/r2-blaster-splat-1.mp3'
@@ -18,6 +16,8 @@ import { ItemFactory } from './events/ItemFactory'
 import { Player } from './Player'
 import { __, cond, forEach, gt, pipe, prop } from 'ramda'
 import { getPointDistance, getDistance } from './utilities'
+import { SoundEffect } from './sounds/SoundEffect'
+import { GameMusic } from './sounds/GameMusic'
 
 export const radian = Math.PI / 180
 export const INITIAL = 1
@@ -30,6 +30,8 @@ export const KEY_CODE = {
   down: 40,
   spacebar: 32,
   enter: 13,
+  delete: 8,
+  q: 81,
   f: 70,
   d: 68,
   s: 83,
@@ -40,18 +42,23 @@ export class Game {
   constructor({ difficulty, music, sfx }) {
     this._currentState = INITIAL
     this._velocity = 1
+    this._stage = 1
     this._difficulty = difficulty
-    this._music = music
-    this._sfx = sfx
+    this._playMusic = music
+    this._playSfx = sfx
     this._score = 0
     this.frames = []
     this.fps = 0
     this.width = WIDTH
     this.height = HEIGHT
     this.firing = false
-    this.audioTrack = null
+    this.music = GameMusic()
+    this.sfx = SoundEffect()
+    // this.bulletContactSfx = null
+    // this.explosionSfx = null
     this.bulletContext = null
     this.context = null
+    this.player = Player(this)
 
     this.createCanvas()
     this.createBulletCanvas()
@@ -66,9 +73,6 @@ export class Game {
   setVelocity = (newVelocity) => (this._velocity = newVelocity)
 
   getDifficulty = () => this._difficulty
-
-  getMusic = () => this._music
-  toggleMusic = () => (this._music = !this._music)
 
   getScore = () => this._score
   setScore = (score) => (this._score += score)
@@ -96,25 +100,20 @@ export class Game {
 
   pewpew = () => {
     if (this.player.weaponType === 'spread') {
-      const pew = new Audio(spreadshot)
-      pew.play()
+      this.sfx.play(spreadshot)
     } else {
-      const pew = new Audio(blastershot)
-      pew.play()
+      this.sfx.play(blastershot)
     }
     this.bulletFactory.generatePlayerBullets()
   }
 
   startGame = () => {
-    this.audioTrack.pause()
-    this.audioTrack = new Audio(selectStart)
-    this.audioTrack.play()
+    this.sfx.play(selectStart)
     setTimeout(() => {
       this.hideMenu()
       this.setCurrentState(GAME_PLAYING)
       this.start()
-      this.soundtrack = new Audio(raidenJam)
-      this.soundtrack.play()
+      this.music.playTrack('stage5')
     }, 1000)
   }
 
@@ -157,7 +156,6 @@ export class Game {
   createObjects() {
     this.cloudFactory = CloudFactory(this)
     this.carrier = Carrier(this)
-    this.player = Player(this)
     this.bulletFactory = new BulletFactory(this, this.player)
     this.enemyFactory = EnemyFactory(this, stage_1)
     this.explosionFactory = ExplosionFactory(this)
@@ -169,8 +167,8 @@ export class Game {
   // ============================ //
 
   showMenu() {
-    this.audioTrack = new Audio(menuJam)
-    this.audioTrack.play()
+    // this.sfx = new Audio(menuJam)
+    // this.sfx.play()
     const button = document.createElement('button')
     button.className = 'start-button'
     button.onclick = this.startGame
@@ -351,22 +349,22 @@ export class Game {
         switch (e.keyCode) {
           case KEY_CODE.left:
             if (game.player.vx < 0) {
-              game.player?.move.stopX()
+              game.player.move.stopX()
             }
             break
           case KEY_CODE.up:
             if (game.player.vy < 0) {
-              game.player?.move.stopY()
+              game.player.move.stopY()
             }
             break
           case KEY_CODE.right:
             if (game.player.vx > 0) {
-              game.player?.move.stopX()
+              game.player.move.stopX()
             }
             break
           case KEY_CODE.down:
             if (game.player.vy > 0) {
-              game.player?.move.stopY()
+              game.player.move.stopY()
             }
             break
           case KEY_CODE.spacebar:
@@ -385,20 +383,24 @@ export class Game {
       if (game.getState() === GAME_PLAYING) {
         switch (e.keyCode) {
           case KEY_CODE.left:
-            game.player?.move.left()
+            game.player.move.left()
             break
           case KEY_CODE.up:
-            game.player?.move.up()
+            game.player.move.up()
             break
           case KEY_CODE.right:
-            game.player?.move.right()
+            game.player.move.right()
             break
           case KEY_CODE.down:
-            game.player?.move.down()
+            game.player.move.down()
             break
           case KEY_CODE.spacebar:
             if (game.firing) return
             game.shoot()
+            break
+          case KEY_CODE.delete:
+            window.location.reload()
+            break
         }
       }
     })

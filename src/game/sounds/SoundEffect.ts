@@ -1,28 +1,19 @@
-export const GameMusic = () => {
+export const SoundEffect = () => {
   let audio = new Audio()
 
-  const changeMusic = (track: string) => {
+  const play = (track: string) => {
     const nextTrack = new Audio()
     nextTrack.src = track
     audio = nextTrack
+    audio.play()
   }
 
   const changeVolume = (num: number) => {
     audio.volume = num / 10
   }
 
-  const pause = () => {
-    audio.pause()
-  }
-
-  const play = () => {
-    audio.play()
-  }
-
   return {
-    changeMusic,
     changeVolume,
-    pause,
     play,
   }
 }

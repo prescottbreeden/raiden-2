@@ -5,15 +5,17 @@ import { Game } from './Game';
 import { IPlayer } from '../interfaces/IPlayer.interface';
 import { cond, gt, lt, subtract, __ } from 'ramda';
 import { newImage, publicProperty, useState } from '../utils/general';
+import { HEIGHT, WIDTH } from '..';
 
 export const Player = (game: Game) => {
   const { readState: player, updateState: updatePlayer } = useState<IPlayer>({
     ...player1Defaults,
-    ...PlayerMovement.middleLaunch,
     afterBurner: false,
     hitBox: { a: { x: 0, y: 0 }, b: { x: 0, y: 0 }, c: { x: 0, y: 0 } },
     img: newImage(raidenSprites),
     r: player1Defaults.w / 1.4,
+    x: WIDTH / 2 + 9, // starting position on launchpad
+    y: HEIGHT / 2 + 35, // starting position on launchpad
   });
 
   const currentHitBox = () => {

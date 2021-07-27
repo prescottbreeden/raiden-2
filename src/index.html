@@ -6,54 +6,59 @@
   </head>
   <body>
     <div class="container">
-      <div class="info">
-        <div class="info__section">
-          <h1 class="info__title">Raiden Clone</h1>
-          <p>This game is a "clone" of the 1993 arcade game, Raiden II.
-            For those who remember the classic arcade game, you will recognize a 
-            number of assets however in many places I had to improvise. 
-            This clone is purely a creative experiment with no monetary value.
-          </p>
-        </div>
-        <div class="info__section">
-          <h2>Movement</h2>
-          <p>up, down, left, right</p>
-          <p>w, s, a, d</p>
-        </div>
-        <div class="info__section">
-          <h2>Weapon Fire</h2>
-          <p>Spacebar (hold)</p>
-          <p>Enter (press)</p>
-        </div>
-        <div class="info__section">
-          <h2>Quit</h2>
-          <p>Delete</p>
-        </div>
-        <div class="info__section">
-          <h2>Special Thanks To</h2>
-          <ul class="attributes">
-            <li>Bob Ross</li>
-            <li>Dingo</li>
-            <li>Semicolon</li>
-            <li>Chuck Norris</li>
-          </ul>
-        </div>
-      </div>
+      <div class="container__mask"></div>
       <div id="game" class="game">
         <div id="bullets"></div>
         <div class="player-info player-info--left">
-          <p class="player-info__name">1UP</p>
-          <p id="player-score"class="player-info__score">0</p>
-          <div class="player-info__lives">
-            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
-            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
-            <img class="player-ship" src="assets/images/raiden-player-red.png" alt="" />
-          </div>
+          <p class="player-info__name">1up</p>
+          <p id="player-score" class="player-info__score yellow">0</p>
+          <div id="player-lives" class="player-info__lives"></div>
+        </div>
+        <div class="player-info player-info--center">
+          <p class="player-info__high-score red">high score</p>
+          <p id="player-high-score" class="player-info__high-score yellow">50000</p>
         </div>
         <div class="fps">
           <span>FPS:</span>
           <span id="fps"></span>
         </div>
       </div>
+      <div class="container__mask"></div>
   </body>
 </html>
+<!-- <div class="info"> -->
+<!--   <div class="info__section"> -->
+<!--     <h1 class="info__title">Raiden Clone</h1> -->
+<!--     <p>This game is a "clone" of the 1993 arcade game, Raiden II. -->
+<!--       For those who remember the classic arcade game, you will recognize a --> 
+<!--       number of assets however in many places I had to improvise. --> 
+<!--       This clone is purely a creative experiment with no monetary value. -->
+<!--     </p> -->
+<!--   </div> -->
+<!--   <div class="info__section"> -->
+<!--     <h2>Movement (press/hold)</h2> -->
+<!--     <p>up, down, left, right</p> -->
+<!--     <p>w, s, a, d</p> -->
+<!--   </div> -->
+<!--   <div class="info__section"> -->
+<!--     <h2>Weapon Fire (press/hold)</h2> -->
+<!--     <p>Spacebar</p> -->
+<!--   </div> -->
+<!--   <div class="info__section"> -->
+<!--     <h2>Drop Bomb (press)</h2> -->
+<!--     <p>Enter</p> -->
+<!--   </div> -->
+<!--   <div class="info__section"> -->
+<!--     <h2>Quit (press)</h2> -->
+<!--     <p>Delete</p> -->
+<!--   </div> -->
+<!--   <div class="info__section"> -->
+<!--     <h2>Special Thanks To</h2> -->
+<!--     <ul class="attributes"> -->
+<!--       <li>Bob Ross</li> -->
+<!--       <li>Dingo</li> -->
+<!--       <li>Semicolon</li> -->
+<!--       <li>Chuck Norris</li> -->
+<!--     </ul> -->
+<!--   </div> -->
+<!-- </div> -->

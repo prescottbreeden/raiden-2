@@ -1,3 +1,4 @@
+import playerLife from '../assets/images/raiden-player-red.png';
 import artwork from '../assets/images/title_image.png';
 import stage_1 from '../constants/stage_1.json';
 import { BulletFactory } from './bullets/BulletFactory';
@@ -12,6 +13,7 @@ import { Player } from './Player';
 import { SoundEffect } from './sounds/SoundEffect';
 import { __, cond, forEach, gt, pipe, prop } from 'ramda';
 import { getPointDistance, getDistance } from './utilities';
+import { newImage } from '../utils/general';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -24,7 +26,7 @@ export const KEY_CODE = {
   down: 40,
   spacebar: 32,
   enter: 13,
-  delete: 8,
+  delete: 46,
   q: 81,
   f: 70,
   d: 68,
@@ -110,6 +112,7 @@ export class Game {
       this.setCurrentState(GAME_PLAYING);
       this.start();
       this.music.playMusic(this.musicChoice);
+      this.setLives();
     }, 1000);
   };
 
@@ -117,6 +120,16 @@ export class Game {
     this.createObjects();
     this.runGameLoop();
     this.carrier.animateLaunchSequence();
+  }
+
+  setLives() {
+    const lifeNode = document.getElementById('player-lives');
+    [newImage(playerLife), newImage(playerLife), newImage(playerLife)].forEach(
+      (l) => {
+        l.className = 'player-ship';
+        lifeNode.appendChild(l);
+      }
+    );
   }
 
   runGameLoop() {
@@ -244,6 +257,10 @@ export class Game {
     this.setScore(score);
     const node = document.getElementById('player-score');
     node.textContent = this._score;
+    const highscore = document.getElementById('player-high-score');
+    if (this._score > Number(highscore.textContent)) {
+      highscore.textContent = this._score;
+    }
   }
 
   checkCollisions() {

@@ -10,13 +10,25 @@ export const Player = (game: Game) => {
   const frameWidth = 34;
   const frame = (index: number) => frameWidth * index;
 
+  const leftLaunch = {
+    x: WIDTH / 2 - 53, // starting position on launchpad
+    y: HEIGHT / 2 + 35, // starting position on launchpad
+  };
+  const middleLaunch = {
+    x: WIDTH / 2 + 9, // starting position on launchpad
+    y: HEIGHT / 2 + 35, // starting position on launchpad
+  };
+  const rightLaunch = {
+    x: WIDTH / 2 + 67, // starting position on launchpad
+    y: HEIGHT / 2 + 35, // starting position on launchpad
+  };
+
   const { readState: player, updateState: updatePlayer } = useState<IPlayer>({
     ...player1Defaults,
     hitBox: { a: { x: 0, y: 0 }, b: { x: 0, y: 0 }, c: { x: 0, y: 0 } },
     img: newImage(raidenSprites),
     r: player1Defaults.w / 1.4,
-    x: WIDTH / 2 - 53, // starting position on launchpad
-    y: HEIGHT / 2 - 18, // starting position on launchpad
+    ...middleLaunch,
   });
 
   const currentHitBox = () => {

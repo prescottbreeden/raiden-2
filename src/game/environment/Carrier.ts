@@ -6,6 +6,12 @@ import { HEIGHT, WIDTH } from '../..';
 export const Carrier = (game: Game) => {
   const width = 420;
   const height = 900;
+  // original had a zoom in start .. the launchers would need to be redrawn
+  // const zoomCarrier = {
+  //   width: 420 * 2,
+  //   height: 900 * 2,
+  //   y: HEIGHT - height + 400,
+  // };
 
   const { readState: carrier, updateState: updateCarrier } = useState<any>({
     img: newImage(carrierSprite),
@@ -18,6 +24,8 @@ export const Carrier = (game: Game) => {
     launcherFrame: 0,
     launcherX: 304,
     launcherY: (HEIGHT - height) / 2 + 560,
+    launcher2X: 365,
+    launcher3X: 424,
   });
 
   const currentHitBox = () => {
@@ -107,10 +115,36 @@ export const Carrier = (game: Game) => {
     game.context?.drawImage(
       carrier('img'), // img
       561, // sx
-      launcherFrames[carrier('launcherFrame')], // sy
+      launcherFrames[0],
+      // launcherFrames[carrier('launcherFrame')], // sy
       30, // swidth
       17, // sheight
       carrier('launcherX'),
+      carrier('launcherY'),
+      44,
+      22
+    );
+    game.context?.save();
+    game.context?.drawImage(
+      carrier('img'), // img
+      561, // sx
+      launcherFrames[carrier('launcherFrame')], // sy
+      30, // swidth
+      17, // sheight
+      carrier('launcher2X'),
+      carrier('launcherY'),
+      44,
+      22
+    );
+    game.context?.save();
+    game.context?.drawImage(
+      carrier('img'), // img
+      561, // sx
+      launcherFrames[0],
+      // launcherFrames[carrier('launcherFrame')], // sy
+      30, // swidth
+      17, // sheight
+      carrier('launcher3X'),
       carrier('launcherY'),
       44,
       22

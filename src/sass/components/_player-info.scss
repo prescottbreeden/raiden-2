@@ -9,18 +9,32 @@
     font-size: 1.6rem;
     font-family: monospace;
     z-index: 1000;
+    text-transform: uppercase;
+  }
+  &--center {
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;
+    font-size: 1.6rem;
+    font-family: monospace;
+    z-index: 1000;
+    text-transform: uppercase;
+    text-align: center;
   }
   &--right {
     right: 0;
-    color: red;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-family: monospace;
     z-index: 1000;
+    text-transform: uppercase;
   }
 
   &__name {
     transform: scale(1.1, 0.9);
     margin-left: 2rem;
+  }
+  &__high-score {
+    transform: scale(1.1, 0.9);
   }
   &__score {
     transform: scale(1.1, 0.9);
@@ -30,4 +44,10 @@
     display: flex;
     align-items: center;
   }
+}
+.red {
+  color: red;
+}
+.yellow {
+  color: yellow;
 }

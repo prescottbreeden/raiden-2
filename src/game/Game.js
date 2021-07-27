@@ -189,7 +189,7 @@ export class Game {
     const button = document.createElement('button');
     button.className = 'start-button';
     button.onclick = this.startGame;
-    button.textContent = 'Start New Game';
+    button.textContent = 'Press Start';
 
     const menuPane = document.createElement('div');
     menuPane.className = 'menu';

@@ -1,15 +1,18 @@
 .start-button {
+  font-family: monospace;
   position: absolute;
-  background-color: steelblue;
+  background-color: transparent;
   padding: 1rem 2rem;
   border: none;
   border-radius: 3px;
-  color: #eee;
+  color: yellow;
   font-size: 1.6rem;
-  box-shadow: 0 1rem 2rem rgb(0, 0, 0, 0.9);
+  text-shadow: 2px 2px 2px black;
+  animation: blinker .5s linear infinite;
   bottom: 200px;
+  text-transform: uppercase;
   &:hover {
     cursor: pointer;
-    background-color: darkred;
+    // background-color: darkred;
   }
 }

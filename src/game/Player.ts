@@ -56,6 +56,7 @@ export const Player = (game: Game) => {
     updatePlayer({ afterBurner: !player('afterBurner') });
   };
 
+  // TODO: create logic to accelerate and deccelerate afterburner
   const rightExhaust = () => {
     const dx = player('x') + 1 + dynamicExhaust(player('frame'));
     game.context?.drawImage(
@@ -147,33 +148,3 @@ export const Player = (game: Game) => {
 
   return playerObject;
 };
-// game.context?.drawImage(
-//   player('img'),
-//   -(player('w') / 2),
-//   -(player('h') / 2),
-//   player('w'),
-//   player('h')
-// )
-// this.context.arc(this.position.x, this.position.y, this.r, 0, 360 * radian, false);
-// this.context.strokeStyle = 'white';
-// this.context.fillStyle = 'rgba(350, 350, 350, .2)';
-// this.context.lineWidth = 2;
-// this.context.stroke();
-// this.context.fill();
-
-// this.context.save();
-// this.context.strokeStyle = 'red';
-// this.context.beginPath();
-// this.context.moveTo(this.hitBox.a.x, this.hitBox.a.y);
-// this.context.lineTo(this.hitBox.b.x, this.hitBox.b.y);
-// this.context.lineTo(this.hitBox.c.x, this.hitBox.c.y);
-// this.context.lineTo(this.hitBox.a.x, this.hitBox.a.y);
-// this.context.stroke();
-// this.context.restore();
-
-// this.context.save();
-// this.context.fillStyle = 'rgba(250,250,250,.2)';
-// this.context.translate(this.x, this.y)
-// this.context.fillRect(-(this.w/2), -(this.h/2), this.w, this.h);
-// this.context.fill();
-// this.context.restore();

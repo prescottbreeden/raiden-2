@@ -1,6 +1,7 @@
 import { IShip } from './IShip.interface';
 
 export interface IPlayer extends IShip {
+  afterBurner: boolean;
   exhaustFrame: number;
   frame: number;
   hitBox: {

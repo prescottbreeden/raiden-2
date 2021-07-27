@@ -46,6 +46,7 @@ export class Game {
     this.frames = [];
     this.fps = 0;
     this.width = WIDTH;
+    this.lockControls = true;
     this.height = HEIGHT;
     this.firing = false;
     this.music = GameMusic();
@@ -107,6 +108,13 @@ export class Game {
 
   startGame = () => {
     this.sfx.playSfx('selectStart');
+    setTimeout(() => {
+      this.player.toggleAfterBurner();
+    }, 2800);
+    setTimeout(() => {
+      this.lockControls = false;
+      this.player.toggleAfterBurner();
+    }, 7000);
     setTimeout(() => {
       this.hideMenu();
       this.setCurrentState(GAME_PLAYING);

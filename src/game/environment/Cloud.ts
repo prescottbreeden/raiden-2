@@ -22,9 +22,7 @@ export const Cloud = (game: Game) => {
   });
 
   const draw = () => {
-    update({
-      y: cloud('y') + game.getVelocity(),
-    });
+    update({ y: cloud('y') + game.getVelocity() });
     game.context?.drawImage(
       cloud('img'),
       cloud('x'),

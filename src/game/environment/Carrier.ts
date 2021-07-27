@@ -28,25 +28,6 @@ export const Carrier = (game: Game) => {
     launcher3X: 424,
   });
 
-  const currentHitBox = () => {
-    updateCarrier({
-      hitBox: {
-        a: {
-          x: carrier('x'),
-          y: carrier('y') - carrier('r'),
-        },
-        b: {
-          x: carrier('x') - carrier('r') * 0.66,
-          y: carrier('y') + carrier('r') * 0.66,
-        },
-        c: {
-          x: carrier('x') + carrier('r') * 0.66,
-          y: carrier('y') + carrier('r') * 0.66,
-        },
-      },
-    });
-  };
-
   const move = {
     left: () => updateCarrier({ vx: -4.5 }),
     right: () => updateCarrier({ vx: 4.5 }),
@@ -153,7 +134,6 @@ export const Carrier = (game: Game) => {
 
   const draw = () => {
     updatePosition();
-    currentHitBox();
     drawCarrier();
     drawLauncher();
 

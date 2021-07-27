@@ -50,21 +50,6 @@ export const Player = (game: Game) => {
     [() => true, () => 0],
   ]);
 
-  const drawPlayer = () => {
-    game.context?.save();
-    game.context?.drawImage(
-      player('img'), // img
-      PlayerMovement.frame(player('frame')), // sx
-      30, // sy
-      PlayerMovement.frameWidth, // swidth
-      45, // sheight
-      player('x') - player('w') / 2, // dx
-      player('y') - player('h') / 2, // dy
-      player('w'), // dwidth
-      player('h') // dheight
-    );
-  };
-
   const toggleAfterBurner = () => {
     updatePlayer({ afterBurner: !player('afterBurner') });
   };
@@ -113,6 +98,21 @@ export const Player = (game: Game) => {
     });
   };
 
+  const drawPlayer = () => {
+    game.context?.save();
+    game.context?.drawImage(
+      player('img'), // img
+      PlayerMovement.frame(player('frame')), // sx
+      30, // sy
+      PlayerMovement.frameWidth, // swidth
+      45, // sheight
+      player('x') - player('w') / 2, // dx
+      player('y') - player('h') / 2, // dy
+      player('w'), // dwidth
+      player('h') // dheight
+    );
+  };
+
   const update = () => {
     PlayerMovement.updatePosition({ player, updatePlayer });
     PlayerMovement.handleRoll({ player, updatePlayer });
@@ -120,7 +120,6 @@ export const Player = (game: Game) => {
     drawExhaust();
     drawPlayer();
 
-    game.context?.save();
     game.context?.restore();
   };
 

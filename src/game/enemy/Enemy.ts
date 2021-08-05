@@ -8,12 +8,20 @@ import { cond } from 'ramda';
 import { enemyDefaults } from '../../utils/enemies';
 import { images } from '../../utils/images';
 import { newImage, publicProperty, useState } from '../../utils/general';
+import { WIDTH } from '../..';
+
+const generateRandomEntrance = (defaults: any, props: any): number => {
+  return props.enter === 'random'
+    ? Math.floor(Math.random() * WIDTH)
+    : props.x ?? defaults.x ?? WIDTH / 2;
+};
 
 export const Enemy = (game: Game, props: IStageOptions) => {
   const { readState: enemy, updateState: update } = useState<IEnemy>({
     ...enemyDefaults[props.type],
     ...props,
     img: newImage(images[props.type]),
+    x: generateRandomEntrance(enemyDefaults, props),
   });
 
   Movement.move(enemy('movement'))(game, enemy, update);

@@ -82,6 +82,7 @@ export class Game {
     canvas.className = 'canvas';
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
+    canvas.style.backgroundColor = '#0884ce';
     gameNode.appendChild(canvas);
     this.context = canvas.getContext('2d');
   };

@@ -14,8 +14,7 @@ export const Ball = (game: Game, enemy: IEnemy) => {
   });
 
   if (enemy.aim) {
-    const { vx, vy } = aimAtPlayer(game, bullet());
-    update({ vx, vy });
+    update(aimAtPlayer(game, bullet()));
   }
 
   const draw = () => {

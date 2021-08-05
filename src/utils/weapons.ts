@@ -31,6 +31,7 @@ const spincycle = (game: Game, enemy: EnemyState) => {
 };
 
 const ball = (game: Game, enemy: EnemyState) => {
+  game.bulletFactory?.addBullets(Ball(game, enemy()));
   const firing = setInterval(() => {
     if (shouldFire(enemy())) {
       game.sfx.playSfx('retroShotBlaster');
@@ -45,7 +46,11 @@ const trishot = (game: Game, enemy: EnemyState) => {
   const firing = setInterval(() => {
     if (shouldFire(enemy())) {
       game.sfx.playSfx('retroShotBlaster');
-      game.bulletFactory?.addBullets(Ball(game, enemy()));
+      game.bulletFactory?.addBullets(
+        Ball(game, { ...enemy(), vx: 0, vy: enemy('weaponSpeed') }),
+        Ball(game, { ...enemy(), vx: -2, vy: enemy('weaponSpeed') }),
+        Ball(game, { ...enemy(), vx: 2, vy: enemy('weaponSpeed') })
+      );
     } else {
       clearInterval(firing);
     }

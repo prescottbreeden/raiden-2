@@ -24,9 +24,9 @@ export const CloudFactory = (game: Game) => {
     }, 6800);
   };
 
-  setInterval(() => {
-    addClouds(Cloud(game));
-  }, 2000);
+  // setInterval(() => {
+  //   addClouds(Cloud(game));
+  // }, 2000);
 
   const cloudFactory = {
     cloudLaunch,

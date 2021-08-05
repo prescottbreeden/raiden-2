@@ -2,7 +2,7 @@ name = "vendor"
 
 # default attributes
 
-aim = true
+aim = false
 angle = 0
 contain = true
 enter = "random"
@@ -12,7 +12,7 @@ gy = 0
 h = 80
 hp = 60
 item = true
-movement = "explore"
+movement = "hover"
 movementSpeed = 2
 pointValue = 200
 r= 40
@@ -23,7 +23,7 @@ vx = 0
 vy = 0
 w = 80
 weaponDelay = 2000
-weaponSpeed = 6
+weaponSpeed = 8
 weaponType = "trishot"
 x = 0
 y = 0

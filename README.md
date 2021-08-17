@@ -9,6 +9,11 @@ Webpack refactor of previous clone for arcade game "Raiden".
 
 Because this game is still in dev, players are immune from bullets for testing purposes.
 
+## Controls
+
+Fire: `spacebar` (press or hold) </br>
+Move: `arrow-key`
+
 ## Roadmap
 
 - [ ] Convert to TypeScript

@@ -21,8 +21,8 @@ Because this game is still in dev, players are immune from bullets for testing p
 - [x] Spiral attack
 - [x] Raiden ship
 - [x] Exhaust animation
-- [ ] Render Lives Images with JS
-- [ ] Add High Score
+- [x] Render Lives Images with JS
+- [x] Add High Score
 - [ ] Circular item floating
 - [ ] Sprinkler attack
 - [ ] Powerup random chance item

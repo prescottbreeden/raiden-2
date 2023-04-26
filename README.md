@@ -11,12 +11,12 @@ Because this game is still in dev, players are immune from bullets for testing p
 
 ## Controls
 
-Fire: `spacebar` (press or hold) </br>
-Move: `arrow-key`
+Fire: `spacebar` (hold) </br>
+Move: `arrow-key` / `wasd` / `hjkl`
 
 ## Roadmap
 
-- [ ] Convert to TypeScript
+- [x] Convert to TypeScript
 - [x] Fix spread shot
 - [x] Toml parsing for EnemyFactory data
 - [x] Script to run all toml directories (ignoring src)
@@ -29,7 +29,7 @@ Move: `arrow-key`
 - [x] Render Lives Images with JS
 - [x] Add High Score
 - [ ] Circular item floating
-- [ ] Sprinkler attack
+- [x] Sprinkler attack
 - [ ] Powerup random chance item
 - [x] Abstraction for weapontypes
 - [x] Abstraction for enemey movement types

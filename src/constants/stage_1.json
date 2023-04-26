@@ -982,6 +982,32 @@
      "type": "spear"
     }
    ]
+  },
+  {
+   "timestamp": 100,
+   "types": [
+    {
+     "delay": 0,
+     "x": 150,
+     "enter": "left",
+     "type": "boss",
+     "movement": "boss"
+    },
+    {
+     "delay": 0,
+     "x": 350,
+     "enter": "center",
+     "type": "boss",
+     "movement": "boss"
+    },
+    {
+     "x": 600,
+     "delay": 0,
+     "enter": "right",
+     "type": "boss",
+     "movement": "boss"
+    }
+   ]
   }
  ]
 }

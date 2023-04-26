@@ -1,15 +1,9 @@
-import { newImage, publicProperty, useState } from '../../utils/general';
 import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png';
-import { Game } from '../Game';
-import { IEnemy } from '../../interfaces/IEnemy.interface';
+import { IBullet, IDrawableBullet, TempGame } from './BulletFactory';
+import { newImage, publicProperty, useState } from '../../utils/general';
 
-type TempGame = Game & {
-  player: IEnemy & {
-    weaponStr: number;
-  };
-};
-export const Blaster = (game: TempGame) => {
-  const { readState: bullet, updateState: update } = useState<any>({
+export function Blaster(game: TempGame): IDrawableBullet {
+  const { readState, updateState } = useState<IBullet>({
     class: 'player',
     vy: -20,
     vx: 0,
@@ -17,86 +11,92 @@ export const Blaster = (game: TempGame) => {
     img: newImage(spreadSrc),
     w: 5,
     h: 10,
+
+    // different than spread type
+    rotate: 0,
+    x: 0,
+    y: 0,
   });
 
   switch (game.player.weaponStr) {
     case 1:
-      update({ h: 45, w: 5 });
+      updateState({ h: 45, w: 5 });
       break;
     case 2:
-      update({ h: 55, w: 10 });
+      updateState({ h: 55, w: 10 });
       break;
     case 3:
-      update({ h: 75, w: 15 });
+      updateState({ h: 75, w: 15 });
       break;
     case 4:
-      update({ h: 75, w: 25 });
+      updateState({ h: 75, w: 25 });
       break;
     case 5:
-      update({ h: 75, w: 35 });
+      updateState({ h: 75, w: 35 });
       break;
     case 6:
-      update({ h: 75, w: 65 });
+      updateState({ h: 75, w: 65 });
       break;
   }
 
-  update({
-    x: game.player.x - bullet('w') / 2,
+  updateState({
+    x: game.player.x - readState('w') / 2,
     y: game.player.y,
     power: game.player.weaponStr * 10,
   });
 
+  // don't remember what this was for...
   const drawCenter = () => {
     game.context?.save();
     if (game.context) {
       game.context.fillStyle = 'green';
     }
-    game.context?.translate(bullet('x'), bullet('y'));
+    game.context?.translate(readState('x'), readState('y'));
     game.context?.fillRect(
-      bullet('w') / 2,
+      readState('w') / 2,
       0, // replace me with an image eventually
-      bullet('w') / 2,
-      bullet('h')
+      readState('w') / 2,
+      readState('h')
     );
     game.context?.restore();
   };
 
   const draw = () => {
-    update({
-      y: bullet('y') + bullet('vy'),
-      x: bullet('x') + bullet('vx'),
+    updateState({
+      y: readState('y') + readState('vy'),
+      x: readState('x') + readState('vx'),
     });
     game.context?.save();
 
     // blue beam
     game.context?.drawImage(
-      bullet('img'), // img
+      readState('img'), // img
       347, // sx
       200, // sy
       9, // swidth
       30, // sheight
-      bullet('x'), // dx
-      bullet('y'), // dy
-      bullet('w'), // dwidth
-      bullet('h') // dheight
+      readState('x'), // dx
+      readState('y'), // dy
+      readState('w'), // dwidth
+      readState('h') // dheight
     );
     game.context?.restore();
   };
 
-  const bulletObject = {
+  const bulletObject: IDrawableBullet = {
     draw,
-  };
+  } as IDrawableBullet;
 
   Object.defineProperties(bulletObject, {
-    ...publicProperty('h', () => bullet('h')),
-    ...publicProperty('vx', () => bullet('vx')),
-    ...publicProperty('vy', () => bullet('vy')),
-    ...publicProperty('w', () => bullet('w')),
-    ...publicProperty('x', () => bullet('x')),
-    ...publicProperty('y', () => bullet('y')),
-    ...publicProperty('class', () => bullet('class')),
-    ...publicProperty('power', () => bullet('power')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('vx', () => readState('vx')),
+    ...publicProperty('vy', () => readState('vy')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
+    ...publicProperty('class', () => readState('class')),
+    ...publicProperty('power', () => readState('power')),
   });
 
   return bulletObject;
-};
+}

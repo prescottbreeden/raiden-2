@@ -1,7 +1,6 @@
 import { Enemy } from './Enemy';
+import { Factory } from '../../types/Factory.type';
 import { Game } from '../Game';
-import { IEnemy } from '../../interfaces/IEnemy.interface';
-import { IEnemyFactory } from '../../interfaces/IEnemyFactory.interface';
 import { IStageOptions } from '../../interfaces/IStageOptions.interface';
 import {
   IStageTomlEnemies,
@@ -14,13 +13,14 @@ export const EnemyFactory = (
   game: Game,
   { enemies: enemyData }: IStageTomlEnemies
 ) => {
-  const { readState: factory, updateState: update } = useState<IEnemyFactory>({
-    enemies: [],
-  });
+  const { readState, updateState: update } = useState<Factory>({ state: [] });
 
+  // create array of enemy slots
+  // everytime we add an enemy, take the first empty
+  // everytime an enemy is is destroyed, trigger destroy on object to clear all
+  // timeouts
   const addEnemy = (...enemies: any[]) => {
-    const cleanUp = factory('enemies').filter(isOnScreen);
-    update({ enemies: [...cleanUp, ...enemies] });
+    update({ state: readState('state').filter(isOnScreen).concat(enemies) });
   };
 
   enemyData.forEach((enemyGroup: IStageTomlEnemyGroup) => {
@@ -36,7 +36,7 @@ export const EnemyFactory = (
   const enemyFactory = {};
 
   Object.defineProperties(enemyFactory, {
-    ...publicProperty('enemies', () => factory('enemies')),
+    ...publicProperty('state', () => readState('state')),
   });
 
   return enemyFactory;

@@ -1,10 +1,10 @@
 import explosionImg from '../../assets/images/explosion.png';
+import { Game } from '../Game';
 import { IEnemy } from '../../interfaces/IEnemy.interface';
 import { newImage, publicProperty, useState } from '../../utils/general';
-import { Game } from '../Game';
 
-export const Explosion = (game: Game, enemy: IEnemy) => {
-  const { readState: explosion, updateState: update } = useState<any>({
+export function Explosion(game: Game, enemy: IEnemy) {
+  const { readState, updateState } = useState<any>({
     ...enemy,
     src: explosionImg,
     img: newImage(explosionImg),
@@ -12,50 +12,49 @@ export const Explosion = (game: Game, enemy: IEnemy) => {
     row: 0,
   });
 
+  // cycle through grid of images to animate
   const updateFrame = () => {
-    let col = explosion('col');
-    let row = explosion('row');
+    let col = readState('col');
+    let row = readState('row');
     col++;
     if (col === 9) {
       row++;
       col %= 9;
     }
-    update({ row, col });
-  };
-  const draw = () => {
-    update({
-      y: explosion('y') + explosion('vy'),
-      x: explosion('x') + explosion('vx'),
-    });
-
-    game.context?.drawImage(
-      explosion('img'),
-      100 * explosion('col'),
-      100 * explosion('row'),
-      100,
-      100,
-      explosion('x') - 50,
-      explosion('y') - 50,
-      explosion('w'),
-      explosion('h')
-    );
-    // cycle through grid of images to animate
-    updateFrame();
+    updateState({ row, col });
   };
 
   const explosionObject = {
-    draw,
+    draw: () => {
+      updateState({
+        y: readState('y') + readState('vy'),
+        x: readState('x') + readState('vx'),
+      });
+
+      game.context?.drawImage(
+        readState('img'),
+        100 * readState('col'),
+        100 * readState('row'),
+        100,
+        100,
+        readState('x') - 50,
+        readState('y') - 50,
+        readState('w'),
+        readState('h')
+      );
+      updateFrame();
+    },
   };
 
   // Read-only properties
   Object.defineProperties(explosionObject, {
-    ...publicProperty('h', () => explosion('h')),
-    ...publicProperty('r', () => explosion('r')),
-    ...publicProperty('w', () => explosion('w')),
-    ...publicProperty('x', () => explosion('x')),
-    ...publicProperty('y', () => explosion('y')),
-    ...publicProperty('vx', () => explosion('vx')),
-    ...publicProperty('vy', () => explosion('vy')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('r', () => readState('r')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
+    ...publicProperty('vx', () => readState('vx')),
+    ...publicProperty('vy', () => readState('vy')),
   });
 
   return explosionObject;

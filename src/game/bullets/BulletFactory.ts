@@ -1,39 +1,62 @@
 import { Blaster } from './Blaster';
+import { Game } from '../Game';
+import { IEnemy } from '../../interfaces/IEnemy.interface';
 import { Spread } from './Spread';
 import { isOnScreen } from '../utilities';
-import { Game } from '../Game';
 import { publicProperty, useState } from '../../utils/general';
-import { IEnemy } from '../../interfaces/IEnemy.interface';
+import { Factory } from '../../types/Factory.type';
+import { IDrawable } from '../../interfaces/IDrawable.interface';
 
-type TempGame = Game & {
+export type IBullet = {
+  class: string;
+  vy: number;
+  vx: number;
+  power: number;
+  w: number;
+  h: number;
+  img: HTMLImageElement;
+  rotate: number;
+  x: number;
+  y: number;
+};
+
+export type IDrawableBullet = IBullet & IDrawable;
+
+export type TempGame = Game & {
   player: IEnemy & {
     weaponStr: number;
   };
 };
 
-type IBulletFactory = {
-  addBullets: (bullets: any[]) => void;
+export type IBulletFactory = {
+  state: IDrawableBullet[];
+  addBullets: (...bullet: IDrawableBullet[]) => void;
   generatePlayerBullets: () => void;
-  bullets: any[];
 };
+
 const playerOffset = 2.5;
 export const BulletFactory = (game: TempGame) => {
-  const { readState: factory, updateState: update } = useState<any>({
-    bullets: [],
-  });
+  const { readState, updateState } = useState<Factory>({ state: [] });
 
-  const addBullets = (...bullets: any[]) => {
-    const cleanUp = factory('bullets').filter(isOnScreen);
-    update({ bullets: [...cleanUp, ...bullets] });
+  const addBullets = (...bullets: IDrawableBullet[]) => {
+    updateState({
+      state: readState('state')
+        .filter(isOnScreen)
+        .concat(bullets),
+    });
   };
 
   // BLASTER
+  // most straight forward, just gets bigger and stronger with each level
   const blasterShot = () => {
     addBullets(Blaster(game));
   };
 
   // SPREAD
-  const spread = () => ({
+  // each level of spread adds additional bullets at different angles and
+  // vertical/horizontal velocities to create the spray-effect
+  // TODO: this could be abstracted much better probably
+  const spread = (): { [key: string]: IDrawableBullet[] } => ({
     1: [Spread(game, game.player.x - playerOffset)],
     2: [
       Spread(
@@ -174,6 +197,7 @@ export const BulletFactory = (game: TempGame) => {
       addBullets(...spread()[6]);
     }
   };
+
   const generatePlayerBullets = () => {
     const weapon = game.player.weaponType;
     if (weapon === 'blaster') {
@@ -184,14 +208,14 @@ export const BulletFactory = (game: TempGame) => {
     }
   };
 
-  // @ts-ignore
   const bulletFactory: IBulletFactory = {
     addBullets,
     generatePlayerBullets,
+    state: [],
   };
 
   Object.defineProperties(bulletFactory, {
-    ...publicProperty('bullets', () => factory('bullets')),
+    ...publicProperty('state', () => readState('state')),
   });
 
   return bulletFactory;

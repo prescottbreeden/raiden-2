@@ -1,47 +1,51 @@
 import defaults from '../../constants/fireball.json';
 import fireball from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png';
 import { Game } from '../Game';
-import { newImage, publicProperty, useState } from '../../utils/general';
+import { IBullet, IDrawableBullet } from './BulletFactory';
 import { IEnemy } from '../../interfaces/IEnemy.interface';
+import { newImage, publicProperty, useState } from '../../utils/general';
 
-export const SpinCycle = (game: Game, enemy: IEnemy) => {
-  const { readState: bullet, updateState: update } = useState<any>({
-    ...enemy,
+export function SpinCycle(game: Game, enemy: IEnemy) {
+  const { readState, updateState } = useState<any>({
     ...defaults,
+    x: enemy.x,
+    y: enemy.y,
+    vx: enemy.vx,
+    vy: enemy.vy,
     img: newImage(fireball),
-    radians: Date.now(),
+    radians: Date.now(), // party
   });
 
   const draw = () => {
-    update({
-      x: bullet('x') + Math.cos(bullet('radians')) * 3,
-      y: bullet('y') + Math.sin(bullet('radians')) * 3,
+    updateState({
+      x: readState('x') + Math.cos(readState('radians')) * 3,
+      y: readState('y') + Math.sin(readState('radians')) * 3,
     });
     game.bulletContext?.save();
-    game.bulletContext?.translate(bullet('x'), bullet('y'));
+    game.bulletContext?.translate(readState('x'), readState('y'));
     game.bulletContext?.drawImage(
-      bullet('img'),
-      -(bullet('w') / 2),
-      -(bullet('h') / 2),
-      bullet('h'),
-      bullet('w')
+      readState('img'),
+      -(readState('w') / 2),
+      -(readState('h') / 2),
+      readState('h'),
+      readState('w')
     );
     game.bulletContext?.restore();
   };
 
-  const bulletObject = {
+  const bulletObject: IDrawableBullet = {
     draw,
-  };
+  } as IDrawableBullet;
 
   // Read-only properties
   Object.defineProperties(bulletObject, {
-    ...publicProperty('h', () => bullet('h')),
-    ...publicProperty('vx', () => bullet('vx')),
-    ...publicProperty('vy', () => bullet('vy')),
-    ...publicProperty('w', () => bullet('w')),
-    ...publicProperty('x', () => bullet('x')),
-    ...publicProperty('y', () => bullet('y')),
-    ...publicProperty('class', () => bullet('class')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('vx', () => readState('vx')),
+    ...publicProperty('vy', () => readState('vy')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
+    ...publicProperty('class', () => readState('class')),
   });
 
   return bulletObject;

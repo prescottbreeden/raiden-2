@@ -1,20 +1,14 @@
 import spreadSrc from '../../assets/images/weaponfire/M484BulletCollection3.png';
-import { IEnemy } from '../../interfaces/IEnemy.interface';
+import { IBullet, IDrawableBullet, TempGame } from './BulletFactory';
 import { newImage, publicProperty, useState } from '../../utils/general';
-import { Game } from '../Game';
 
-type TempGame = Game & {
-  player: IEnemy & {
-    weaponStr: number;
-  };
-};
-export const Spread = (
+export function Spread(
   game: TempGame,
   x = 0,
   y = 0,
   { vx, rotate } = { vx: 0, rotate: 0 }
-) => {
-  const { readState: bullet, updateState: update } = useState<any>({
+):IDrawableBullet {
+  const { readState, updateState } = useState<IBullet>({
     class: 'player',
     vy: -20,
     // vy: -5,
@@ -31,74 +25,71 @@ export const Spread = (
   // TODO: util
   const redBeam = () => {
     game.context?.drawImage(
-      bullet('img'), // img
+      readState('img'), // img
       347, // sx
       68, // sy
       9, // swidth
       30, // sheight
-      bullet('x'), // dx
-      bullet('y'), // dy
-      bullet('w'), // dwidth
-      bullet('h') // dheight
+      readState('x'), // dx
+      readState('y'), // dy
+      readState('w'), // dwidth
+      readState('h') // dheight
     );
   };
 
   // TODO: util
   const largeOvalBullet = () => {
     game.context?.drawImage(
-      bullet('img'), // img
+      readState('img'), // img
       428, // sx
       160, // sy
       9, // swidth
       25, // sheight
-      bullet('x'), // dx
-      bullet('y'), // dy
-      bullet('w'), // dwidth
-      bullet('h') // dheight
+      readState('x'), // dx
+      readState('y'), // dy
+      readState('w'), // dwidth
+      readState('h') // dheight
     );
   };
 
   // TODO: util
   const ovalBullet = () => {
     game.context?.drawImage(
-      bullet('img'), // img
+      readState('img'), // img
       428, // sx
       82, // sy
       9, // swidth
       25, // sheight
-      bullet('x'), // dx
-      bullet('y'), // dy
-      bullet('w'), // dwidth
-      bullet('h') // dheight
+      readState('x'), // dx
+      readState('y'), // dy
+      readState('w'), // dwidth
+      readState('h') // dheight
     );
   };
 
-  const draw = () => {
-    update({
-      y: bullet('y') + bullet('vy'),
-      x: bullet('x') + bullet('vx'),
-    });
-    game.context?.save();
-    redBeam();
-    game.context?.rotate(bullet('roate'));
-
-    game.context?.restore();
-  };
-
-  const bulletObject = {
-    draw,
-  };
+  const bulletObject: IDrawableBullet = {
+    draw: () => {
+      updateState({
+        y: readState('y') + readState('vy'),
+        x: readState('x') + readState('vx'),
+      });
+      game.context?.save();
+      redBeam();
+      game.context?.rotate(readState('rotate'));
+      game.context?.restore();
+    },
+  } as IDrawableBullet;
 
   Object.defineProperties(bulletObject, {
-    ...publicProperty('h', () => bullet('h')),
-    ...publicProperty('vx', () => bullet('vx')),
-    ...publicProperty('vy', () => bullet('vy')),
-    ...publicProperty('w', () => bullet('w')),
-    ...publicProperty('x', () => bullet('x')),
-    ...publicProperty('y', () => bullet('y')),
-    ...publicProperty('class', () => bullet('class')),
-    ...publicProperty('power', () => bullet('power')),
+    ...publicProperty('class', () => readState('class')),
+    ...publicProperty('power', () => readState('power')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
+    ...publicProperty('vx', () => readState('vx')),
+    ...publicProperty('vy', () => readState('vy')),
   });
 
   return bulletObject;
-};
+}

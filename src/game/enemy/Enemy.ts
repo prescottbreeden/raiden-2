@@ -4,81 +4,97 @@ import { Game, radian } from '../Game';
 import { IEnemy } from '../../interfaces/IEnemy.interface';
 import { IShip } from '../../interfaces/IShip.interface';
 import { IStageOptions } from '../../interfaces/IStageOptions.interface';
+import { WIDTH } from '../..';
 import { cond } from 'ramda';
 import { enemyDefaults } from '../../utils/enemies';
 import { images } from '../../utils/images';
 import { newImage, publicProperty, useState } from '../../utils/general';
-import { WIDTH } from '../..';
 
+// TODO generate left/right entrace properly
 const generateRandomEntrance = (defaults: any, props: any): number => {
   return props.enter === 'random'
     ? Math.floor(Math.random() * WIDTH)
     : props.x ?? defaults.x ?? WIDTH / 2;
 };
 
-export const Enemy = (game: Game, props: IStageOptions) => {
-  const { readState: enemy, updateState: update } = useState<IEnemy>({
+export function Enemy(game: Game, props: IStageOptions) {
+  const img = images[props.type]
+    ? newImage(images[props.type])
+    : newImage(images.spacestation);
+
+  const { readState, updateState } = useState<IEnemy>({
     ...enemyDefaults[props.type],
     ...props,
-    img: newImage(images[props.type]),
+    img,
     x: generateRandomEntrance(enemyDefaults, props),
   });
 
-  Movement.move(enemy('movement'))(game, enemy, update);
-  Weapons.fire(enemy('weaponType'))(game, enemy);
+  Movement.move(readState('movement'))(game, readState, updateState);
+  Weapons.fire(readState('weaponType'))(game, readState);
+
+  // got an inside-out issue with lack of telling factories to clear memory
+  // might make sense to go with object pool to just let the objects get reused
+  // especially since I already have a shouldFire function
+  // const clearCurrentTimeouts = () => {
+  //   movementTimeouts.map(clearTimeout);
+  //   weaponIntervals.map(clearInterval);
+  // };
 
   const takeDamage = (dmg: number): void => {
-    update({
-      hp: enemy('hp') - dmg,
+    const hp = readState('hp') - dmg;
+    updateState({
+      hp,
       hit: true,
     });
   };
 
   const draw = (): void => {
     const { x: playerX, y: playerY } = game.player! as unknown as IShip;
-    update({
-      vx: enemy('vx') + enemy('gx'),
-      vy: enemy('vy') + enemy('gy'),
-      y: enemy('y') + enemy('vy'),
-      x: enemy('x') + enemy('vx'),
+    updateState({
+      vx: readState('vx') + readState('gx'),
+      vy: readState('vy') + readState('gy'),
+      y: readState('y') + readState('vy'),
+      x: readState('x') + readState('vx'),
     });
     game.context?.save();
-    game.context?.translate(enemy('x'), enemy('y'));
+    game.context?.translate(readState('x'), readState('y'));
 
     // if enemy.tracking, aim the enemy at player
-    if (enemy('tracking') && enemy('movement') !== 'kamakaze') {
+    if (readState('tracking') && readState('movement') !== 'kamakaze') {
       const angle =
-        Math.atan2(playerY - enemy('y'), playerX - enemy('x')) - Math.PI / 2;
+        Math.atan2(playerY - readState('y'), playerX - readState('x')) -
+        Math.PI / 2;
       game.context?.rotate(angle);
     }
 
     // if enemy is suicidal, rapidly accelerate after it slows down to fire
-    if (enemy('movement') === 'kamakaze') {
-      if (enemy('vy') <= 0) {
-        update({ gy: (enemy('gy') + 0.15) % 2 });
+    // TODO -- rename 'kamakaze' to something less offensive
+    if (readState('movement') === 'kamakaze') {
+      if (readState('vy') <= 0) {
+        updateState({ gy: (readState('gy') + 0.15) % 2 });
       }
     }
 
     // if enemy.contain, let it bounce off edges
-    if (enemy('contain')) {
+    if (readState('contain')) {
       cond([
         [Movement.leavingLeftRight, Movement.reverseVx],
         [Movement.leavingTopBottom, Movement.reverseVy],
-      ])({ enemy, update });
+      ])({ readState, updateState });
     }
 
     // if enemy.spin rotate it in a circle
-    if (enemy('spin')) {
-      update({ angle: enemy('angle') + 5 * radian });
-      game.context?.rotate(enemy('angle'));
+    if (readState('spin')) {
+      updateState({ angle: readState('angle') + 5 * radian });
+      game.context?.rotate(readState('angle'));
     }
 
     // draw an enemey bubble over the enemy if they took damage
-    if (enemy('hit')) {
-      update({ hit: false });
+    if (readState('hit')) {
+      updateState({ hit: false });
       if (game.context) {
         game.context.beginPath();
-        game.context.arc(0, 0, enemy('r'), 0, 360 * radian, false);
+        game.context.arc(0, 0, readState('r'), 0, 360 * radian, false);
         game.context.fillStyle = 'rgba(350, 350, 350, .2)';
         game.context.fill();
       }
@@ -86,11 +102,11 @@ export const Enemy = (game: Game, props: IStageOptions) => {
 
     // redraw src image
     game.context?.drawImage(
-      enemy('img'),
-      -(enemy('w') / 2),
-      -(enemy('h') / 2),
-      enemy('w'),
-      enemy('h')
+      readState('img'),
+      -(readState('w') / 2),
+      -(readState('h') / 2),
+      readState('w'),
+      readState('h')
     );
 
     game.context?.restore();
@@ -103,18 +119,18 @@ export const Enemy = (game: Game, props: IStageOptions) => {
 
   // Read-only properties
   Object.defineProperties(enemyObject, {
-    ...publicProperty('explosion', () => enemy('explosion')),
-    ...publicProperty('item', () => enemy('item')),
-    ...publicProperty('h', () => enemy('h')),
-    ...publicProperty('hp', () => enemy('hp')),
-    ...publicProperty('pointValue', () => enemy('pointValue')),
-    ...publicProperty('r', () => enemy('r')),
-    ...publicProperty('vx', () => enemy('vx')),
-    ...publicProperty('vy', () => enemy('vy')),
-    ...publicProperty('w', () => enemy('w')),
-    ...publicProperty('x', () => enemy('x')),
-    ...publicProperty('y', () => enemy('y')),
+    ...publicProperty('explosion', () => readState('explosion')),
+    ...publicProperty('item', () => readState('item')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('hp', () => readState('hp')),
+    ...publicProperty('pointValue', () => readState('pointValue')),
+    ...publicProperty('r', () => readState('r')),
+    ...publicProperty('vx', () => readState('vx')),
+    ...publicProperty('vy', () => readState('vy')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
   });
 
   return enemyObject;
-};
+}

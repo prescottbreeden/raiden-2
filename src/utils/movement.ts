@@ -9,104 +9,133 @@ import {
 } from '../interfaces/IStateObject.interface';
 import { MovementName } from '../types/MovementName.type';
 
-export const updatePositionAcceleration = ({ enemy, update }: IStateObject) => {
-  return update({
-    vx: enemy('vx') + enemy('gx'),
-    vy: enemy('vy') + enemy('gy'),
-    y: enemy('y') + enemy('vy'),
-    x: enemy('x') + enemy('vx'),
-  });
-};
+// export const updatePositionAcceleration = ({
+//   readState,
+//   updateState,
+// }: IStateObject) => {
+//   return updateState({
+//     vx: readState('vx') + readState('gx'),
+//     vy: readState('vy') + readState('gy'),
+//     y: readState('y') + readState('vy'),
+//     x: readState('x') + readState('vx'),
+//   });
+// };
 
-export const leavingLeftRight = ({ enemy }: IStateObject) =>
+export const leavingLeftRight = ({ readState }: IStateObject) =>
   any(equals(true), [
-    enemy('x') <= 5 && enemy('vx') < 0,
-    enemy('x') >= WIDTH - enemy('w') && enemy('vx') > 0,
+    readState('x') <= 5 && readState('vx') < 0,
+    readState('x') >= WIDTH - readState('w') && readState('vx') > 0,
   ]);
 
-export const leavingTopBottom = ({ enemy }: IStateObject) =>
+export const leavingTopBottom = ({ readState }: IStateObject) =>
   any(equals(true), [
-    enemy('y') <= enemy('h') && enemy('vy') < 0,
-    enemy('y') >= HEIGHT - enemy('h') && enemy('vy') > 0,
+    readState('y') <= readState('h') && readState('vy') < 0,
+    readState('y') >= HEIGHT - readState('h') && readState('vy') > 0,
   ]);
 
-export const reverseVx = ({ enemy, update }: IStateObject) =>
-  update({ vx: enemy('vx') * -1 });
+export const reverseVx = ({ readState, updateState }: IStateObject) =>
+  updateState({ vx: readState('vx') * -1 });
 
-export const reverseVy = ({ enemy, update }: IStateObject) =>
-  update({ vy: enemy('vy') * -1 });
+export const reverseVy = ({ readState, updateState }: IStateObject) =>
+  updateState({ vy: readState('vy') * -1 });
 
-const charge = (game: Game, enemy: EnemyState, update: Update) => {
-  update({
+const charge = (game: Game, readState: EnemyState, updateState: Update) => {
+  updateState({
     vy: game.getVelocity() * 8,
   });
-  setTimeout(() => {
-    update({
+  const t1 = setTimeout(() => {
+    updateState({
       vy: 0,
     });
   }, 700);
-  setTimeout(() => {
-    update({
-      gx: enemy('x') < WIDTH / 2 ? -0.5 : 0.5,
+  const t2 = setTimeout(() => {
+    updateState({
+      gx: readState('x') < WIDTH / 2 ? -0.5 : 0.5,
     });
   }, 1400);
+  return [t1, t2]
 };
 
-const hover = (game: Game, _: EnemyState, update: Update) => {
-  update({
+const hover = (game: Game, _: EnemyState, updateState: Update) => {
+  updateState({
     vy: game.getVelocity() * 8,
     x: WIDTH / 2,
   });
-  setTimeout(() => {
-    update({
+  const t1 = setTimeout(() => {
+    updateState({
       vy: 0,
     });
   }, 500);
-  setTimeout(() => {
-    update({
+  const t2 = setTimeout(() => {
+    updateState({
       vy: 5,
     });
   }, 20000);
+  return [t1,t2]
 };
 
-const explore = (game: Game, _: EnemyState, update: Update) => {
+const explore = (game: Game, _: EnemyState, updateState: Update) => {
   // TODO: set X position based on config setting
   // TODO: set Y poisiont based on config setting
-  update({
+  updateState({
     x: getRandomInt(WIDTH * 0.1, WIDTH * 0.9),
     vy: game.getVelocity() * 2,
     vx: getRandomInt(0.1, 0.09) > 0.5 ? 1 : -1,
   });
+  return []
 };
 
-const parabolic = (game: Game, enemy: EnemyState, update: Update) => {
-  update({
+const parabolic = (game: Game, readState: EnemyState, updateState: Update) => {
+  updateState({
     vy: game.getVelocity() * 8,
-    vx: enemy('x') >= WIDTH / 2 ? 1 : -1,
+    vx: readState('x') >= WIDTH / 2 ? 1 : -1,
     gy: -0.05,
   });
+  return []
 };
 
-const kamakaze = (game: Game, _: EnemyState, update: Update) => {
-  update({
+const kamakaze = (game: Game, _: EnemyState, updateState: Update) => {
+  updateState({
     vy: game.getVelocity() * 8,
   });
-  setTimeout(() => {
-    update({
+  const timeout = setTimeout(() => {
+    updateState({
       vy: 0,
     });
   }, 500);
+
+  return [timeout]
 };
+
+function spacestationBoss(game: Game, _: EnemyState, updateState: Update) {
+  updateState({
+    vy: game.getVelocity() * 8,
+  });
+  const t1 = setTimeout(() => {
+    updateState({
+      vy: 0,
+    });
+  }, 500);
+  const t2 = setTimeout(() => {
+    updateState({
+      vy: 5,
+    });
+  }, 100000);
+  return [t1, t2]
+}
+
+
 export const move = (movementType: MovementName) => {
   const lookup = {
     charge,
-    dive: () => null,
+    dive: () => [],
     explore,
     hover,
     kamakaze,
     parabolic,
-    roll: () => null,
-    swoop: () => null,
+    roll: () => [],
+    boss: spacestationBoss,
+    swoop: () => [],
   };
   return lookup[movementType];
 };

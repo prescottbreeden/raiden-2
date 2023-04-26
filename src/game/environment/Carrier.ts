@@ -3,7 +3,7 @@ import { Game } from '../Game';
 import { newImage, publicProperty, useState } from '../../utils/general';
 import { HEIGHT, WIDTH } from '../..';
 
-export const Carrier = (game: Game) => {
+export function Carrier(game: Game) {
   const width = 420;
   const height = 900;
   // original had a zoom in start .. the launchers would need to be redrawn
@@ -13,7 +13,7 @@ export const Carrier = (game: Game) => {
   //   y: HEIGHT - height + 400,
   // };
 
-  const { readState: carrier, updateState: updateCarrier } = useState<any>({
+  const { readState, updateState } = useState<any>({
     img: newImage(carrierSprite),
     h: height,
     w: width,
@@ -29,104 +29,105 @@ export const Carrier = (game: Game) => {
   });
 
   const move = {
-    left: () => updateCarrier({ vx: -4.5 }),
-    right: () => updateCarrier({ vx: 4.5 }),
-    stopX: () => updateCarrier({ vx: 0 }),
-    up: () => updateCarrier({ vy: -4.5 }),
-    down: () => updateCarrier({ vy: 4.5 }),
-    stopY: () => updateCarrier({ vy: 0 }),
+    left: () => updateState({ vx: -4.5 }),
+    right: () => updateState({ vx: 4.5 }),
+    stopX: () => updateState({ vx: 0 }),
+    up: () => updateState({ vy: -4.5 }),
+    down: () => updateState({ vy: 4.5 }),
+    stopY: () => updateState({ vy: 0 }),
   };
 
   const updatePosition = () => {
-    updateCarrier({
-      y: carrier('y') + carrier('vy'),
-      x: carrier('x') + carrier('vx'),
+    updateState({
+      y: readState('y') + readState('vy'),
+      x: readState('x') + readState('vx'),
     });
   };
 
   const drawCarrier = () => {
     game.context?.save();
     game.context?.drawImage(
-      carrier('img'), // img
+      readState('img'), // img
       0, // sx
       0, // sy
       280, // swidth
       700, // sheight
-      carrier('x'),
-      carrier('y'),
-      carrier('w'), // dwidth
-      carrier('h') // dheight
+      readState('x'),
+      readState('y'),
+      readState('w'), // dwidth
+      readState('h') // dheight
     );
   };
+
   const animateLaunchSequence = () => {
+    // --[ lower launcpad ]--
     setTimeout(() => {
-      updateCarrier({ launcherFrame: 1 });
+      updateState({ launcherFrame: 1 });
     }, 1200);
     setTimeout(() => {
-      updateCarrier({ launcherFrame: 2 });
+      updateState({ launcherFrame: 2 });
     }, 1400);
     setTimeout(() => {
-      updateCarrier({ launcherFrame: 3 });
+      updateState({ launcherFrame: 3 });
     }, 1600);
 
+    // --[ accelerate carrier to make it look like taking off ]--
     setTimeout(() => {
-      updateCarrier({ vy: 0.5 });
+      updateState({ vy: 0.5 });
     }, 2000);
     setTimeout(() => {
-      updateCarrier({ vy: 1.0 });
+      updateState({ vy: 1.0 });
     }, 2500);
     setTimeout(() => {
-      updateCarrier({ vy: 1.2 });
+      updateState({ vy: 1.2 });
     }, 2600);
     setTimeout(() => {
-      updateCarrier({ vy: 1.5 });
+      updateState({ vy: 1.5 });
     }, 2700);
     setTimeout(() => {
-      updateCarrier({ vy: 2.0 });
+      updateState({ vy: 2.0 });
     }, 2800);
     setTimeout(() => {
-      updateCarrier({ vy: 2.5 });
+      updateState({ vy: 2.5 });
     }, 2900);
   };
 
   const drawLauncher = () => {
-    updateCarrier({ launcherY: carrier('launcherY') + carrier('vy') });
+    updateState({ launcherY: readState('launcherY') + readState('vy') });
     const launcherFrames = [15, 32, 48, 64];
     game.context?.save();
     game.context?.drawImage(
-      carrier('img'), // img
+      readState('img'), // img
       561, // sx
-      launcherFrames[0],
-      // launcherFrames[carrier('launcherFrame')], // sy
+      launcherFrames[0], // launcherFrames[readState('launcherFrame')], // sy
       30, // swidth
       17, // sheight
-      carrier('launcherX'),
-      carrier('launcherY'),
+      readState('launcherX'),
+      readState('launcherY'),
       44,
       22
     );
     game.context?.save();
     game.context?.drawImage(
-      carrier('img'), // img
+      readState('img'), // img
       561, // sx
-      launcherFrames[carrier('launcherFrame')], // sy
+      launcherFrames[readState('launcherFrame')], // sy
       30, // swidth
       17, // sheight
-      carrier('launcher2X'),
-      carrier('launcherY'),
+      readState('launcher2X'),
+      readState('launcherY'),
       44,
       22
     );
     game.context?.save();
     game.context?.drawImage(
-      carrier('img'), // img
+      readState('img'), // img
       561, // sx
-      launcherFrames[0],
-      // launcherFrames[carrier('launcherFrame')], // sy
+      launcherFrames[0], // launcherFrames[readState('launcherFrame')], // sy
       30, // swidth
       17, // sheight
-      carrier('launcher3X'),
-      carrier('launcherY'),
+      readState('launcher3X'),
+      readState('launcherY'),
       44,
       22
     );
@@ -149,12 +150,12 @@ export const Carrier = (game: Game) => {
 
   // Read-only properties
   Object.defineProperties(carrierObject, {
-    ...publicProperty('h', () => carrier('h')),
-    ...publicProperty('w', () => carrier('w')),
-    ...publicProperty('x', () => carrier('x')),
-    ...publicProperty('y', () => carrier('y')),
-    ...publicProperty('vx', () => carrier('vx')),
-    ...publicProperty('vy', () => carrier('vy')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
+    ...publicProperty('vx', () => readState('vx')),
+    ...publicProperty('vy', () => readState('vy')),
   });
 
   return carrierObject;

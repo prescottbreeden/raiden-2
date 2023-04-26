@@ -1,3 +1,4 @@
+import menuJam from '../../assets/music/Name-Entry.mp3';
 import jam from '../../assets/music/soundtrack.mp3';
 import tragedy from '../../assets/music/Tragedy-Flame-Stages-2.mp3';
 import allOrNothing from '../../assets/music/All-Or-Nothing-Stage-3.mp3';
@@ -16,17 +17,45 @@ const tracks: { [key: string]: string } = {
   stage5: depression,
   stage6: decisiveBattle,
   stage7: flapToward,
-  credits: allClear,
+  allClear: allClear,
+  menu: menuJam,
   boss: bossFight,
 };
-export const GameMusic = () => {
+
+export type IGameMusic = {
+  playMusic: (track: string) => void;
+  stopMusic: () => void;
+  changeVolume: (num: number) => void;
+};
+
+export function GameMusic(): IGameMusic {
   let audio = new Audio();
+  let currentTrack = 'stage1';
+
+  audio.addEventListener('ended', () => {
+    if (currentTrack === 'menu') {
+      audio.play()
+    } else {
+      const trackList = Object.keys(tracks)
+      const current = trackList.indexOf(currentTrack);
+      const nextTrackNumber = (current + 1) % trackList.length;
+      const nextTrackName = trackList[nextTrackNumber]
+      currentTrack = nextTrackName;
+      audio.pause();
+      audio.src = tracks[currentTrack];
+      audio.play();
+    }
+  });
 
   const playMusic = (track: string) => {
-    const nextTrack = new Audio();
-    nextTrack.src = tracks[track];
-    audio = nextTrack;
+    audio.pause();
+    currentTrack = track;
+    audio.src = tracks[currentTrack];
     audio.play();
+  };
+
+  const stopMusic = () => {
+    audio.pause();
   };
 
   const changeVolume = (num: number) => {
@@ -36,5 +65,6 @@ export const GameMusic = () => {
   return {
     changeVolume,
     playMusic,
+    stopMusic,
   };
-};
+}

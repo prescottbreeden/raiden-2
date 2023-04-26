@@ -2,7 +2,7 @@ import { cond, gt, lt, pipe, prop, __ } from 'ramda';
 import { HEIGHT, WIDTH } from '../..';
 import { IPlayer } from '../../interfaces/IPlayer.interface';
 
-export type WTF = {
+export type UpdatePositionProps = {
   player: (p?: keyof IPlayer) => any;
   updatePlayer: (props: Partial<IPlayer>) => void;
 };
@@ -11,7 +11,7 @@ export const frameWidth = 34;
 export const frame = (index: number) => frameWidth * index;
 export const frameXLocations = [21, 43, 65, 87];
 
-export const updatePosition = ({ player, updatePlayer }: WTF) => {
+export const updatePosition = ({ player, updatePlayer }: UpdatePositionProps) => {
   updatePlayer({
     y: player('y') + player('vy'),
     x: player('x') + player('vx'),
@@ -32,13 +32,13 @@ export const updatePosition = ({ player, updatePlayer }: WTF) => {
   }
 };
 
-const rollLeft = ({ player, updatePlayer }: WTF) =>
+const rollLeft = ({ player, updatePlayer }: UpdatePositionProps) =>
   updatePlayer({ frame: player('frame') > 0 ? player('frame') - 1 : 0 });
 
-const rollRight = ({ player, updatePlayer }: WTF) =>
+const rollRight = ({ player, updatePlayer }: UpdatePositionProps) =>
   updatePlayer({ frame: player('frame') < 10 ? player('frame') + 1 : 10 });
 
-const flattenOut = ({ player, updatePlayer }: WTF) =>
+const flattenOut = ({ player, updatePlayer }: UpdatePositionProps) =>
   updatePlayer({
     frame:
       player('frame') < 5
@@ -48,7 +48,7 @@ const flattenOut = ({ player, updatePlayer }: WTF) =>
         : 5,
   });
 
-export const handleRoll = cond<WTF, void>([
+export const handleRoll = cond<UpdatePositionProps, void>([
   [pipe(prop('player'), (p: any) => p('vx'), lt(__, 0)), rollLeft],
   [pipe(prop('player'), (p: any) => p('vx'), gt(__, 0)), rollRight],
   [() => true, flattenOut],

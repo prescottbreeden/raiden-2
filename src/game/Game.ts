@@ -1,19 +1,22 @@
-import playerLife from '../assets/images/raiden-player-red.png';
 import artwork from '../assets/images/title_image.png';
+import playerLife from '../assets/images/raiden-player-red.png';
 import stage_1 from '../constants/stage_1.json';
-import { BulletFactory } from './bullets/BulletFactory';
+import { BulletFactory, IBulletFactory } from './bullets/BulletFactory';
 import { Carrier } from './environment/Carrier';
-import { CloudFactory } from './environment/CloudFactory';
 import { EnemyFactory } from './enemy/EnemyFactory';
-import { ExplosionFactory } from './events/ExplosionFactory';
+import { EnvironmentFactory } from './environment/EnvironmentFactory';
+import { ExplosionFactory, IExplosionFactory } from './events/ExplosionFactory';
 import { GameMusic } from './sounds/GameMusic';
 import { HEIGHT, WIDTH } from '..';
-import { ItemFactory } from './events/ItemFactory';
+import { IItemFactory, ItemFactory } from './events/ItemFactory';
 import { Player } from './Player';
 import { SoundEffect } from './sounds/SoundEffect';
-import { __, cond, forEach, gt, pipe, prop } from 'ramda';
+import { __, cond, gt, pipe, prop } from 'ramda';
 import { getPointDistance, getDistance } from './utilities';
 import { newImage } from '../utils/general';
+import { Factory } from '../types/Factory.type';
+// import { IEnemy } from '../interfaces/IEnemy.interface';
+// import { IPlayer } from '../interfaces/IPlayer.interface';
 
 export const radian = Math.PI / 180;
 export const INITIAL = 1;
@@ -35,14 +38,61 @@ export const KEY_CODE = {
 };
 
 export class Game {
-  constructor({ difficulty, music, sfx }) {
+  private _currentState: number;
+  private _velocity: number;
+  private _stage: number;
+  private _stageClear: boolean;
+  private _difficulty: number;
+  private _playSfx: boolean;
+  private _playMusic: boolean;
+  private _score: number;
+
+  height: number;
+  width: number;
+
+  //contexts
+  context: null | any;
+  bulletContext: any;
+  groundContext: any;
+
+  frames: any[];
+  fps: number;
+  lockControls: boolean;
+  firing: boolean;
+  music: any; // instance of music?
+  musicChoice: string;
+  sfx: any; // instance of sfx
+  carrier: any;
+
+  player: any;
+  playerFire: any;
+
+  // factories
+  bulletFactory: IBulletFactory;
+  cloudFactory: Factory;
+  groundFactory: Factory;
+  enemyFactory: any;
+  explosionFactory: IExplosionFactory;
+  itemFactory: IItemFactory;
+
+  constructor({
+    difficulty,
+    music,
+    sfx,
+  }: {
+    difficulty: number;
+    music: boolean;
+    sfx: boolean;
+  }) {
     this._currentState = INITIAL;
     this._velocity = 1;
     this._stage = 1;
+    this._stageClear = false;
     this._difficulty = difficulty;
     this._playMusic = music;
     this._playSfx = sfx;
     this._score = 0;
+
     this.frames = [];
     this.fps = 0;
     this.width = WIDTH;
@@ -54,26 +104,46 @@ export class Game {
     this.sfx = SoundEffect();
     // this.bulletContactSfx = null
     // this.explosionSfx = null
+
+    // canvas contextx
+    this.groundContext = null;
     this.bulletContext = null;
     this.context = null;
-    this.player = Player(this);
 
     this.createCanvas();
+    this.createGroundCanvas();
     this.createBulletCanvas();
     this.displayFPS();
+
     // bind event listeners
     this.bindEvents();
+
+    // game elements
+    this.player = Player(this);
+
+    // factories
+    this.cloudFactory = { state: [] };
+    this.groundFactory = { state: [] };
+    this.carrier = null;
+    this.enemyFactory = { state: [] };
+    this.explosionFactory = { state: [], generateExplosions: () => undefined };
+    this.itemFactory = { state: [], generateItem: (_enemy) => undefined };
+    this.bulletFactory = {
+      addBullets: () => undefined,
+      state: [],
+      generatePlayerBullets: () => undefined,
+    };
   }
   getState = () => this._currentState;
-  setCurrentState = (newState) => (this._currentState = newState);
+  setCurrentState = (newState: number) => (this._currentState = newState);
 
   getVelocity = () => this._velocity;
-  setVelocity = (newVelocity) => (this._velocity = newVelocity);
+  setVelocity = (newVelocity: number) => (this._velocity = newVelocity);
 
   getDifficulty = () => this._difficulty;
 
   getScore = () => this._score;
-  setScore = (score) => (this._score += score);
+  setScore = (score: number) => (this._score += score);
 
   createCanvas = () => {
     const gameNode = document.getElementById('game');
@@ -83,8 +153,23 @@ export class Game {
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
     canvas.style.backgroundColor = '#0884ce';
-    gameNode.appendChild(canvas);
-    this.context = canvas.getContext('2d');
+    if (gameNode) {
+      gameNode.appendChild(canvas);
+      this.context = canvas.getContext('2d');
+    }
+  };
+
+  createGroundCanvas = () => {
+    const groundNode = document.getElementById('ground');
+    const canvas = document.createElement('canvas');
+    canvas.id = 'bullet-ctx';
+    canvas.className = 'canvas';
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    if (groundNode) {
+      groundNode.appendChild(canvas);
+      this.groundContext = canvas.getContext('2d');
+    }
   };
 
   createBulletCanvas = () => {
@@ -94,8 +179,10 @@ export class Game {
     canvas.className = 'canvas';
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
-    bulletNode.appendChild(canvas);
-    this.bulletContext = canvas.getContext('2d');
+    if (bulletNode) {
+      bulletNode.appendChild(canvas);
+      this.bulletContext = canvas.getContext('2d');
+    }
   };
 
   pewpew = () => {
@@ -104,11 +191,18 @@ export class Game {
     } else {
       this.sfx.playSfx('blastershot');
     }
-    this.bulletFactory.generatePlayerBullets();
+    this.bulletFactory?.generatePlayerBullets();
   };
 
   startGame = () => {
     this.sfx.playSfx('selectStart');
+    setTimeout(() => {
+      this.setCurrentState(GAME_PLAYING);
+      this.start();
+      this.music.playMusic(this.musicChoice);
+      this.setLives();
+      this.hideMenu();
+    }, 700)
     setTimeout(() => {
       this.player.toggleAfterBurner();
     }, 2800);
@@ -117,12 +211,8 @@ export class Game {
       this.player.toggleAfterBurner();
     }, 7000);
     setTimeout(() => {
-      this.hideMenu();
-      this.setCurrentState(GAME_PLAYING);
-      this.start();
-      this.music.playMusic(this.musicChoice);
-      this.setLives();
-    }, 1000);
+      this.music.playMusic('boss')
+    }, 90000)
   };
 
   start() {
@@ -136,7 +226,7 @@ export class Game {
     [newImage(playerLife), newImage(playerLife), newImage(playerLife)].forEach(
       (l) => {
         l.className = 'player-ship';
-        lifeNode.appendChild(l);
+        if (lifeNode) lifeNode.appendChild(l);
       }
     );
   }
@@ -167,14 +257,23 @@ export class Game {
   displayFPS() {
     setInterval(() => {
       const node = document.getElementById('fps');
-      node.textContent = this.fps;
+      if (node) node.textContent = String(this.fps);
     }, 500);
   }
 
   createObjects() {
-    this.cloudFactory = CloudFactory(this);
+    this.cloudFactory = EnvironmentFactory({
+      game: this,
+      drawInterval: 8000,
+      type: 'cloud',
+    });
+    // this.groundFactory = EnvironmentFactory({
+    //   game: this,
+    //   drawInterval: 3000,
+    //   type: 'water',
+    // });
     this.carrier = Carrier(this);
-    this.bulletFactory = new BulletFactory(this, this.player);
+    this.bulletFactory = BulletFactory(this);
     this.enemyFactory = EnemyFactory(this, stage_1);
     this.explosionFactory = ExplosionFactory(this);
     this.itemFactory = ItemFactory(this);
@@ -185,34 +284,52 @@ export class Game {
   // ============================ //
 
   showMenu() {
-    // this.sfx = new Audio(menuJam)
-    // this.sfx.playSfx()
-    const button = document.createElement('button');
-    button.className = 'start-button';
-    button.onclick = this.startGame;
-    button.textContent = 'Press Start';
+    this.music.playMusic('menu');
 
+    // Menu Pane
     const menuPane = document.createElement('div');
     menuPane.className = 'menu';
     menuPane.id = 'menu';
     const image = new Image();
     image.className = 'menu__image';
     image.src = artwork;
+
+    // Start Game Button
+    const button = document.createElement('button');
+    button.className = 'start-button';
+    button.onclick = this.startGame;
+    button.textContent = 'Press Start';
+
+    // Show Options Menu Button
+    const options = document.createElement('button');
+    options.className = 'options-button';
+    options.onclick = () => {
+      console.log('show options');
+    };
+    options.textContent = 'Options';
+
     const bulletDiv = document.getElementById('bullets');
-    bulletDiv.appendChild(menuPane);
+    if (bulletDiv) bulletDiv.appendChild(menuPane);
+
     menuPane.appendChild(image);
     menuPane.appendChild(button);
+    menuPane.appendChild(options);
+  }
+
+  showOptionsMenu() {
+    // TODO implement me!
   }
 
   hideMenu() {
     const menu = document.getElementById('menu');
-    menu.style.display = 'none';
+    if (menu) menu.style.display = 'none';
   }
 
   // ============================ //
   // ======== GAME PLAY ========= //
   // ============================ //
 
+  // TODO: update to have factories do their own drawing so they can remove dead objects
   drawGamePlayingScreen() {
     // clear canvi
     this.context.clearRect(0, 0, WIDTH, HEIGHT);
@@ -223,14 +340,15 @@ export class Game {
 
     // draw first
     [
-      this.cloudFactory.clouds,
+      this.groundFactory?.state ?? [],
+      this.cloudFactory?.state ?? [],
       [this.carrier],
-      this.explosionFactory.explosions,
-      this.itemFactory.items,
+      this.explosionFactory?.state ?? [],
+      this.itemFactory?.state ?? [],
     ].forEach(this.drawCollection);
 
     // draw second
-    [this.enemyFactory.enemies, this.bulletFactory.bullets].forEach(
+    [this.enemyFactory?.state ?? [], this.bulletFactory?.state ?? []].forEach(
       this.drawCollection
     );
 
@@ -255,27 +373,25 @@ export class Game {
   // ======== FUNCTIONS ========= //
   // ============================ //
 
-  drawCollection(collection) {
-    forEach(
-      pipe(prop('draw'), (f) => f()),
-      collection
-    );
+  drawCollection(collection: any[]) {
+    collection.forEach((c) => c.draw());
   }
 
-  updateScore(score) {
+  updateScore(score: any) {
     this.setScore(score);
     const node = document.getElementById('player-score');
-    node.textContent = this._score;
+    if (node) node.textContent = String(this._score);
     const highscore = document.getElementById('player-high-score');
-    if (this._score > Number(highscore.textContent)) {
-      highscore.textContent = this._score;
+    if (highscore && this._score > Number(highscore.textContent)) {
+      highscore.textContent = String(this._score);
     }
   }
 
   checkCollisions() {
     this.checkSuicides();
-    const bullets = this.bulletFactory.bullets;
-    const enemies = this.enemyFactory.enemies;
+    const bullets = this.bulletFactory?.state ?? [];
+    const enemies = this.enemyFactory?.state ?? [];
+
     for (let i = 0; i < bullets.length; i++) {
       for (let j = 0; j < enemies.length; j++) {
         const enemy = enemies[j];
@@ -291,12 +407,13 @@ export class Game {
             bullet.x + bullet.w / 2,
             bullet.y
           );
-          if (checkPlayerBullets < enemy.r + bullet.w / 2) {
-            enemy.takeDamage(bullet.power);
+          // TODO remove bang
+          if (checkPlayerBullets < enemy.r! + bullet.w / 2) {
+            (enemy as any).takeDamage(bullet.power); // TODO: hmmmmm
             bullets.splice(i, 1);
             if (enemy.hp <= 0) {
               if (enemy.item) {
-                this.itemFactory.generateItem(enemy);
+                this.itemFactory?.generateItem(enemy);
               }
               this.updateScore(enemy.pointValue);
               if (enemy.explosion === 'small') {
@@ -304,7 +421,7 @@ export class Game {
               } else {
                 this.sfx.playSfx('explosion');
               }
-              this.explosionFactory.generateExplosions(enemy);
+              this.explosionFactory?.generateExplosions(enemy);
               enemies.splice(j, 1);
             }
           }
@@ -314,10 +431,11 @@ export class Game {
   }
 
   checkSuicides() {
-    const enemies = this.enemyFactory.enemies;
+    const enemies = this.enemyFactory?.enemies ?? [];
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       const distance = getDistance(enemy, this.player);
+      // TODO remove bang
       if (distance < enemy.r) {
         this.sfx.playSfx('explosion');
         this.setCurrentState(GAME_OVER);
@@ -326,12 +444,13 @@ export class Game {
   }
 
   checkItemCollection() {
-    const items = this.itemFactory.items;
+    const items = this.itemFactory?.state ?? [];
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       const distance = getDistance(item, this.player);
-      if (distance < item.w) {
-        this.player.changeWeapon(item.type);
+      // TODO whoopsies
+      if (distance < (item as any).w) {
+        this.player.changeWeapon((item as any).type);
         items.splice(i, 1);
         if (this.player.weaponStr === 6) {
           this.sfx.playSfx('fullPower');
@@ -370,63 +489,55 @@ export class Game {
   bindEvents() {
     let game = this;
 
+    // TODO make configurable in options and apply one keybinding set at a time
+    // wasted cycles to have multiple bindings at once
+    const keygroups = {
+      up: ['ArrowUp', 'k', 'w'],
+      down: ['ArrowDown', 'j', 's'],
+      right: ['ArrowRight', 'l', 'd'],
+      left: ['ArrowLeft', 'h', 'a'],
+      fire: [' '],
+    };
+
     window.addEventListener('keyup', function (e) {
       if (game.getState() === GAME_PLAYING) {
-        switch (e.keyCode) {
-          case KEY_CODE.left:
-            if (game.player.vx < 0) {
-              game.player.move.stopX();
-            }
-            break;
-          case KEY_CODE.up:
-            if (game.player.vy < 0) {
-              game.player.move.stopY();
-            }
-            break;
-          case KEY_CODE.right:
-            if (game.player.vx > 0) {
-              game.player.move.stopX();
-            }
-            break;
-          case KEY_CODE.down:
-            if (game.player.vy > 0) {
-              game.player.move.stopY();
-            }
-            break;
-          case KEY_CODE.spacebar:
-            game.ceaseFire();
-            break;
-          case KEY_CODE.f:
-            console.log('f');
-            break;
-          default:
-            console.log(e.keyCode);
+        if (keygroups.up.includes(e.key)) {
+          if (game.player.vy < 0) {
+            game.player.move.stopY();
+          }
+        } else if (keygroups.down.includes(e.key)) {
+          if (game.player.vy > 0) {
+            game.player.move.stopY();
+          }
+        } else if (keygroups.left.includes(e.key)) {
+          if (game.player.vx < 0) {
+            game.player.move.stopX();
+          }
+        } else if (keygroups.right.includes(e.key)) {
+          if (game.player.vx > 0) {
+            game.player.move.stopX();
+          }
+        } else if (keygroups.fire.includes(e.key)) {
+          game.ceaseFire();
         }
       }
     });
 
     window.addEventListener('keydown', function (e) {
       if (game.getState() === GAME_PLAYING) {
-        switch (e.keyCode) {
-          case KEY_CODE.left:
-            game.player.move.left();
-            break;
-          case KEY_CODE.up:
-            game.player.move.up();
-            break;
-          case KEY_CODE.right:
-            game.player.move.right();
-            break;
-          case KEY_CODE.down:
-            game.player.move.down();
-            break;
-          case KEY_CODE.spacebar:
-            if (game.firing) return;
-            game.shoot();
-            break;
-          case KEY_CODE.delete:
-            window.location.reload();
-            break;
+        if (keygroups.up.includes(e.key)) {
+          game.player.move.up();
+        } else if (keygroups.down.includes(e.key)) {
+          game.player.move.down();
+        } else if (keygroups.left.includes(e.key)) {
+          game.player.move.left();
+        } else if (keygroups.right.includes(e.key)) {
+          game.player.move.right();
+        } else if (keygroups.fire.includes(e.key)) {
+          if (game.firing) return;
+          game.shoot();
+        } else if (e.key === 'Delete') {
+          window.location.reload();
         }
       }
     });

@@ -1,9 +1,10 @@
 import defaults from '../../constants/fireball.json';
 import fireballImage from '../../assets/images/weaponfire/RLiGng-fireball-transparent-picture.png';
-import { newImage, publicProperty, useState } from '../../utils/general';
 import { Game } from '../Game';
-import { aimAtPlayer } from '../../utils/weapons';
+import { IDrawableBullet } from './BulletFactory';
 import { IEnemy } from '../../interfaces/IEnemy.interface';
+import { aimAtPlayer } from '../../utils/weapons';
+import { newImage, publicProperty, useState } from '../../utils/general';
 
 export const Ball = (game: Game, enemy: IEnemy) => {
   const { readState: bullet, updateState: update } = useState<any>({
@@ -37,9 +38,9 @@ export const Ball = (game: Game, enemy: IEnemy) => {
     game.bulletContext?.restore();
   };
 
-  const bulletObject = {
+  const bulletObject: IDrawableBullet = {
     draw,
-  };
+  } as IDrawableBullet;
 
   // Read-only properties
   Object.defineProperties(bulletObject, {

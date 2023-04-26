@@ -812,3 +812,25 @@ delay = 100
 enter = 'random'
 movement = 'kamakaze'
 type = "spear"
+
+# boss idea
+[[enemies]]
+timestamp = 100
+[[enemies.types]]
+delay = 0
+x = 150
+enter="left"
+type = "boss"
+movement = "boss"
+[[enemies.types]]
+delay = 0
+x = 350
+enter="center"
+type = "boss"
+movement = "boss"
+[[enemies.types]]
+x = 600
+delay = 0
+enter="right"
+type = "boss"
+movement = "boss"

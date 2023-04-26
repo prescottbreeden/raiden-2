@@ -21,10 +21,10 @@ const orbs: { [key: string]: string[] } = {
   blaster: [blaster0, blaster1, blaster2, blaster3, blaster4, blaster5],
   spread: [spread0, spread1, spread2, spread3, spread4, spread5],
 };
-const types = ['blaster', 'spread'];
+const types = ['blaster', 'spread'] as const;
 
-export const Item = (game: Game, enemy: IEnemy) => {
-  const { readState: item, updateState: update } = useState<any>({
+export function Item({ game, enemy }: { game: Game; enemy: IEnemy }) {
+  const { readState, updateState } = useState<any>({
     ...enemy,
     frame: 0,
     h: 50 * 0.67,
@@ -37,53 +37,52 @@ export const Item = (game: Game, enemy: IEnemy) => {
     y: enemy.y,
   });
 
-  const changeType = () => {
-    const current = types.indexOf(item('type'));
-    update({ type: types[(current + 1) % types.length] });
-  };
-  setInterval(changeType, 4000);
-
-  const draw = () => {
-    update({
-      y: item('y') + item('vy'),
-      x: item('x') + item('vx'),
-    });
-
-    cond([
-      [Movement.leavingLeftRight, Movement.reverseVx],
-      [Movement.leavingTopBottom, Movement.reverseVy],
-    ])({ enemy: item, update });
-
-    game.context?.save();
-    game.context?.translate(item('x'), item('y'));
-    game.context?.drawImage(
-      newImage(orbs[item('type')][item('frame')]),
-      -(item('w') / 2),
-      -(item('h') / 2),
-      item('w'),
-      item('h')
-    );
-    game.context?.restore();
-    let counter = 0;
-    if (counter % 10 === 0) {
-      update({ frame: (item('frame') + 1) % 6 });
-    }
-    counter++;
-    counter %= 100;
-  };
+  // cycle through weapon types
+  const cycle = setInterval(() => {
+    const current = types.indexOf(readState('type'));
+    updateState({ type: types[(current + 1) % types.length] });
+  }, 4000);
 
   const itemObject = {
-    draw,
+    destroy: () => clearInterval(cycle),
+    draw: () => {
+      updateState({
+        y: readState('y') + readState('vy'),
+        x: readState('x') + readState('vx'),
+      });
+
+      cond([
+        [Movement.leavingLeftRight, Movement.reverseVx],
+        [Movement.leavingTopBottom, Movement.reverseVy],
+      ])({ readState, updateState });
+
+      game.context?.save();
+      game.context?.translate(readState('x'), readState('y'));
+      game.context?.drawImage(
+        newImage(orbs[readState('type')][readState('frame')]),
+        -(readState('w') / 2),
+        -(readState('h') / 2),
+        readState('w'),
+        readState('h')
+      );
+      game.context?.restore();
+      let counter = 0;
+      if (counter % 10 === 0) {
+        updateState({ frame: (readState('frame') + 1) % 6 });
+      }
+      counter++;
+      counter %= 100;
+    },
   };
 
   // Read-only properties
   Object.defineProperties(itemObject, {
-    ...publicProperty('h', () => item('h')),
-    ...publicProperty('w', () => item('w')),
-    ...publicProperty('x', () => item('x')),
-    ...publicProperty('y', () => item('y')),
-    ...publicProperty('type', () => item('type')),
+    ...publicProperty('h', () => readState('h')),
+    ...publicProperty('w', () => readState('w')),
+    ...publicProperty('x', () => readState('x')),
+    ...publicProperty('y', () => readState('y')),
+    ...publicProperty('type', () => readState('type')),
   });
 
   return itemObject;
-};
+}

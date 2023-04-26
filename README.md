@@ -9,6 +9,11 @@ Webpack refactor of previous clone for arcade game "Raiden".
 
 Because this game is still in dev, players are immune from bullets for testing purposes.
 
+## Browser (!important)
+Use firefox for a non-crappy experience. Chrome's GC aggression is killing it currently
+and not sure if I will be forced to go with an object pool yet to get it to calm the F
+down
+
 ## Controls
 
 Fire: `spacebar` (hold) </br>
